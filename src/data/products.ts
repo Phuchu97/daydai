@@ -37,7 +37,7 @@ export const catalogProducts: CatalogProduct[] = [
   {
     id: "steel-strapping-tools",
     name: "Bộ dụng cụ đóng đai thép",
-    slug: "/products/steel-strapping", // có thể tách trang riêng sau
+    slug: "/products/steel-strapping-tools",
     basePrice: 1900000,
     salePrice: 1450000,
     shortDescription:
@@ -59,7 +59,7 @@ export const catalogProducts: CatalogProduct[] = [
   {
     id: "steel-seals",
     name: "Khóa đai thép (seals)",
-    slug: "/products/steel-strapping", // placeholder
+    slug: "/products/steel-seals",
     priceLabel: "Liên hệ",
     shortDescription:
       "Khóa đai thép dùng kèm dây đai, nhiều kích thước cho bản 16–32mm.",

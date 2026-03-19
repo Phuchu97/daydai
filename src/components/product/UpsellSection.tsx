@@ -1,3 +1,5 @@
+ "use client";
+
 import Image from "next/image";
 import { useCartStore } from "@/store/cartStore";
 import { catalogProducts } from "@/data/products";

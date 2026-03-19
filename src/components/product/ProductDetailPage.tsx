@@ -1,20 +1,27 @@
 import Link from "next/link";
+import type { CatalogProduct } from "@/data/products";
 import { StickyTopBar } from "@/components/layout/StickyTopBar";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { StickyContacts } from "@/components/layout/StickyContacts";
-import {
-  ProductGallery,
-  ProductInfo,
-  BenefitsSection,
-  DescriptionSection,
-  SpecsTable,
-  UpsellSection,
-  FAQSection,
-  StickyAddToCartBar,
-} from "@/components/product";
+import { ProductGallery } from "@/components/product/ProductGallery";
+import { ProductInfo } from "@/components/product/ProductInfo";
+import { BenefitsSection } from "@/components/product/BenefitsSection";
+import { DescriptionSection } from "@/components/product/DescriptionSection";
+import { SpecsTable } from "@/components/product/SpecsTable";
+import { UpsellSection } from "@/components/product/UpsellSection";
+import { FAQSection } from "@/components/product/FAQSection";
+import { StickyAddToCartBar } from "@/components/product/StickyAddToCartBar";
 
-export default function SteelStrappingPage() {
+type Props = {
+  product: CatalogProduct;
+};
+
+function getBreadcrumbLabel(product: CatalogProduct) {
+  return product.name;
+}
+
+export function ProductDetailPage({ product }: Props) {
   return (
     <>
       <StickyTopBar />
@@ -37,21 +44,21 @@ export default function SteelStrappingPage() {
                 </li>
                 <li>/</li>
                 <li className="font-medium text-foreground">
-                  Dây đai thép công nghiệp
+                  {getBreadcrumbLabel(product)}
                 </li>
               </ol>
             </nav>
 
             <div className="grid gap-8 md:grid-cols-[minmax(0,1.1fr),minmax(0,1fr)] md:items-start">
-              <ProductGallery />
-              <ProductInfo />
+              <ProductGallery images={product.images} />
+              <ProductInfo product={product} />
             </div>
           </div>
         </section>
 
         <BenefitsSection />
-        <DescriptionSection />
-        <SpecsTable />
+        <DescriptionSection product={product} />
+        <SpecsTable product={product} />
         <UpsellSection />
         <FAQSection />
       </main>

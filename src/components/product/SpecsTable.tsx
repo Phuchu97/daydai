@@ -1,20 +1,70 @@
-const rows = [
-  { label: "Bản rộng", value: "16mm, 19mm, 25mm, 32mm" },
-  { label: "Độ dày", value: "0.6mm – 1.0mm" },
-  { label: "Vật liệu", value: "Thép cacbon mạ kẽm / sơn đen chống gỉ" },
-  { label: "Lực kéo đứt", value: "Tùy quy cách, lên tới 1.200–1.800 kgf/đai" },
-  {
-    label: "Trọng lượng cuộn",
-    value: "Khoảng 25–50kg/cuộn (tùy bản rộng & độ dày)",
-  },
-  {
-    label: "Ứng dụng",
-    value:
-      "Đóng đai pallet hàng nặng, cuộn thép, ống thép, máy móc và kiện hàng xuất khẩu",
-  },
-];
+import type { CatalogProduct } from "@/data/products";
 
-export function SpecsTable() {
+type Props = {
+  product?: CatalogProduct;
+};
+
+function getRows(product?: CatalogProduct) {
+  if (!product) {
+    return [
+      { label: "Bản rộng", value: "16mm, 19mm, 25mm, 32mm" },
+      { label: "Độ dày", value: "0.6mm – 1.0mm" },
+      { label: "Vật liệu", value: "Thép cacbon mạ kẽm / sơn đen chống gỉ" },
+      { label: "Lực kéo đứt", value: "Tùy quy cách, lên tới 1.200–1.800 kgf/đai" },
+      {
+        label: "Trọng lượng cuộn",
+        value: "Khoảng 25–50kg/cuộn (tùy bản rộng & độ dày)",
+      },
+      {
+        label: "Ứng dụng",
+        value:
+          "Đóng đai pallet hàng nặng, cuộn thép, ống thép, máy móc và kiện hàng xuất khẩu",
+      },
+    ];
+  }
+
+  if (product.id === "steel-strapping-tools") {
+    return [
+      { label: "Thành phần", value: "Manual tensioner, sealer, combination tools" },
+      { label: "Mục đích", value: "Siết dây đai & bấm khóa để hoàn tất vòng đai" },
+      { label: "Bản dây tương thích", value: "Phổ biến: 16–19–32mm (tùy bộ)" },
+      { label: "Vật liệu", value: "Kim loại chịu lực, thiết kế cho môi trường kho/nhà máy" },
+      { label: "Hướng dẫn", value: "Tư vấn kỹ thuật miễn phí + hướng dẫn thao tác" },
+      { label: "Trạng thái", value: "Có sẵn hàng, giao toàn quốc" },
+    ];
+  }
+
+  if (product.id === "steel-seals") {
+    return [
+      { label: "Loại khóa", value: "Khóa đai thép (seals)" },
+      { label: "Bản dây tương thích", value: "Phù hợp phổ biến: 16–32mm" },
+      { label: "Chức năng", value: "Cố định đầu dây đai sau khi siết" },
+      { label: "Vật liệu", value: "Thép chịu lực, giảm nguy cơ tuột khóa" },
+      { label: "Ứng dụng", value: "Đóng đai pallet thép/gỗ, hàng xuất vận chuyển" },
+      { label: "Tư vấn", value: "Chọn đúng kích thước để tối ưu độ ổn định" },
+    ];
+  }
+
+  // steel-strapping default
+  return [
+    { label: "Bản rộng", value: "16mm, 19mm, 25mm, 32mm" },
+    { label: "Độ dày", value: "0.6mm – 1.0mm" },
+    { label: "Vật liệu", value: "Thép cacbon mạ kẽm / sơn đen chống gỉ" },
+    { label: "Lực kéo đứt", value: "Tùy quy cách, lên tới 1.200–1.800 kgf/đai" },
+    {
+      label: "Trọng lượng cuộn",
+      value: "Khoảng 25–50kg/cuộn (tùy bản rộng & độ dày)",
+    },
+    {
+      label: "Ứng dụng",
+      value:
+        "Đóng đai pallet hàng nặng, cuộn thép, ống thép, máy móc và kiện hàng xuất khẩu",
+    },
+  ];
+}
+
+export function SpecsTable({ product }: Props) {
+  const rows = getRows(product);
   return (
     <section className="border-t border-border/60 bg-muted/30 py-10">
       <div className="container mx-auto max-w-5xl px-4">

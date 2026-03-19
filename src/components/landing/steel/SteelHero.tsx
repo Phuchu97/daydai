@@ -14,7 +14,7 @@ export function SteelHero() {
       <div className="grid gap-10 md:grid-cols-[minmax(0,1.2fr),minmax(0,1fr)] md:items-center">
         <div>
           <p className="mb-3 inline-flex rounded-full bg-slate-800/80 px-3 py-1 text-xs font-medium text-slate-200 ring-1 ring-slate-700/80">
-            Giải pháp đóng gói an toàn cho nhà máy & kho bãi
+            Giải pháp đóng gói an toàn cho nhà máy & logistics
           </p>
           <h1 className="text-balance font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
             Dây đai thép công nghiệp – Siết chặt hàng hóa, vận chuyển an toàn

@@ -2,33 +2,45 @@
 
 import { useState } from "react";
 import { useCartStore } from "@/store/cartStore";
-import { getProductById } from "@/data/products";
+import type { CatalogProduct } from "@/data/products";
 
 const widths = ["16mm", "19mm", "25mm", "32mm"];
 const thicknesses = ["0.6mm", "0.8mm", "1.0mm"];
 const bundleSizes = ["1 cuộn", "5 cuộn", "10 cuộn+"];
 
-export function ProductInfo() {
-  const product = getProductById("steel-strapping");
+type Props = {
+  product: CatalogProduct;
+};
+
+export function ProductInfo({ product }: Props) {
   const [width, setWidth] = useState("19mm");
   const [thickness, setThickness] = useState("0.8mm");
   const [bundle, setBundle] = useState("5 cuộn");
   const [qty, setQty] = useState(1);
   const addToCart = useCartStore((s) => s.addToCart);
+  const isStrapping = product.id === "steel-strapping";
+  const discountPercent =
+    product.basePrice && product.salePrice
+      ? Math.round(
+          ((product.basePrice - product.salePrice) / product.basePrice) * 100,
+        )
+      : null;
 
   const handleQtyChange = (delta: number) => {
     setQty((prev) => Math.max(1, prev + delta));
   };
 
   const handleAddToCart = () => {
-    const variant = `Bản ${width} • Dày ${thickness} • ${bundle}`;
-    const price = product?.salePrice ?? product?.basePrice ?? 0;
+    const variant = isStrapping
+      ? `Bản ${width} • Dày ${thickness} • ${bundle}`
+      : undefined;
+    const price = product.salePrice ?? product.basePrice ?? 0;
     addToCart(
       {
-        id: product?.id ?? "steel-strapping",
-        name: product?.name ?? "Dây đai thép công nghiệp chịu lực cao",
+        id: product.id,
+        name: product.name,
         price,
-        image: product?.images[1]?.src ?? "/images/day-dai-2.JPG",
+        image: product.images[0]?.src ?? "/images/day-dai-2.JPG",
         variant,
       },
       qty,
@@ -49,7 +61,7 @@ export function ProductInfo() {
           id="product-title"
           className="text-balance font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
         >
-          {product?.name ?? "Dây đai thép công nghiệp chịu lực cao"}
+          {product.name}
         </h1>
         <p className="flex items-center gap-2 text-xs text-muted-foreground">
           <span className="text-sm text-yellow-400">★★★★★</span>
@@ -60,20 +72,30 @@ export function ProductInfo() {
 
       <div className="space-y-1 rounded-2xl border border-border bg-muted/40 p-4">
         <div className="flex items-end gap-2">
-          <p className="text-2xl font-bold text-secondary">
-            {(product?.salePrice ?? product?.basePrice ?? 0).toLocaleString(
-              "vi-VN",
-            )}
-            đ
-          </p>
-          {product?.basePrice && product?.salePrice && (
-            <p className="text-sm text-muted-foreground line-through">
-              {product.basePrice.toLocaleString("vi-VN")}đ
+          {product.priceLabel ? (
+            <p className="text-sm font-semibold text-secondary">
+              {product.priceLabel}
             </p>
+          ) : (
+            <>
+              <p className="text-2xl font-bold text-secondary">
+                {(product.salePrice ?? product.basePrice ?? 0).toLocaleString(
+                  "vi-VN",
+                )}
+                đ
+              </p>
+              {product.basePrice && product.salePrice && (
+                <p className="text-sm text-muted-foreground line-through">
+                  {product.basePrice.toLocaleString("vi-VN")}đ
+                </p>
+              )}
+              {discountPercent !== null && (
+                <span className="rounded-full bg-red-500/10 px-2 py-1 text-xs font-semibold uppercase text-red-500">
+                  -{discountPercent}%
+                </span>
+              )}
+            </>
           )}
-          <span className="rounded-full bg-red-500/10 px-2 py-1 text-xs font-semibold uppercase text-red-500">
-            -24%
-          </span>
         </div>
         <p className="text-xs text-emerald-600">
           Giá tốt hơn cho đơn hàng số lượng lớn – liên hệ để nhận báo giá riêng.
@@ -81,28 +103,34 @@ export function ProductInfo() {
       </div>
 
       <div className="space-y-4">
-        <VariantGroup
-          label="Bản rộng"
-          options={widths}
-          value={width}
-          onChange={setWidth}
-        />
-        <VariantGroup
-          label="Độ dày"
-          options={thicknesses}
-          value={thickness}
-          onChange={setThickness}
-        />
-        <VariantGroup
-          label="Gói cuộn"
-          options={bundleSizes}
-          value={bundle}
-          onChange={setBundle}
-        />
+        {isStrapping && (
+          <>
+            <VariantGroup
+              label="Bản rộng"
+              options={widths}
+              value={width}
+              onChange={setWidth}
+            />
+            <VariantGroup
+              label="Độ dày"
+              options={thicknesses}
+              value={thickness}
+              onChange={setThickness}
+            />
+            <VariantGroup
+              label="Gói cuộn"
+              options={bundleSizes}
+              value={bundle}
+              onChange={setBundle}
+            />
+          </>
+        )}
 
         <div className="flex items-center gap-4">
           <div>
-            <p className="text-xs font-medium text-foreground">Số lượng</p>
+            <p className="text-xs font-medium text-foreground">
+              {isStrapping ? "Số lượng cuộn" : "Số lượng bộ"}
+            </p>
             <div className="mt-1 inline-flex items-center rounded-full border border-border bg-background">
               <button
                 type="button"
@@ -149,7 +177,7 @@ export function ProductInfo() {
 
       <div className="space-y-2 rounded-2xl border border-border bg-background p-3">
         <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-          Thanh toán khi nhận hàng
+          Giao hàng toàn quốc, tư vấn nhanh
         </p>
       </div>
 
@@ -160,7 +188,11 @@ export function ProductInfo() {
         />
         <InfoBadge
           title="Hỗ trợ kỹ thuật"
-          description="Tư vấn quy cách, cách đóng đai, tối ưu chi phí & an toàn."
+          description={
+            isStrapping
+              ? "Tư vấn quy cách, cách đóng đai, tối ưu chi phí & an toàn."
+              : "Tư vấn cách sử dụng bộ dụng cụ đúng kỹ thuật, giảm lỗi thao tác."
+          }
         />
         <InfoBadge
           title="Bảo hành & đổi trả"

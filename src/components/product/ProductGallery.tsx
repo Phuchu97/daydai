@@ -2,29 +2,15 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import type { ProductImage } from "@/data/products";
 
-const galleryItems = [
-  {
-    src: "/images/day-dai-1.JPG",
-    alt: "Cuộn dây đai thép trong kho",
-  },
-  {
-    src: "/images/day-dai-2.JPG",
-    alt: "Dây đai thép siết chặt pallet hàng",
-  },
-  {
-    src: "/images/day-dai-3.JPG",
-    alt: "Kho dây đai thép công nghiệp",
-  },
-  {
-    src: "/images/day-dai-4.JPG",
-    alt: "Dây đai thép trên xe tải vận chuyển",
-  },
-];
+type Props = {
+  images: ProductImage[];
+};
 
-export function ProductGallery() {
+export function ProductGallery({ images }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const active = galleryItems[activeIndex];
+  const active = images[activeIndex];
 
   return (
     <div className="space-y-3">
@@ -41,7 +27,7 @@ export function ProductGallery() {
       </div>
 
       <div className="grid grid-cols-4 gap-2">
-        {galleryItems.map((item, index) => (
+        {images.map((item, index) => (
           <button
             key={item.src}
             type="button"
