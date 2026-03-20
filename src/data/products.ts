@@ -20,7 +20,7 @@ export const catalogProducts: CatalogProduct[] = [
   {
     id: "steel-strapping",
     name: "Dây đai thép công nghiệp chịu lực cao",
-    slug: "/products/steel-strapping",
+    slug: "/san-pham/day-dai-thep-chiu-luc-cao",
     basePrice: 1900000,
     salePrice: 1450000,
     shortDescription:
@@ -37,7 +37,7 @@ export const catalogProducts: CatalogProduct[] = [
   {
     id: "steel-strapping-tools",
     name: "Bộ dụng cụ đóng đai thép",
-    slug: "/products/steel-strapping-tools",
+    slug: "/san-pham/bo-dung-cu-dong-dai-thep",
     basePrice: 1900000,
     salePrice: 1450000,
     shortDescription:
@@ -59,7 +59,7 @@ export const catalogProducts: CatalogProduct[] = [
   {
     id: "steel-seals",
     name: "Khóa đai thép (seals)",
-    slug: "/products/steel-seals",
+    slug: "/san-pham/khoa-dai-thep-seals",
     priceLabel: "Liên hệ",
     shortDescription:
       "Khóa đai thép dùng kèm dây đai, nhiều kích thước cho bản 16–32mm.",

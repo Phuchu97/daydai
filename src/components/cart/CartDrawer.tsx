@@ -43,10 +43,32 @@ export function CartDrawer({ open, onClose }: Props) {
 
     try {
       setSubmitting(true);
+      const orderItems = [...items];
+      const toPhone = "0339689386";
+      const total = orderItems.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0,
+      );
+      const lines = orderItems
+        .map((item) => {
+          const variant = item.variant ? ` | ${item.variant}` : "";
+          return `- ${item.name}${variant} x${item.quantity}`;
+        })
+        .join("\n");
+      const zaloText = [
+        "ĐƠN ĐẶT HÀNG MỚI",
+        `Tên: ${name}`,
+        `SĐT: ${phone}`,
+        `Ghi chú: ${note || "Không có"}`,
+        "Sản phẩm:",
+        lines,
+        `Tạm tính: ${total.toLocaleString("vi-VN")}đ`,
+      ].join("\n");
+
       const res = await fetch("/api/cart-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, note, items }),
+        body: JSON.stringify({ name, phone, note, items: orderItems }),
       });
       const data = (await res.json()) as { success?: boolean; message?: string };
       if (!res.ok || !data.success) {
@@ -67,6 +89,17 @@ export function CartDrawer({ open, onClose }: Props) {
       setTimeout(() => {
         onClose();
       }, 1600);
+
+      // Mở Zalo chat kèm nội dung đã điền (deep link).
+      // Lưu ý: Zalo deep link giúp tạo sẵn tin nhắn; người nhận vẫn có thể phải bấm gửi tùy theo thiết bị/trình duyệt.
+      if (typeof window !== "undefined") {
+        const url = `https://zalo.me/${toPhone}?text=${encodeURIComponent(
+          zaloText,
+        )}`;
+        setTimeout(() => {
+          window.open(url, "_blank", "noopener,noreferrer");
+        }, 2200);
+      }
     } catch (e) {
       console.error(e);
       setError(

@@ -12,6 +12,7 @@ import { SpecsTable } from "@/components/product/SpecsTable";
 import { UpsellSection } from "@/components/product/UpsellSection";
 import { FAQSection } from "@/components/product/FAQSection";
 import { StickyAddToCartBar } from "@/components/product/StickyAddToCartBar";
+import { ReviewsSection } from "@/components/product/ReviewsSection";
 
 type Props = {
   product: CatalogProduct;
@@ -60,6 +61,7 @@ export function ProductDetailPage({ product }: Props) {
         <DescriptionSection product={product} />
         <SpecsTable product={product} />
         <UpsellSection />
+        <ReviewsSection product={product} />
         <FAQSection />
       </main>
       <Footer />

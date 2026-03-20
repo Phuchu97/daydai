@@ -6,7 +6,8 @@ import type { CatalogProduct } from "@/data/products";
 
 const widths = ["16mm", "19mm", "25mm", "32mm"];
 const thicknesses = ["0.6mm", "0.8mm", "1.0mm"];
-const bundleSizes = ["1 cuộn", "5 cuộn", "10 cuộn+"];
+const STRAPPING_SALE_PRICE_PER_KG = 25000;
+const STRAPPING_DISCOUNT_PERCENT = 35;
 
 type Props = {
   product: CatalogProduct;
@@ -15,7 +16,7 @@ type Props = {
 export function ProductInfo({ product }: Props) {
   const [width, setWidth] = useState("19mm");
   const [thickness, setThickness] = useState("0.8mm");
-  const [bundle, setBundle] = useState("5 cuộn");
+  const [weightKg, setWeightKg] = useState(25);
   const [qty, setQty] = useState(1);
   const addToCart = useCartStore((s) => s.addToCart);
   const isStrapping = product.id === "steel-strapping";
@@ -32,9 +33,11 @@ export function ProductInfo({ product }: Props) {
 
   const handleAddToCart = () => {
     const variant = isStrapping
-      ? `Bản ${width} • Dày ${thickness} • ${bundle}`
+      ? `Bản ${width} • Dày ${thickness} • ${weightKg}kg`
       : undefined;
-    const price = product.salePrice ?? product.basePrice ?? 0;
+    const price = isStrapping
+      ? weightKg * STRAPPING_SALE_PRICE_PER_KG
+      : (product.salePrice ?? product.basePrice ?? 0);
     addToCart(
       {
         id: product.id,
@@ -72,7 +75,24 @@ export function ProductInfo({ product }: Props) {
 
       <div className="space-y-1 rounded-2xl border border-border bg-muted/40 p-4">
         <div className="flex items-end gap-2">
-          {product.priceLabel ? (
+          {isStrapping ? (
+            <>
+              <p className="text-2xl font-bold text-secondary">
+                {(weightKg * STRAPPING_SALE_PRICE_PER_KG).toLocaleString("vi-VN")}
+                đ
+              </p>
+              <p className="text-sm text-muted-foreground line-through">
+                {Math.round(
+                  (weightKg * STRAPPING_SALE_PRICE_PER_KG) /
+                    (1 - STRAPPING_DISCOUNT_PERCENT / 100),
+                ).toLocaleString("vi-VN")}
+                đ
+              </p>
+              <span className="rounded-full bg-red-500/10 px-2 py-1 text-xs font-semibold uppercase text-red-500">
+                -{STRAPPING_DISCOUNT_PERCENT}%
+              </span>
+            </>
+          ) : product.priceLabel ? (
             <p className="text-sm font-semibold text-secondary">
               {product.priceLabel}
             </p>
@@ -97,9 +117,6 @@ export function ProductInfo({ product }: Props) {
             </>
           )}
         </div>
-        <p className="text-xs text-emerald-600">
-          Giá tốt hơn cho đơn hàng số lượng lớn – liên hệ để nhận báo giá riêng.
-        </p>
       </div>
 
       <div className="space-y-4">
@@ -117,43 +134,57 @@ export function ProductInfo({ product }: Props) {
               value={thickness}
               onChange={setThickness}
             />
-            <VariantGroup
-              label="Gói cuộn"
-              options={bundleSizes}
-              value={bundle}
-              onChange={setBundle}
-            />
+            <div className="space-y-1">
+              <p className="text-xs font-medium text-foreground">
+                Khối lượng cần mua (kg)
+              </p>
+              <input
+                type="number"
+                min={1}
+                step={1}
+                value={weightKg}
+                onChange={(e) =>
+                  setWeightKg(
+                    Number.isNaN(Number(e.target.value))
+                      ? 1
+                      : Math.max(1, Math.round(Number(e.target.value))),
+                  )
+                }
+                className="w-[128px] rounded-md border border-border bg-background px-3 py-2 text-sm outline-none ring-primary/20 focus:ring-2"
+                placeholder="Nhập số kg, ví dụ 25"
+              />
+            </div>
           </>
         )}
 
-        <div className="flex items-center gap-4">
-          <div>
-            <p className="text-xs font-medium text-foreground">
-              {isStrapping ? "Số lượng cuộn" : "Số lượng bộ"}
-            </p>
-            <div className="mt-1 inline-flex items-center rounded-full border border-border bg-background">
-              <button
-                type="button"
-                onClick={() => handleQtyChange(-1)}
-                className="h-8 w-8 text-sm font-semibold"
-                aria-label="Giảm số lượng"
-              >
-                -
-              </button>
-              <span className="w-10 text-center text-sm font-semibold">
-                {qty}
-              </span>
-              <button
-                type="button"
-                onClick={() => handleQtyChange(1)}
-                className="h-8 w-8 text-sm font-semibold"
-                aria-label="Tăng số lượng"
-              >
-                +
-              </button>
+        {!isStrapping && (
+          <div className="flex items-center gap-4">
+            <div>
+              <p className="text-xs font-medium text-foreground">Số lượng bộ</p>
+              <div className="mt-1 inline-flex items-center rounded-full border border-border bg-background">
+                <button
+                  type="button"
+                  onClick={() => handleQtyChange(-1)}
+                  className="h-8 w-8 text-sm font-semibold"
+                  aria-label="Giảm số lượng"
+                >
+                  -
+                </button>
+                <span className="w-10 text-center text-sm font-semibold">
+                  {qty}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => handleQtyChange(1)}
+                  className="h-8 w-8 text-sm font-semibold"
+                  aria-label="Tăng số lượng"
+                >
+                  +
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
 
       <div className="space-y-3">

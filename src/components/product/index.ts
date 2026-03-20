@@ -8,4 +8,5 @@ export { SpecsTable } from "./SpecsTable";
 export { UpsellSection } from "./UpsellSection";
 export { FAQSection } from "./FAQSection";
 export { StickyAddToCartBar } from "./StickyAddToCartBar";
+export { ReviewsSection } from "./ReviewsSection";
 

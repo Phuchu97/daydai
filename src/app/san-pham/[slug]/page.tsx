@@ -10,13 +10,13 @@ type Params = {
 };
 
 function getProductFromSlug(slug: string): CatalogProduct | undefined {
-  const path = `/products/${slug}`;
+  const path = `/san-pham/${slug}`;
   return catalogProducts.find((p) => p.slug === path);
 }
 
 export function generateStaticParams() {
   return catalogProducts.map((p) => ({
-    slug: p.slug.replace("/products/", ""),
+    slug: p.slug.replace("/san-pham/", ""),
   }));
 }
 
@@ -52,7 +52,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `${siteConfig.url}/products/${slug}`,
+      url: `${siteConfig.url}/san-pham/${slug}`,
       siteName: siteConfig.name,
       locale: "vi_VN",
       type: "website",
