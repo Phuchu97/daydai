@@ -192,14 +192,14 @@ export function ProductInfo({ product }: Props) {
           <button
             type="button"
             onClick={handleAddToCart}
-            className="flex-1 rounded-md bg-secondary px-4 py-3 text-sm font-semibold text-secondary-foreground shadow-md shadow-secondary/40 transition hover:opacity-90"
+            className="add-to-cart-button flex-1 rounded-full bg-secondary px-4 py-3 text-sm font-semibold text-secondary-foreground shadow-md shadow-secondary/40 transition hover:-translate-y-0.5 hover:opacity-90"
           >
             Thêm vào giỏ hàng
           </button>
           <button
             type="button"
             onClick={handleBuyNow}
-            className="flex-1 rounded-md border border-primary bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/40 transition hover:opacity-95"
+            className="buy-now-ring flex-1 rounded-full border border-primary bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/40 transition hover:-translate-y-0.5 hover:opacity-95"
           >
             Mua ngay
           </button>

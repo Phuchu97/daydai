@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useCartStore } from "@/store/cartStore";
 
+const STRAPPING_SALE_PRICE_PER_KG = 25000;
+
 export function StickyAddToCartBar() {
   const [visible, setVisible] = useState(false);
   const addToCart = useCartStore((s) => s.addToCart);
@@ -24,9 +26,9 @@ export function StickyAddToCartBar() {
       {
         id: "steel-strapping",
         name: "Dây đai thép công nghiệp chịu lực cao",
-        price: 1450000,
+        price: STRAPPING_SALE_PRICE_PER_KG,
         image: "/images/day-dai-2.JPG",
-        variant: "Mặc định (chọn trên trang)",
+        variant: "Thêm nhanh 1kg (chọn lại kg trong phần tùy chọn)",
       },
       1,
     );
@@ -49,7 +51,9 @@ export function StickyAddToCartBar() {
             <p className="line-clamp-1 font-medium text-foreground">
               Dây đai thép công nghiệp chịu lực cao
             </p>
-            <p className="mt-0.5 font-semibold text-secondary">1.450.000đ</p>
+            <p className="mt-0.5 font-semibold text-secondary">
+              {STRAPPING_SALE_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg
+            </p>
           </div>
         </div>
 
@@ -58,7 +62,7 @@ export function StickyAddToCartBar() {
           onClick={handleAdd}
           className="ml-auto inline-flex flex-1 items-center justify-center rounded-md bg-secondary px-4 py-2.5 text-xs font-semibold text-secondary-foreground shadow-md shadow-secondary/40 transition hover:opacity-90 sm:text-sm"
         >
-          Thêm vào giỏ hàng
+          Thêm nhanh 1kg
         </button>
       </div>
     </div>
