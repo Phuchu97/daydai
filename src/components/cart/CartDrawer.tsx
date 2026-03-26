@@ -5,6 +5,8 @@ import { useCartStore } from "@/store/cartStore";
 import { CartItem } from "./CartItem";
 import { CartSummary } from "./CartSummary";
 import { useToast } from "@/hooks/useToast";
+import { getStoredAttribution } from "@/lib/attribution";
+import { trackConversion } from "@/lib/analytics";
 
 type Props = {
   open: boolean;
@@ -44,6 +46,7 @@ export function CartDrawer({ open, onClose }: Props) {
     try {
       setSubmitting(true);
       const orderItems = [...items];
+      const attribution = getStoredAttribution();
       const toPhone = "0339689386";
       const total = orderItems.reduce(
         (sum, item) => sum + item.price * item.quantity,
@@ -68,7 +71,13 @@ export function CartDrawer({ open, onClose }: Props) {
       const res = await fetch("/api/cart-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, note, items: orderItems }),
+        body: JSON.stringify({
+          name,
+          phone,
+          note,
+          items: orderItems,
+          attribution,
+        }),
       });
       const data = (await res.json()) as { success?: boolean; message?: string };
       if (!res.ok || !data.success) {
@@ -84,6 +93,14 @@ export function CartDrawer({ open, onClose }: Props) {
       setName("");
       setPhone("");
       setNote("");
+
+      trackConversion({
+        conversionType: "cart_order",
+        value: total,
+        currency: "VND",
+        pathname: window.location.pathname,
+        attribution: attribution ?? undefined,
+      });
 
       // Hiển thị thông báo chuyên nghiệp trước khi đóng giỏ
       setTimeout(() => {

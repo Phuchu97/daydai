@@ -1,7 +1,27 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import type { AttributionData } from "@/types/analytics";
 
 const TO_EMAIL = "phuchu199749@gmail.com";
+
+function renderAttributionHtml(attribution?: AttributionData): string {
+  if (!attribution) return "<p><strong>Nguồn:</strong> Không có dữ liệu UTM</p>";
+
+  return `
+    <h3>Nguồn traffic (SEO/Ads)</h3>
+    <p><strong>Landing page:</strong> ${attribution.landingPath || "N/A"}</p>
+    <p><strong>Last page:</strong> ${attribution.lastPath || "N/A"}</p>
+    <p><strong>Referrer:</strong> ${attribution.referrer || "Direct"}</p>
+    <p><strong>UTM Source:</strong> ${attribution.utmSource || "N/A"}</p>
+    <p><strong>UTM Medium:</strong> ${attribution.utmMedium || "N/A"}</p>
+    <p><strong>UTM Campaign:</strong> ${attribution.utmCampaign || "N/A"}</p>
+    <p><strong>UTM Term:</strong> ${attribution.utmTerm || "N/A"}</p>
+    <p><strong>UTM Content:</strong> ${attribution.utmContent || "N/A"}</p>
+    <p><strong>gclid/fbclid/ttclid:</strong> ${
+      attribution.gclid || attribution.fbclid || attribution.ttclid || "N/A"
+    }</p>
+  `;
+}
 
 export async function POST(request: Request) {
   try {
@@ -11,10 +31,12 @@ export async function POST(request: Request) {
       phone,
       note,
       items,
+      attribution,
     } = body as {
       name?: string;
       phone?: string;
       note?: string;
+      attribution?: AttributionData;
       items?: Array<{
         id: string;
         name: string;
@@ -97,6 +119,7 @@ export async function POST(request: Request) {
         </tbody>
       </table>
       <p><strong>Tạm tính:</strong> ${subtotal.toLocaleString("vi-VN")}đ</p>
+      ${renderAttributionHtml(attribution)}
     `;
 
     await resend.emails.send({

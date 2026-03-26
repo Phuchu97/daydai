@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { Section } from "../Section";
+import { getStoredAttribution } from "@/lib/attribution";
+import { trackConversion } from "@/lib/analytics";
 
 export function LeadFormSection() {
   const [name, setName] = useState("");
@@ -19,10 +21,11 @@ export function LeadFormSection() {
     setStatusMessage("");
 
     try {
+      const attribution = getStoredAttribution();
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, company, message }),
+        body: JSON.stringify({ name, phone, company, message, attribution }),
       });
 
       const data = (await res.json()) as { success?: boolean; message?: string };
@@ -37,6 +40,12 @@ export function LeadFormSection() {
       setPhone("");
       setCompany("");
       setMessage("");
+
+      trackConversion({
+        conversionType: "lead_form",
+        pathname: window.location.pathname,
+        attribution: attribution ?? undefined,
+      });
     } catch (error) {
       console.error(error);
       setStatus("error");

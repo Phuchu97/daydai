@@ -2,11 +2,16 @@ import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 import { ToastContainer } from "@/components/ui/toast/ToastContainer";
+import { AttributionTracker } from "@/components/analytics/AttributionTracker";
+import { WebVitalsTracker } from "@/components/analytics/WebVitalsTracker";
 
 export const metadata: Metadata = {
   title: {
     default: "Dây đai thép & bộ dụng cụ đóng đai công nghiệp",
     template: `%s | ${siteConfig.name}`,
+  },
+  icons: {
+    icon: "/images/day-dai-3.JPG",
   },
   description:
     "Chuyên cung cấp dây đai thép và bộ dụng cụ đóng đai cho nhà máy, kho bãi, logistics và xây dựng. Hàng luôn có sẵn, giao nhanh toàn quốc, tư vấn kỹ thuật miễn phí.",
@@ -56,6 +61,8 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <body className="min-h-screen font-sans">
+        <AttributionTracker />
+        <WebVitalsTracker />
         {children}
         <ToastContainer />
       </body>

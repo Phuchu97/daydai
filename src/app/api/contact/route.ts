@@ -1,16 +1,37 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import type { AttributionData } from "@/types/analytics";
 
 const TO_EMAIL = "phuchu199749@gmail.com";
+
+function renderAttributionHtml(attribution?: AttributionData): string {
+  if (!attribution) return "<p><strong>Nguồn:</strong> Không có dữ liệu UTM</p>";
+
+  return `
+    <h3>Nguồn traffic (SEO/Ads)</h3>
+    <p><strong>Landing page:</strong> ${attribution.landingPath || "N/A"}</p>
+    <p><strong>Last page:</strong> ${attribution.lastPath || "N/A"}</p>
+    <p><strong>Referrer:</strong> ${attribution.referrer || "Direct"}</p>
+    <p><strong>UTM Source:</strong> ${attribution.utmSource || "N/A"}</p>
+    <p><strong>UTM Medium:</strong> ${attribution.utmMedium || "N/A"}</p>
+    <p><strong>UTM Campaign:</strong> ${attribution.utmCampaign || "N/A"}</p>
+    <p><strong>UTM Term:</strong> ${attribution.utmTerm || "N/A"}</p>
+    <p><strong>UTM Content:</strong> ${attribution.utmContent || "N/A"}</p>
+    <p><strong>gclid/fbclid/ttclid:</strong> ${
+      attribution.gclid || attribution.fbclid || attribution.ttclid || "N/A"
+    }</p>
+  `;
+}
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, phone, company, message } = body as {
+    const { name, phone, company, message, attribution } = body as {
       name?: string;
       phone?: string;
       company?: string;
       message?: string;
+      attribution?: AttributionData;
     };
 
     if (!name || !phone) {
@@ -43,6 +64,7 @@ export async function POST(request: Request) {
       <p><strong>Công ty:</strong> ${company || "Không cung cấp"}</p>
       <p><strong>Nội dung:</strong></p>
       <p>${(message || "").replace(/\n/g, "<br/>")}</p>
+      ${renderAttributionHtml(attribution)}
     `;
 
     await resend.emails.send({

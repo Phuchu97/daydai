@@ -13,6 +13,7 @@ import { UpsellSection } from "@/components/product/UpsellSection";
 import { FAQSection } from "@/components/product/FAQSection";
 import { StickyAddToCartBar } from "@/components/product/StickyAddToCartBar";
 import { ReviewsSection } from "@/components/product/ReviewsSection";
+import { getRelatedArticlesByProduct } from "@/data/articles";
 
 type Props = {
   product: CatalogProduct;
@@ -23,6 +24,8 @@ function getBreadcrumbLabel(product: CatalogProduct) {
 }
 
 export function ProductDetailPage({ product }: Props) {
+  const relatedArticles = getRelatedArticlesByProduct(product.id, 3);
+
   return (
     <>
       <StickyTopBar />
@@ -63,6 +66,35 @@ export function ProductDetailPage({ product }: Props) {
         <UpsellSection />
         <ReviewsSection product={product} />
         <FAQSection />
+        {relatedArticles.length > 0 && (
+          <section className="border-t border-border bg-background py-10">
+            <div className="container mx-auto max-w-5xl px-4">
+              <h2 className="text-lg font-semibold text-foreground sm:text-xl">
+                Bài viết tư vấn liên quan
+              </h2>
+              <div className="mt-5 grid gap-4 md:grid-cols-3">
+                {relatedArticles.map((article) => (
+                  <article
+                    key={article.slug}
+                    className="rounded-2xl border border-border bg-muted/20 p-4 shadow-sm"
+                  >
+                    <h3 className="text-sm font-semibold text-foreground">
+                      <Link
+                        href={`/tu-van/${article.slug}`}
+                        className="hover:text-primary"
+                      >
+                        {article.title}
+                      </Link>
+                    </h3>
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      {article.excerpt}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
       </main>
       <Footer />
       <StickyContacts />
