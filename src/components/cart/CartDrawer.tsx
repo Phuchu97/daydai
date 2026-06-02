@@ -1,6 +1,7 @@
  "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useCartStore } from "@/store/cartStore";
 import { CartItem } from "./CartItem";
 import { CartSummary } from "./CartSummary";
@@ -156,13 +157,13 @@ export function CartDrawer({ open, onClose }: Props) {
           {items.length === 0 ? (
             <div className="flex h-full flex-col items-center justify-center text-center text-xs text-muted-foreground">
               <p>Giỏ hàng của bạn đang trống.</p>
-              <a
-                href="#products"
+              <Link
+                href="/#products"
                 onClick={onClose}
                 className="mt-3 inline-flex rounded-md bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground"
               >
                 Tiếp tục mua sắm
-              </a>
+              </Link>
             </div>
           ) : (
             items.map((item) => <CartItem key={`${item.id}-${item.variant ?? ""}`} item={item} />)

@@ -13,6 +13,78 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
+    {
+      url: `${siteConfig.url}/san-pham`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.95,
+    },
+    {
+      url: `${siteConfig.url}/bao-gia-day-dai-thep`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.92,
+    },
+    {
+      url: `${siteConfig.url}/khoa-dai-thep`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${siteConfig.url}/bo-dung-cu-dong-dai-thep`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${siteConfig.url}/day-dai-thep-16mm-19mm-32mm`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${siteConfig.url}/day-dai-thep-ha-noi`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.88,
+    },
+    {
+      url: `${siteConfig.url}/day-dai-thep-mien-bac`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.88,
+    },
+    {
+      url: `${siteConfig.url}/day-dai-sat`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.87,
+    },
+    {
+      url: `${siteConfig.url}/dai-thep-cong-nghiep`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.87,
+    },
+    {
+      url: `${siteConfig.url}/nha-cung-cap-day-dai-thep`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.87,
+    },
+    {
+      url: `${siteConfig.url}/chinh-sach-bao-mat`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.25,
+    },
+    {
+      url: `${siteConfig.url}/dieu-khoan-su-dung`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.25,
+    },
   ];
 
   const productRoutes: MetadataRoute.Sitemap = catalogProducts.map((product) => ({

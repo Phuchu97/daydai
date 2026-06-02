@@ -42,8 +42,8 @@ export function ProductDetailPage({ product }: Props) {
                 </li>
                 <li>/</li>
                 <li>
-                  <Link href="/#products" className="hover:text-foreground">
-                    Đóng gói công nghiệp
+                  <Link href="/san-pham" className="hover:text-foreground">
+                    Sản phẩm
                   </Link>
                 </li>
                 <li>/</li>

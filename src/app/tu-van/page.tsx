@@ -6,17 +6,55 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "Tư vấn đóng gói công nghiệp",
+  title: "Tư vấn dây đai thép thực tế | checklist cho doanh nghiệp",
   description:
-    "Kiến thức thực tế về dây đai thép, dụng cụ đóng đai và tối ưu quy trình đóng gói cho nhà máy, kho bãi, logistics.",
+    "Tổng hợp bài tư vấn dây đai thép, khóa đai thép và dụng cụ đóng đai kèm checklist triển khai cho nhà máy, kho bãi, logistics.",
+  keywords: [
+    "tư vấn dây đai thép",
+    "cách chọn dây đai thép",
+    "dụng cụ đóng đai thép",
+    "đóng gói pallet hàng nặng",
+  ],
   alternates: {
     canonical: `${siteConfig.url}/tu-van`,
+  },
+  openGraph: {
+    title: "Tư vấn dây đai thép thực tế | checklist cho doanh nghiệp",
+    description:
+      "Chia sẻ kinh nghiệm chọn dây đai thép, khóa đai thép và vận hành đóng đai an toàn cho doanh nghiệp B2B.",
+    url: `${siteConfig.url}/tu-van`,
+    locale: "vi_VN",
+    type: "website",
+    images: [
+      {
+        url: `${siteConfig.url}${siteConfig.ogImage}`,
+        width: 1200,
+        height: 630,
+        alt: "Tư vấn dây đai thép công nghiệp",
+      },
+    ],
   },
 };
 
 export default function ConsultingIndexPage() {
+  const itemListJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Bài tư vấn dây đai thép",
+    itemListElement: articles.map((article, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: `${siteConfig.url}/tu-van/${article.slug}`,
+      name: article.title,
+    })),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+      />
       <Header />
       <main className="bg-background py-10">
         <section className="container mx-auto max-w-5xl px-4">

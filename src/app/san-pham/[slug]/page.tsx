@@ -95,7 +95,11 @@ export async function generateMetadata({
   const keywords = [
     product.name,
     "dây đai thép",
+    "dây đai sắt",
+    "đai thép công nghiệp",
+    "khóa đai thép",
     "bộ dụng cụ đóng đai thép",
+    "day dai thep",
     "đóng gói công nghiệp",
     "pallet hàng nặng",
     "kho bãi",
@@ -148,6 +152,7 @@ export default async function ProductRoutePage({
 
   const productUrl = `${siteConfig.url}/san-pham/${slug}`;
   const faqs = getFaqForProduct(product);
+  const offerPrice = product.salePrice ?? product.basePrice;
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -159,16 +164,28 @@ export default async function ProductRoutePage({
       "@type": "Brand",
       name: siteConfig.name,
     },
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "VND",
-      price:
-        product.salePrice ??
-        product.basePrice ??
-        0,
-      availability: "https://schema.org/InStock",
-      url: productUrl,
-    },
+    offers: offerPrice
+      ? {
+          "@type": "Offer",
+          priceCurrency: "VND",
+          price: offerPrice,
+          availability: "https://schema.org/InStock",
+          url: productUrl,
+          seller: {
+            "@type": "Organization",
+            name: siteConfig.company.legalName,
+          },
+        }
+      : {
+          "@type": "Offer",
+          priceCurrency: "VND",
+          availability: "https://schema.org/InStock",
+          url: productUrl,
+          seller: {
+            "@type": "Organization",
+            name: siteConfig.company.legalName,
+          },
+        },
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.8",
@@ -190,7 +207,7 @@ export default async function ProductRoutePage({
         "@type": "ListItem",
         position: 2,
         name: "Sản phẩm",
-        item: `${siteConfig.url}/#products`,
+        item: `${siteConfig.url}/san-pham`,
       },
       {
         "@type": "ListItem",

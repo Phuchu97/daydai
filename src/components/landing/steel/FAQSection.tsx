@@ -27,34 +27,27 @@ export function FAQSection() {
   return (
     <Section id="faq">
       <div className="mx-auto max-w-3xl text-center">
-        <h2 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+        <p className="eyebrow">Giải đáp nhanh</p>
+        <h2 className="mt-3 text-balance font-display text-3xl font-semibold tracking-[-0.02em] text-foreground sm:text-4xl">
           Câu hỏi thường gặp
         </h2>
-        <p className="mt-3 text-sm text-muted-foreground sm:text-base">
+        <p className="mt-3 text-sm leading-7 text-muted-foreground sm:text-base">
           Nếu bạn còn băn khoăn, hãy xem qua một số câu hỏi mà khách hàng hay
           hỏi nhất.
         </p>
       </div>
 
-      <div className="mt-8 mx-auto max-w-3xl space-y-3">
+      <div className="mx-auto mt-8 grid max-w-5xl gap-4 md:grid-cols-2">
         {faqs.map((faq) => (
-          <details
+          <article
             key={faq.question}
-            className="group rounded-xl border border-border bg-background p-4 text-left open:bg-muted/40"
+            className="surface-card rounded-xl p-5 text-left"
           >
-            <summary className="flex cursor-pointer items-center justify-between text-sm font-semibold text-foreground">
-              <span>{faq.question}</span>
-              <span className="ml-4 text-lg leading-none text-muted-foreground group-open:hidden">
-                +
-              </span>
-              <span className="ml-4 hidden text-lg leading-none text-muted-foreground group-open:block">
-                −
-              </span>
-            </summary>
-            <p className="mt-2 text-xs text-muted-foreground group-open:animate-fade-in">
+            <h3 className="text-sm font-semibold text-foreground">{faq.question}</h3>
+            <p className="mt-2 text-xs leading-6 text-muted-foreground">
               {faq.answer}
             </p>
-          </details>
+          </article>
         ))}
       </div>
     </Section>

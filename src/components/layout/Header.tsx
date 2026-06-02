@@ -19,11 +19,11 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
+      <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/85 backdrop-blur-xl supports-[backdrop-filter]:bg-background/65">
+        <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 lg:px-6">
           <Link
             href="/"
-            className="font-display text-lg font-semibold tracking-tight"
+            className="font-display text-base font-semibold tracking-tight text-foreground sm:text-lg"
           >
             {siteConfig.name}
           </Link>
@@ -33,7 +33,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:text-foreground"
               >
                 {item.label}
               </Link>
@@ -43,15 +43,15 @@ export function Header() {
           <div className="flex items-center gap-3">
             <CartIcon onClick={() => setCartOpen(true)} />
             <Link
-              href="#contact"
-              className="hidden rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:inline-flex"
+              href="/#contact"
+              className="btn-lift hidden rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-[0_16px_30px_-18px_rgba(22,67,126,0.8)] sm:inline-flex"
             >
               Liên hệ
             </Link>
 
             <button
               type="button"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-md md:hidden"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border/70 bg-white/80 text-foreground shadow-sm md:hidden"
               aria-label="Toggle menu"
               onClick={() => setOpen(!open)}
             >
@@ -84,13 +84,13 @@ export function Header() {
         </div>
 
         {open && (
-          <div className="border-t border-border/40 bg-background md:hidden">
-            <nav className="container mx-auto flex flex-col gap-1 px-4 py-4">
+          <div className="border-t border-border/50 bg-background/95 md:hidden">
+            <nav className="container mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4">
               {siteConfig.nav.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
+                  className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted/80 hover:text-foreground"
                   onClick={() => setOpen(false)}
                 >
                   {item.label}

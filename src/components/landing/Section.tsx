@@ -14,9 +14,9 @@ export function Section({
   container = true,
 }: SectionProps) {
   return (
-    <section id={id} className={cn("py-16 md:py-24", className)}>
+    <section id={id} className={cn("py-16 pb-20 md:py-24 md:pb-28", className)}>
       {container ? (
-        <div className="container mx-auto max-w-6xl px-4">{children}</div>
+        <div className="container mx-auto max-w-7xl px-4 lg:px-6">{children}</div>
       ) : (
         children
       )}

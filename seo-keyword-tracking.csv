@@ -1,0 +1,34 @@
+keyword,intent,target_url,priority,current_position,impressions_28d,ctr,notes,next_action
+dây đai thép,commercial,/san-pham,P1,,,,Main head term,Theo dõi hằng tuần và tối ưu title homepage/san-pham
+day dai thep,commercial,/san-pham,P1,,,,Non-accent head term,Tối ưu thêm biến thể không dấu trong nội dung
+đai thép,commercial,/dai-thep-cong-nghiep,P1,,,,Synonym head term,Đẩy internal link từ bài tư vấn
+dây đai sắt,commercial,/day-dai-sat,P1,,,,Strong synonym,Theo dõi cannibalization với /san-pham
+day dai sat,commercial,/day-dai-sat,P1,,,,Non-accent synonym,Tăng anchor text exact-match vừa phải
+dây đai thép công nghiệp,commercial,/dai-thep-cong-nghiep,P1,,,,Commercial-intent,Thêm case theo ngành trong trang đích
+dây đai thép chịu lực,commercial,/dai-thep-cong-nghiep,P1,,,,Pain-point intent,Tối ưu đoạn mô tả lợi ích đầu trang
+dây thép đóng pallet,commercial,/dai-thep-cong-nghiep,P1,,,,Use-case intent,Thêm FAQ theo use case pallet
+khóa đai thép,commercial,/khoa-dai-thep,P1,,,,Money keyword,Theo dõi CTR title hiện tại
+khoa dai thep,commercial,/khoa-dai-thep,P1,,,,Non-accent money keyword,Bổ sung biến thể không dấu trong FAQ
+bọ sắt đóng đai,commercial,/khoa-dai-thep,P1,,,,Synonym product term,Thêm section so sánh bọ kín/chữ U
+bọ đai thép 19mm,commercial,/khoa-dai-thep,P2,,,,Long-tail transactional,Tăng nội dung quy cách 19mm
+bộ dụng cụ đóng đai thép,commercial,/bo-dung-cu-dong-dai-thep,P1,,,,Money keyword,Theo dõi impression sau index
+dụng cụ đóng đai thép 16mm 19mm,commercial,/bo-dung-cu-dong-dai-thep,P2,,,,Long-tail tool keyword,Thêm so sánh model theo bản dây
+kìm siết đai thép,commercial,/bo-dung-cu-dong-dai-thep,P2,,,,Tool sub-keyword,Đẩy internal link từ bài how-to
+báo giá dây đai thép,transactional,/bao-gia-day-dai-thep,P1,,,,High purchase intent,Theo dõi CTR và conversion form
+giá dây đai thép,transactional,/bao-gia-day-dai-thep,P1,,,,Price intent,Cập nhật bảng giá định kỳ
+báo giá khóa đai thép,transactional,/bao-gia-day-dai-thep,P2,,,,Price + accessory intent,Thêm khối giá khóa nổi bật
+dây đai thép 16mm,transactional,/day-dai-thep-16mm-19mm-32mm,P1,,,,Size intent,Theo dõi ranking theo size cluster
+dây đai thép 19mm,transactional,/day-dai-thep-16mm-19mm-32mm,P1,,,,Size intent,Đẩy thêm bài vệ tinh 19mm
+dây đai thép 32mm,transactional,/day-dai-thep-16mm-19mm-32mm,P1,,,,Size intent,Thêm use-case hàng siêu nặng
+day dai thep 19mm,transactional,/day-dai-thep-16mm-19mm-32mm,P2,,,,Non-accent size term,Bổ sung non-accent trong heading phụ
+cách chọn dây đai thép,informational,/tu-van/cach-chon-day-dai-thep-theo-tai-trong,P1,,,,Top funnel informational,Tối ưu snippet để lấy click
+so sánh dây đai thép và dây đai nhựa,informational,/tu-van/so-sanh-day-dai-thep-va-day-dai-nhua,P2,,,,Comparison intent,Thêm CTA về money page giữa bài
+hướng dẫn sử dụng bộ dụng cụ đóng đai thép,informational,/tu-van/huong-dan-su-dung-bo-dung-cu-dong-dai-thep,P2,,,,How-to intent,Đẩy internal link tới tool landing
+dây đai thép hà nội,local-commercial,/day-dai-thep-ha-noi,P1,,,,Local money keyword,Theo dõi thứ hạng theo vùng
+mua dây đai thép hà nội,local-transactional,/day-dai-thep-ha-noi,P1,,,,Local purchase intent,Tối ưu CTA theo địa phương
+nhà cung cấp dây đai thép hà nội,local-commercial,/day-dai-thep-ha-noi,P2,,,,Local supplier intent,Thêm trust signal địa phương
+dây đai thép miền bắc,local-commercial,/day-dai-thep-mien-bac,P1,,,,Regional money keyword,Đẩy internal links từ local pages
+nhà cung cấp dây đai thép miền bắc,local-commercial,/day-dai-thep-mien-bac,P1,,,,Regional supplier intent,Thêm nội dung giao khu công nghiệp
+nha cung cap day dai thep,commercial,/nha-cung-cap-day-dai-thep,P1,,,,Non-accent supplier term,Theo dõi cannibalization với local pages
+công ty dây đai thép,commercial,/nha-cung-cap-day-dai-thep,P1,,,,Supplier-intent,Tăng bằng chứng năng lực/case study
+mua dây đai thép số lượng lớn,transactional,/nha-cung-cap-day-dai-thep,P2,,,,Bulk-purchase intent,Tối ưu form và CTA doanh nghiệp

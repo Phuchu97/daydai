@@ -12,6 +12,8 @@ const config: Config = {
         primary: "hsl(var(--color-primary))",
         "primary-foreground": "hsl(var(--color-primary-foreground))",
         accent: "hsl(var(--color-accent))",
+        secondary: "hsl(var(--color-accent))",
+        "secondary-foreground": "hsl(var(--color-primary-foreground))",
         background: "hsl(var(--color-background))",
         foreground: "hsl(var(--color-foreground))",
         muted: "hsl(var(--color-muted))",

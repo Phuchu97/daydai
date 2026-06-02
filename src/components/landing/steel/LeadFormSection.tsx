@@ -35,7 +35,7 @@ export function LeadFormSection() {
       }
 
       setStatus("success");
-      setStatusMessage("Đã gửi yêu cầu báo giá. Chúng tôi sẽ liên hệ sớm nhất!");
+      setStatusMessage("Đã gửi yêu cầu báo giá. Chúng tôi sẽ liên hệ sớm.");
       setName("");
       setPhone("");
       setCompany("");
@@ -60,16 +60,17 @@ export function LeadFormSection() {
   return (
     <Section id="contact">
       <div className="mx-auto max-w-3xl text-center">
-        <h2 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+        <p className="eyebrow">Tư vấn theo nhu cầu thực tế</p>
+        <h2 className="mt-3 text-balance font-display text-3xl font-semibold tracking-[-0.02em] text-foreground sm:text-4xl">
           Nhận báo giá nhanh trong ngày
         </h2>
-        <p className="mt-3 text-sm text-muted-foreground sm:text-base">
+        <p className="mt-3 text-sm leading-7 text-muted-foreground sm:text-base">
           Điền thông tin bên dưới hoặc gọi trực tiếp, chúng tôi sẽ tư vấn quy
           cách dây đai và gửi báo giá chi tiết.
         </p>
       </div>
 
-      <div className="mt-8 mx-auto max-w-xl rounded-2xl border border-border bg-background p-6 shadow-sm">
+      <div className="surface-card mt-8 mx-auto max-w-xl p-6">
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="text-left">
@@ -101,6 +102,7 @@ export function LeadFormSection() {
                 name="phone"
                 type="tel"
                 required
+                pattern="[0-9+\-\s]{8,15}"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-none ring-primary/20 focus:ring-2"
@@ -145,7 +147,7 @@ export function LeadFormSection() {
           <button
             type="submit"
             disabled={submitting}
-            className="mt-2 inline-flex w-full items-center justify-center rounded-md bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/40 transition hover:opacity-90"
+            className="btn-lift mt-2 inline-flex w-full items-center justify-center rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-[0_18px_32px_-18px_rgba(25,61,112,0.84)] disabled:cursor-not-allowed disabled:opacity-70"
           >
             {submitting ? "Đang gửi..." : "Nhận báo giá nhanh"}
           </button>

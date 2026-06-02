@@ -1,0 +1,11 @@
+week_start,week_end,keyword,target_url,current_position,last_week_position,position_change,impressions,clicks,ctr,avg_cpc_or_cost,priority,status,root_cause_hypothesis,action_taken,next_action,owner,eta,notes
+2026-06-01,2026-06-07,dây đai thép,/san-pham,,,,,,,,P1,tracking,,,"Tối ưu title + internal links",,,
+2026-06-01,2026-06-07,day dai thep,/san-pham,,,,,,,,P1,tracking,,,"Bổ sung biến thể không dấu trong copy",,,
+2026-06-01,2026-06-07,khóa đai thép,/khoa-dai-thep,,,,,,,,P1,tracking,,,"Tối ưu FAQ và anchor từ bài tư vấn",,,
+2026-06-01,2026-06-07,bộ dụng cụ đóng đai thép,/bo-dung-cu-dong-dai-thep,,,,,,,,P1,tracking,,,"Đẩy internal link từ bài how-to",,,
+2026-06-01,2026-06-07,báo giá dây đai thép,/bao-gia-day-dai-thep,,,,,,,,P1,tracking,,,"Cập nhật giá + tối ưu form conversion",,,
+2026-06-01,2026-06-07,dây đai thép 19mm,/day-dai-thep-16mm-19mm-32mm,,,,,,,,P1,tracking,,,"Tăng nội dung quy cách 19mm",,,
+2026-06-01,2026-06-07,dây đai thép hà nội,/day-dai-thep-ha-noi,,,,,,,,P1,tracking,,,"Tăng local proof + CTA khu vực",,,
+2026-06-01,2026-06-07,dây đai thép miền bắc,/day-dai-thep-mien-bac,,,,,,,,P1,tracking,,,"Bổ sung tín hiệu KCN miền Bắc",,,
+2026-06-01,2026-06-07,dây đai sắt,/day-dai-sat,,,,,,,,P1,tracking,,,"Theo dõi cannibalization với /san-pham",,,
+2026-06-01,2026-06-07,nhà cung cấp dây đai thép,/nha-cung-cap-day-dai-thep,,,,,,,,P1,tracking,,,"Bổ sung case thực tế + trust signal",,,
