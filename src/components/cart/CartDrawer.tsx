@@ -48,7 +48,7 @@ export function CartDrawer({ open, onClose }: Props) {
       setSubmitting(true);
       const orderItems = [...items];
       const attribution = getStoredAttribution();
-      const toPhone = "0339689386";
+      const toPhone = "0339.689.386";
       const total = orderItems.reduce(
         (sum, item) => sum + item.price * item.quantity,
         0,
@@ -131,13 +131,13 @@ export function CartDrawer({ open, onClose }: Props) {
   return (
     <>
       <div
-        className={`fixed inset-0 z-40 bg-black/40 transition-opacity ${
+        className={`fixed inset-0 z-[80] bg-black/40 transition-opacity ${
           open ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
         onClick={onClose}
       />
       <aside
-        className={`fixed inset-y-0 right-0 z-50 flex w-full max-w-md flex-col border-l border-border bg-background shadow-2xl transition-transform duration-300 ${
+        className={`fixed inset-y-0 right-0 z-[90] flex w-full max-w-md flex-col border-l border-border bg-background shadow-2xl transition-transform duration-300 ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
         aria-label="Giỏ hàng"

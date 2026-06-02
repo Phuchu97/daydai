@@ -100,12 +100,12 @@ export const articles: Article[] = [
     description:
       "Quy trình siết - bấm - khóa đai thép đúng chuẩn để tăng tốc đóng gói và hạn chế lỗi bung đai khi vận chuyển.",
     excerpt:
-      "Dùng đúng thao tác với tensioner/sealer giúp giảm lỗi rất nhiều. Đây là quy trình ngắn gọn cho kho và nhà máy.",
+      "Dùng đúng thao tác với kìm siết/bấm khóa giúp giảm lỗi rất nhiều. Đây là quy trình ngắn gọn cho kho và nhà máy.",
     publishedAt: "2026-03-10",
     updatedAt: "2026-03-16",
     keywords: [
       "hướng dẫn dụng cụ đóng đai thép",
-      "cách dùng tensioner",
+      "cách dùng kìm siết",
       "cách dùng sealer",
     ],
     relatedProductIds: ["steel-strapping-tools", "steel-seals"],
@@ -121,7 +121,7 @@ export const articles: Article[] = [
         heading: "Quy trình 3 bước: Siết - Bấm - Khóa",
         paragraphs: [
           "Bước 1: Luồn dây đúng vị trí và căn điểm tỳ.",
-          "Bước 2: Dùng tensioner siết đến lực phù hợp, tránh siết quá mức.",
+          "Bước 2: Dùng kìm siết siết đến lực phù hợp, tránh siết quá mức.",
           "Bước 3: Dùng sealer bấm khóa, kiểm tra lại độ ôm của vòng đai.",
         ],
       },

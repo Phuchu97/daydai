@@ -1,194 +1,213 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { CatalogProduct } from "@/data/products";
 import { Section } from "../Section";
 import { getProductById } from "@/data/products";
+import { siteConfig } from "@/config/site";
+import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
+import { cn } from "@/lib/utils";
 
-const PHONE = "0339689386";
+const PHONE_TEL = `tel:${siteConfig.company.zaloPhone}`;
+
+type ProductHighlightCardProps = {
+  product: CatalogProduct;
+  tags: string[];
+  priceNode: React.ReactNode;
+  imageIndices?: [number, number];
+};
+
+function ProductHighlightCard({
+  product,
+  tags,
+  priceNode,
+  imageIndices = [0, 1],
+}: ProductHighlightCardProps) {
+  const [imgA, imgB] = imageIndices;
+  const imgPrimary = product.images[imgA];
+  const imgSecondary = product.images[imgB] ?? product.images[0];
+
+  return (
+    <article className="surface-card flex h-full flex-col overflow-hidden transition duration-200 hover:border-primary/25 hover:shadow-[0_22px_48px_-28px_rgba(22,67,126,0.4)]">
+      <Link
+        href={product.slug}
+        className="group flex flex-1 flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2"
+      >
+        <div className="grid grid-cols-2 gap-0.5 bg-muted/40">
+          <div className="relative aspect-[5/4] overflow-hidden">
+            <Image
+              src={imgPrimary?.src ?? siteConfig.ogImage}
+              alt={imgPrimary?.alt ?? product.name}
+              fill
+              className="object-cover transition duration-300 group-hover:scale-[1.02]"
+              sizes="(min-width: 1024px) 25vw, 50vw"
+            />
+          </div>
+          <div className="relative aspect-[5/4] overflow-hidden">
+            <Image
+              src={imgSecondary?.src ?? siteConfig.ogImage}
+              alt={imgSecondary?.alt ?? product.name}
+              fill
+              className="object-cover transition duration-300 group-hover:scale-[1.02]"
+              sizes="(min-width: 1024px) 25vw, 50vw"
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-1 flex-col p-5 sm:p-6">
+          <h3 className="font-display text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+            {product.name}
+          </h3>
+          <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+            {product.shortDescription}
+          </p>
+
+          <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Đặc điểm nổi bật">
+            {tags.map((tag) => (
+              <li
+                key={tag}
+                className="rounded-full border border-border/80 bg-muted/50 px-2.5 py-0.5 text-[11px] font-medium text-foreground/90"
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-3 flex min-h-[1.375rem] items-end text-sm">
+            {priceNode}
+          </div>
+
+          <p
+            className={cn(
+              "mt-auto pt-4 text-sm font-semibold text-primary",
+              "inline-flex items-center gap-1 transition group-hover:gap-2"
+            )}
+          >
+            Xem chi tiết
+            <span aria-hidden className="transition group-hover:translate-x-0.5">
+              →
+            </span>
+          </p>
+        </div>
+      </Link>
+
+      <div className="border-t border-border/70 px-5 py-3 sm:px-6">
+        <a
+          href={PHONE_TEL}
+          className="btn-lift inline-flex w-full items-center justify-center rounded-xl border border-border bg-background px-4 py-2.5 text-xs font-semibold text-foreground hover:bg-muted/60 sm:text-sm"
+        >
+          Gọi tư vấn {siteConfig.company.phone}
+        </a>
+      </div>
+    </article>
+  );
+}
 
 export function ProductsSection() {
   const steel = getProductById("steel-strapping");
   const tools = getProductById("steel-strapping-tools");
+  const seals = getProductById("steel-seals");
+
+  if (!steel || !tools || !seals) return null;
 
   return (
     <Section id="products">
       <div className="mx-auto max-w-3xl text-center">
         <p className="eyebrow">Danh mục nổi bật</p>
         <h2 className="mt-3 text-balance font-display text-3xl font-semibold tracking-[-0.02em] text-foreground sm:text-4xl">
-          Sản phẩm dây đai thép & bộ dụng cụ đóng đai
+          Dây đai thép, bọ thép & dụng cụ đóng đai
         </h2>
         <p className="mt-3 text-sm leading-7 text-muted-foreground sm:text-base">
-          Đầy đủ từ dây đai thép đến bộ dụng cụ siết, bấm khóa – phù hợp hầu hết
-          nhu cầu đóng gói công nghiệp hiện nay.
+          Bấm vào thẻ sản phẩm để xem chi tiết quy cách, thông số và báo giá.
         </p>
       </div>
 
-      <div className="mt-10 grid gap-8 lg:grid-cols-2">
-        {/* Product 1 */}
-        <div className="surface-card p-6">
-          <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-            {steel?.name ?? "Dây đai thép đóng gói công nghiệp"}
-          </h3>
-          <p className="mt-2 text-sm leading-7 text-muted-foreground">
-            {steel?.shortDescription ??
-              "Dây đai thép mạ kẽm, độ bền kéo cao, bề mặt xử lý chống gỉ, phù hợp siết chặt hàng hóa trọng tải lớn."}
-          </p>
-
-          <div className="mt-4 grid gap-4 text-sm md:grid-cols-2">
-            <ul className="space-y-2 leading-7">
-              <li>• Bản rộng đa dạng: 16mm, 19mm, 25mm, 32mm</li>
-              <li>• Độ dày từ 0.5mm – 1mm</li>
-              <li>• Lực kéo cao, hạn chế giãn trong quá trình vận chuyển</li>
-              <li>• Bề mặt sơn/nhúng mạ hạn chế gỉ sét</li>
-            </ul>
-            <ul className="space-y-2 leading-7">
-              <li>• Đóng pallet thép, gỗ, tôn cuộn, ống thép</li>
-              <li>• Cố định máy móc, kết cấu thép khi vận chuyển</li>
-              <li>• Ứng dụng trong kho bãi, bến cảng, nhà máy thép</li>
-            </ul>
-          </div>
-
-          <p className="mt-4 text-sm font-semibold text-primary">
-            Giá: Liên hệ {PHONE} để được báo giá tốt theo số lượng.
-          </p>
-
-          <div className="mt-4 flex flex-wrap items-center gap-3">
-            <Link
-              href={steel?.slug ?? "/products/steel-strapping"}
-              className="btn-lift inline-flex items-center rounded-xl bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground shadow-[0_16px_32px_-18px_rgba(25,61,112,0.82)] sm:text-sm"
-            >
-              Xem chi tiết sản phẩm
-            </Link>
-            <a
-              href={`tel:${PHONE}`}
-              className="btn-lift inline-flex items-center rounded-xl border border-border bg-white/85 px-4 py-2 text-xs font-semibold text-foreground hover:bg-muted/70 sm:text-sm"
-            >
-              Gọi tư vấn nhanh
-            </a>
-          </div>
-
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-border/70 bg-muted">
-              <Image
-                src={steel?.images[0]?.src ?? "/images/day-dai-1.JPG"}
-                alt={steel?.images[0]?.alt ?? "Cuộn dây đai thép trong kho"}
-                fill
-                className="object-cover"
-                sizes="(min-width: 768px) 50vw, 100vw"
-              />
-            </div>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-border/70 bg-muted">
-              <Image
-                src={steel?.images[3]?.src ?? "/images/day-dai-4.JPG"}
-                alt={steel?.images[3]?.alt ?? "Dây đai thép được bọc pallet"}
-                fill
-                className="object-cover"
-                sizes="(min-width: 768px) 50vw, 100vw"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Product 2 */}
-        <div className="surface-card p-6">
-          <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground">
-            {tools?.name ?? "Bộ dụng cụ đóng đai thép"}
-          </h3>
-          <p className="mt-2 text-sm leading-7 text-muted-foreground">
-            {tools?.shortDescription ??
-              "Hàng chính hãng nhập khẩu Đài Loan, vận hành đơn giản, phù hợp cho cả kho nhỏ và dây chuyền nhà máy."}
-          </p>
-
-          <div className="mt-4 grid gap-4 text-sm md:grid-cols-2">
-            <ul className="space-y-2 leading-7">
-              <li>• Manual tensioner – dụng cụ siết dây đai</li>
-              <li>• Sealer – kìm bấm khóa, cố định đầu dây</li>
-              <li>• Combination tools – máy siết & bấm kết hợp</li>
-              <li>• Phù hợp dây đai thép bản 16–19–32mm</li>
-            </ul>
-            <ul className="space-y-2 leading-7">
-              <li>• Thiết kế chắc chắn, chịu lực tốt</li>
-              <li>• Phụ tùng thay thế sẵn có</li>
-              <li>• Hướng dẫn sử dụng trực tiếp/online</li>
-            </ul>
-          </div>
-
-          {tools?.basePrice && tools?.salePrice && (
-            <p className="mt-4 text-sm">
-              Giá niêm yết:{" "}
-              <span className="line-through text-muted-foreground">
-                {tools.basePrice.toLocaleString("vi-VN")}đ
-              </span>{" "}
+      <div className="mt-8 grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-3 lg:items-stretch">
+        <ProductHighlightCard
+          product={steel}
+          imageIndices={[0, 3]}
+          tags={[
+            "Bản 16–32mm",
+            "Mạ kẽm",
+            "Pallet & cuộn thép",
+            "Giao toàn quốc",
+          ]}
+          priceNode={
+            <p>
               <span className="font-semibold text-secondary">
-                chỉ còn {tools.salePrice.toLocaleString("vi-VN")}đ
-              </span>{" "}
-              / bộ.
+                {STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg
+              </span>
+              <span className="mt-0.5 block text-[11px] font-normal text-muted-foreground">
+                Báo giá cuộn theo số lượng — gọi tư vấn
+              </span>
             </p>
-          )}
+          }
+        />
 
-          <p className="mt-1 text-xs text-muted-foreground">
-            Số lượng có hạn – ưu tiên khách đặt trước. Vui lòng liên hệ để giữ
-            hàng.
-          </p>
+        <ProductHighlightCard
+          product={tools}
+          imageIndices={[0, 1]}
+          tags={[
+            "Kìm siết & bấm khóa",
+            "Dây 16–32mm",
+            "Nhập khẩu",
+            "Hướng dẫn sử dụng",
+          ]}
+          priceNode={
+            tools.basePrice && tools.salePrice ? (
+              <p>
+                <span className="text-muted-foreground line-through">
+                  {tools.basePrice.toLocaleString("vi-VN")}đ
+                </span>{" "}
+                <span className="font-semibold text-secondary">
+                  {tools.salePrice.toLocaleString("vi-VN")}đ
+                </span>
+                <span className="text-muted-foreground"> / bộ</span>
+              </p>
+            ) : (
+              <p className="font-medium text-primary">Liên hệ báo giá</p>
+            )
+          }
+        />
 
-          <div className="mt-4 flex flex-wrap items-center gap-3">
-            <Link
-              href={tools?.slug ?? "/products/steel-strapping"}
-              className="btn-lift inline-flex items-center rounded-xl bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground shadow-[0_16px_32px_-18px_rgba(25,61,112,0.82)] sm:text-sm"
-            >
-              Xem chi tiết dụng cụ
-            </Link>
-            <a
-              href={`tel:${PHONE}`}
-              className="btn-lift inline-flex items-center rounded-xl border border-border bg-white/85 px-4 py-2 text-xs font-semibold text-foreground hover:bg-muted/70 sm:text-sm"
-            >
-              Gọi tư vấn nhanh
-            </a>
-          </div>
-
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-border/70 bg-muted">
-              <Image
-                src={tools?.images[0]?.src ?? "/images/dung-cu-dong-dai-3.jpg"}
-                alt={tools?.images[0]?.alt ?? "Bộ dụng cụ đóng đai thép"}
-                fill
-                className="object-cover"
-                sizes="(min-width: 768px) 50vw, 100vw"
-              />
-            </div>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-border/70 bg-muted">
-              <Image
-                src={tools?.images[1]?.src ?? "/images/kho-dung-cu-dong-dai.png"}
-                alt={tools?.images[1]?.alt ?? "Kho dụng cụ đóng đai thép"}
-                fill
-                className="object-cover"
-                sizes="(min-width: 768px) 50vw, 100vw"
-              />
-            </div>
-          </div>
-        </div>
+        <ProductHighlightCard
+          product={seals}
+          imageIndices={[0, 1]}
+          tags={[
+            "Bản 16–32mm",
+            "Bọ kín / U",
+            "Dùng kèm dây đai",
+            "Giá theo số lượng",
+          ]}
+          priceNode={
+            <p className="font-medium text-primary">
+              {seals.priceLabel ?? "Liên hệ báo giá"} — gọi tư vấn
+            </p>
+          }
+        />
       </div>
 
-      <section className="surface-card mt-8 p-6">
-        <h2 className="font-display text-xl font-semibold text-foreground">
+      <section className="surface-card mt-6 p-5 sm:p-6">
+        <h2 className="font-display text-lg font-semibold text-foreground sm:text-xl">
           Tài nguyên chọn mua dây đai thép
         </h2>
-        <p className="mt-2 text-sm leading-7 text-muted-foreground">
-          Nếu bạn đang so sánh quy cách hoặc cần báo giá nhanh theo số lượng,
-          xem thêm các trang chuyên sâu bên dưới.
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          So sánh quy cách hoặc nhận báo giá nhanh theo số lượng.
         </p>
-        <div className="mt-3 flex flex-wrap gap-3 text-sm">
-          <Link href="/bao-gia-day-dai-thep" className="font-medium text-primary">
-            Báo giá dây đai thép mới nhất
+        <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+          <Link href="/bao-gia-day-dai-thep" className="font-medium text-primary hover:underline">
+            Báo giá dây đai thép
           </Link>
-          <Link href="/day-dai-thep-16mm-19mm-32mm" className="font-medium text-primary">
-            So sánh bản dây 16mm 19mm 32mm
+          <Link
+            href="/day-dai-thep-16mm-19mm-32mm"
+            className="font-medium text-primary hover:underline"
+          >
+            So sánh 16 / 19 / 32mm
           </Link>
-          <Link href="/khoa-dai-thep" className="font-medium text-primary">
-            Chọn khóa đai thép tương thích
+          <Link href="/khoa-dai-thep" className="font-medium text-primary hover:underline">
+            Bọ thép / khóa đai
           </Link>
         </div>
       </section>
     </Section>
   );
 }
-

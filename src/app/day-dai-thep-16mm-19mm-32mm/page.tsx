@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { QuickQuoteForm } from "@/components/seo/QuickQuoteForm";
 import { siteConfig } from "@/config/site";
+import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
 
 export const metadata: Metadata = {
   title: "Dây đai thép 16mm 19mm 32mm | cách chọn nhanh",
@@ -132,8 +131,7 @@ export default function SteelStrappingSizePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(offerJsonLd) }}
       />
-      <Header />
-      <main className="bg-background py-10">
+      <MarketingPageLayout>
         <article className="container mx-auto max-w-5xl px-4">
           <nav className="text-xs text-muted-foreground">
             <Link href="/" className="hover:text-foreground">
@@ -224,8 +222,7 @@ export default function SteelStrappingSizePage() {
             </div>
           </section>
         </article>
-      </main>
-      <Footer />
+      </MarketingPageLayout>
     </>
   );
 }

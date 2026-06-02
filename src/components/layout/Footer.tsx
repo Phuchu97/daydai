@@ -1,124 +1,116 @@
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
+import { Logo } from "@/components/brand/Logo";
 
 const currentYear = new Date().getFullYear();
 
+const resourceLinks = [
+  { href: "/bao-gia-day-dai-thep", label: "Báo giá dây đai thép" },
+  { href: "/khoa-dai-thep", label: "Khóa đai thép" },
+  { href: "/day-dai-thep-16mm-19mm-32mm", label: "Dây đai 16-19-32mm" },
+  { href: "/day-dai-thep-ha-noi", label: "Dây đai thép Hà Nội" },
+  { href: "/day-dai-thep-mien-bac", label: "Dây đai thép miền Bắc" },
+  { href: "/day-dai-sat", label: "Dây đai sắt" },
+  { href: "/dai-thep-cong-nghiep", label: "Đai thép công nghiệp" },
+  { href: "/nha-cung-cap-day-dai-thep", label: "Nhà cung cấp dây đai thép" },
+] as const;
+
+const legalLinks = [
+  { href: "/chinh-sach-bao-mat", label: "Chính sách bảo mật" },
+  { href: "/dieu-khoan-su-dung", label: "Điều khoản sử dụng" },
+] as const;
+
 export function Footer() {
   return (
-    <footer className="border-t border-border/50 bg-muted/25">
-      <div className="container mx-auto max-w-7xl px-4 py-12 lg:px-6">
-        <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-          <div>
-            <Link
-              href="/"
-              className="font-display text-lg font-semibold tracking-tight"
-            >
-              {siteConfig.name}
-            </Link>
-            <p className="mt-2 max-w-sm text-sm text-muted-foreground">
+    <footer className="mt-auto border-t border-border/50 bg-muted/25">
+      <div className="container mx-auto max-w-7xl px-4 py-10 sm:py-12 lg:px-6">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-12">
+          <div className="max-w-md">
+            <Logo showTagline className="max-w-sm" />
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               {siteConfig.description}
             </p>
+            <a
+              href={`tel:${siteConfig.company.zaloPhone}`}
+              className="btn-lift mt-4 inline-flex rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-[0_12px_24px_-16px_rgba(22,67,126,0.85)] lg:hidden"
+            >
+              Gọi {siteConfig.company.phone}
+            </a>
           </div>
 
-          <nav className="flex flex-wrap gap-6">
-            {siteConfig.nav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {item.label}
-              </Link>
-            ))}
-            <Link
-              href="/chinh-sach-bao-mat"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
+            <nav aria-label="Điều hướng chính" className="space-y-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-foreground">
+                Điều hướng
+              </p>
+              <ul className="space-y-2">
+                {siteConfig.nav.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <nav aria-label="Tài nguyên mua hàng" className="space-y-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-foreground">
+                Tài nguyên
+              </p>
+              <ul className="space-y-2">
+                {resourceLinks.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <nav
+              aria-label="Pháp lý"
+              className="col-span-2 space-y-3 sm:col-span-1"
             >
-              Chính sách bảo mật
-            </Link>
-            <Link
-              href="/dieu-khoan-su-dung"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Điều khoản sử dụng
-            </Link>
-            <Link
-              href="/bao-gia-day-dai-thep"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Báo giá dây đai thép
-            </Link>
-            <Link
-              href="/khoa-dai-thep"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Khóa đai thép
-            </Link>
-            <Link
-              href="/day-dai-thep-16mm-19mm-32mm"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Dây đai thép 16-19-32mm
-            </Link>
-            <Link
-              href="/day-dai-thep-ha-noi"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Dây đai thép Hà Nội
-            </Link>
-            <Link
-              href="/day-dai-thep-mien-bac"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Dây đai thép miền Bắc
-            </Link>
-            <Link
-              href="/day-dai-sat"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Dây đai sắt
-            </Link>
-            <Link
-              href="/dai-thep-cong-nghiep"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Đai thép công nghiệp
-            </Link>
-            <Link
-              href="/nha-cung-cap-day-dai-thep"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Nhà cung cấp dây đai thép
-            </Link>
-          </nav>
+              <p className="text-xs font-semibold uppercase tracking-wide text-foreground">
+                Pháp lý
+              </p>
+              <ul className="space-y-2">
+                {legalLinks.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
         </div>
 
-        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-border/40 pt-8 md:flex-row">
+        <div className="mt-8 flex flex-col items-start justify-between gap-3 border-t border-border/40 pt-6 sm:flex-row sm:items-center">
           <p className="text-sm text-muted-foreground">
             © {currentYear} {siteConfig.name}. All rights reserved.
           </p>
-          <div className="flex gap-6">
-            {siteConfig.links.twitter && (
-              <a
-                href={siteConfig.links.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-muted-foreground hover:text-foreground"
-              >
-                Twitter
-              </a>
-            )}
-            {siteConfig.links.github && (
-              <a
-                href={siteConfig.links.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-muted-foreground hover:text-foreground"
-              >
-                GitHub
-              </a>
-            )}
-          </div>
+          <p className="text-sm text-muted-foreground">
+            Hotline:{" "}
+            <a
+              href={`tel:${siteConfig.company.zaloPhone}`}
+              className="font-semibold text-foreground hover:text-primary"
+            >
+              {siteConfig.company.phone}
+            </a>
+          </p>
         </div>
       </div>
     </footer>

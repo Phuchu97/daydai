@@ -1,7 +1,4 @@
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { StickyTopBar } from "@/components/layout/StickyTopBar";
-import { StickyContacts } from "@/components/layout/StickyContacts";
+import { SiteShell } from "@/components/layout/SiteShell";
 import { siteConfig } from "@/config/site";
 import {
   SteelHero,
@@ -52,6 +49,7 @@ export default function HomePage() {
     name: siteConfig.company.legalName,
     url: baseUrl,
     image: `${baseUrl}${siteConfig.ogImage}`,
+    logo: `${baseUrl}${siteConfig.logoIcon}`,
     telephone: siteConfig.company.phone,
     address: {
       "@type": "PostalAddress",
@@ -76,7 +74,7 @@ export default function HomePage() {
   };
 
   return (
-    <>
+    <SiteShell showTopBar stackContactsAboveCartBar={false}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
@@ -89,21 +87,15 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <StickyTopBar />
-      <Header />
-      <main id="main-content">
-        <SteelHero />
-        <TrustSection />
-        <ProductsSection />
-        <WhyChooseUsSection />
-        <RealUsageSection />
-        <TestimonialsSection />
-        <LeadFormSection />
-        <FAQSection />
-        <FinalCTASection />
-      </main>
-      <Footer />
-      <StickyContacts />
-    </>
+      <SteelHero />
+      <TrustSection />
+      <ProductsSection />
+      <WhyChooseUsSection />
+      <RealUsageSection />
+      <TestimonialsSection />
+      <LeadFormSection />
+      <FAQSection />
+      <FinalCTASection />
+    </SiteShell>
   );
 }

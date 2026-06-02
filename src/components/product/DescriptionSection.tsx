@@ -21,7 +21,7 @@ export function DescriptionSection({ product }: Props) {
             {isTools
               ? "Bộ dụng cụ đóng đai thép giúp siết dây đai nhanh, cố định khóa đai chắc chắn và tối ưu thao tác cho nhân sự kho/nhà máy. Sản phẩm phù hợp khi bạn cần tốc độ đóng đai ổn định cho pallet, thùng hàng và kiện xuất vận chuyển."
               : isSeals
-                ? "Khóa đai thép (seals) dùng để cố định đầu dây đai sau khi siết, giúp vòng đai giữ lực ổn định và hạn chế tuột đai trong quá trình bốc xếp - vận chuyển."
+                ? "Bọ thép (khóa đai thép) dùng để cố định đầu dây đai sau khi siết, giúp vòng đai giữ lực ổn định và hạn chế tuột đai trong quá trình bốc xếp – vận chuyển."
                 : "Dây đai thép công nghiệp được thiết kế để cố định hàng hóa trọng tải lớn như cuộn thép, ống thép, pallet gỗ, máy móc và vật liệu xây dựng. Với độ bền kéo cao và khả năng chịu va đập tốt, dây đai thép đảm bảo hàng hóa luôn được siết chặt an toàn trong suốt quá trình bốc xếp và vận chuyển."}
           </p>
         </div>
@@ -44,7 +44,7 @@ export function DescriptionSection({ product }: Props) {
             </h3>
             <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
               <li>• Nhà máy thép, cơ khí, kết cấu thép.</li>
-              <li>• Doanh nghiệp logistics, kho bãi, ICD.</li>
+              <li>• Doanh nghiệp logistics, xưởng sản xuất, ICD.</li>
               <li>• Công ty xây dựng, bãi vật liệu.</li>
               <li>• Đơn vị đóng gói công nghiệp và xuất khẩu.</li>
             </ul>

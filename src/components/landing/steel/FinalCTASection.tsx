@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Section } from "../Section";
 
-const PHONE = "0339689386";
+const PHONE = "0339.689.386";
 const ZALO_URL = `https://zalo.me/${PHONE}`;
 
 export function FinalCTASection() {

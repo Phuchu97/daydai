@@ -7,7 +7,7 @@ export function TrustSection() {
       <div className="mx-auto max-w-5xl text-center">
         <p className="eyebrow">Niềm tin từ vận hành thực tế</p>
         <h2 className="mt-3 text-balance font-display text-3xl font-semibold tracking-[-0.02em] text-foreground sm:text-4xl">
-          Được tin dùng bởi hàng chục nhà máy và kho bãi trên toàn quốc
+          Được tin dùng bởi hàng chục nhà máy và xưởng sản xuất trên toàn quốc
         </h2>
         <p className="mt-3 text-sm leading-7 text-muted-foreground sm:text-base">
           Cung cấp giải pháp đóng gói dây đai thép cho nhiều ngành: thép,
@@ -59,17 +59,17 @@ export function TrustSection() {
       <div className="mt-10 grid gap-4 md:grid-cols-3">
         <div className="relative md:col-span-2 md:row-span-2 md:min-h-[21rem] overflow-hidden rounded-3xl border border-border/70 bg-muted shadow-[0_16px_34px_-24px_rgba(26,62,114,0.55)]">
           <Image
-            src="/images/day-dai-1.JPG"
-            alt="Kho cuộn dây đai thép"
-            fill
+            src="/images/nha-may-dong-dai.webp"
+              alt="Dây đai thép chất lượng cao tại nhà máy"
+              fill
             className="object-cover"
             sizes="(min-width: 768px) 66vw, 100vw"
           />
         </div>
         <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/70 bg-muted shadow-[0_16px_34px_-24px_rgba(26,62,114,0.55)]">
           <Image
-            src="/images/day-dai-2.JPG"
-            alt="Nhà máy sản xuất và đóng gói bằng dây đai thép"
+            src="/images/nha-may-dong-dai-2.jpg"
+            alt="Dây đai thép mạ kẽm màu xanh"
             fill
             className="object-cover"
             sizes="(min-width: 768px) 33vw, 100vw"
@@ -77,8 +77,8 @@ export function TrustSection() {
         </div>
         <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/70 bg-muted shadow-[0_16px_34px_-24px_rgba(26,62,114,0.55)]">
           <Image
-            src="/images/day-dai-3.JPG"
-            alt="Dây đai thép trên xe tải giao hàng"
+            src="/images/nha-may-dong-dai-3.webp"
+            alt="Dây đai thép chất lượng cao tại nhà máy"
             fill
             className="object-cover"
             sizes="(min-width: 768px) 33vw, 100vw"

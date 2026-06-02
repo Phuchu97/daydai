@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { siteConfig } from "@/config/site";
 import { articles, getArticleBySlug } from "@/data/articles";
 import { catalogProducts } from "@/data/products";
+import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
 
 type Params = {
   slug: string;
@@ -146,8 +145,7 @@ export default async function ArticleDetailPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
-      <Header />
-      <main className="bg-background py-10">
+      <MarketingPageLayout>
         <article className="container mx-auto max-w-3xl px-4">
           <nav className="mb-6 text-xs text-muted-foreground">
             <Link href="/" className="hover:text-foreground">
@@ -222,8 +220,7 @@ export default async function ArticleDetailPage({
             </ul>
           </section>
         </article>
-      </main>
-      <Footer />
+      </MarketingPageLayout>
     </>
   );
 }

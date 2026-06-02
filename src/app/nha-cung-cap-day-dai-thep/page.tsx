@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { QuickQuoteForm } from "@/components/seo/QuickQuoteForm";
 import { siteConfig } from "@/config/site";
+import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
 
 export const metadata: Metadata = {
   title: "Nhà cung cấp dây đai thép | hỗ trợ doanh nghiệp B2B",
   description:
-    "Trang thông tin nhà cung cấp dây đai thép cho nhà máy, kho bãi, logistics: hỗ trợ chọn quy cách, báo giá nhanh, đồng bộ dây đai - khóa đai - dụng cụ.",
+    "Trang thông tin nhà cung cấp dây đai thép cho nhà máy, xưởng sản xuất, logistics: hỗ trợ chọn quy cách, báo giá nhanh, đồng bộ dây đai - khóa đai - dụng cụ.",
   keywords: [
     "nhà cung cấp dây đai thép",
     "công ty dây đai thép",
@@ -20,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Nhà cung cấp dây đai thép | hỗ trợ doanh nghiệp B2B",
     description:
-      "Trang thông tin nhà cung cấp dây đai thép cho nhà máy, kho bãi và logistics với tư vấn kỹ thuật và báo giá nhanh.",
+      "Trang thông tin nhà cung cấp dây đai thép cho nhà máy, xưởng sản xuất và logistics với tư vấn kỹ thuật và báo giá nhanh.",
     url: `${siteConfig.url}/nha-cung-cap-day-dai-thep`,
     locale: "vi_VN",
     type: "article",
@@ -115,8 +114,7 @@ export default function SupplierPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(offerJsonLd) }}
       />
-      <Header />
-      <main className="bg-background py-10">
+      <MarketingPageLayout>
         <article className="container mx-auto max-w-5xl px-4">
           <nav className="text-xs text-muted-foreground">
             <Link href="/" className="hover:text-foreground">
@@ -126,7 +124,7 @@ export default function SupplierPage() {
           </nav>
 
           <h1 className="mt-4 text-balance font-display text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            Nhà cung cấp dây đai thép cho nhà máy, kho bãi và logistics
+            Nhà cung cấp dây đai thép cho nhà máy, xưởng sản xuất và logistics
           </h1>
           <p className="mt-3 max-w-[70ch] text-sm leading-7 text-muted-foreground sm:text-base">
             Chúng tôi tập trung vào nhu cầu B2B: chọn quy cách đúng tải trọng,
@@ -210,8 +208,7 @@ export default function SupplierPage() {
             </div>
           </section>
         </article>
-      </main>
-      <Footer />
+      </MarketingPageLayout>
     </>
   );
 }

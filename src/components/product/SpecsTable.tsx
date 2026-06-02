@@ -25,7 +25,7 @@ function getRows(product?: CatalogProduct) {
 
   if (product.id === "steel-strapping-tools") {
     return [
-      { label: "Thành phần", value: "Manual tensioner, sealer, combination tools" },
+      { label: "Thành phần", value: "Kìm siết, kìm bấm khóa, dụng cụ siết–bấm kết hợp" },
       { label: "Mục đích", value: "Siết dây đai & bấm khóa để hoàn tất vòng đai" },
       { label: "Bản dây tương thích", value: "Phổ biến: 16–19–32mm (tùy bộ)" },
       { label: "Vật liệu", value: "Kim loại chịu lực, thiết kế cho môi trường kho/nhà máy" },
@@ -36,7 +36,7 @@ function getRows(product?: CatalogProduct) {
 
   if (product.id === "steel-seals") {
     return [
-      { label: "Loại khóa", value: "Khóa đai thép (seals)" },
+      { label: "Loại khóa", value: "Khóa đai thép (bọ thép, bọ sắt)" },
       { label: "Bản dây tương thích", value: "Phù hợp phổ biến: 16–32mm" },
       { label: "Chức năng", value: "Cố định đầu dây đai sau khi siết" },
       { label: "Vật liệu", value: "Thép chịu lực, giảm nguy cơ tuột khóa" },

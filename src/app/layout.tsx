@@ -7,29 +7,29 @@ import { AttributionTracker } from "@/components/analytics/AttributionTracker";
 import { WebVitalsTracker } from "@/components/analytics/WebVitalsTracker";
 
 const fontSans = Geist({
-  subsets: ["latin", "vietnamese"],
+  subsets: ["latin", "latin-ext"],
   variable: "--font-sans",
   display: "swap",
 });
 
 const fontDisplay = Outfit({
-  subsets: ["latin", "vietnamese"],
+  subsets: ["latin", "latin-ext"],
   weight: ["500", "600", "700"],
   variable: "--font-display",
   display: "swap",
 });
 
+const defaultTitle =
+  "Dây Đai Thép Việt Nam | Dây đai thép, khóa đai & bộ dụng cụ đóng đai";
+
 export const metadata: Metadata = {
   title: {
-    default: "Dây đai thép, khóa đai thép và dụng cụ đóng đai công nghiệp",
+    default: defaultTitle,
     template: `%s | ${siteConfig.name}`,
   },
-  icons: {
-    icon: "/images/day-dai-3.JPG",
-  },
-  description:
-    "Nhà cung cấp dây đai thép, khóa đai thép và bộ dụng cụ đóng đai cho nhà máy, kho bãi, logistics tại Việt Nam. Báo giá nhanh, giao hàng toàn quốc.",
-  keywords: siteConfig.seo.primaryKeywords,
+  applicationName: siteConfig.name,
+  description: siteConfig.description,
+  keywords: [...siteConfig.seo.primaryKeywords],
   metadataBase: new URL(siteConfig.url),
   alternates: {
     canonical: "/",
@@ -43,23 +43,21 @@ export const metadata: Metadata = {
     locale: "vi_VN",
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: "Dây đai thép, khóa đai thép và dụng cụ đóng đai công nghiệp",
-    description:
-      "Chuyên dây đai thép công nghiệp, khóa đai thép, bộ dụng cụ siết đai cho hàng nặng. Phục vụ Hà Nội, miền Bắc và toàn quốc.",
+    title: defaultTitle,
+    description: siteConfig.tagline,
     images: [
       {
         url: `${siteConfig.url}${siteConfig.ogImage}`,
         width: 1200,
         height: 630,
-        alt: "Dây đai thép công nghiệp tại kho",
+        alt: `${siteConfig.name} - dây đai thép công nghiệp tại kho`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Dây đai thép, khóa đai thép và dụng cụ đóng đai công nghiệp",
-    description:
-      "Nhà cung cấp dây đai thép cho nhà máy, kho bãi và logistics tại Việt Nam.",
+    title: defaultTitle,
+    description: siteConfig.description,
     images: [`${siteConfig.url}${siteConfig.ogImage}`],
   },
   category: "Industrial Packaging",
@@ -100,8 +98,9 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     name: siteConfig.company.legalName,
+    alternateName: [siteConfig.shortName, siteConfig.domain],
     url: siteConfig.url,
-    logo: `${siteConfig.url}${siteConfig.ogImage}`,
+    logo: `${siteConfig.url}${siteConfig.logoIcon}`,
     telephone: siteConfig.company.phone,
     address: {
       "@type": "PostalAddress",
@@ -123,7 +122,7 @@ export default function RootLayout({
 
   return (
     <html lang="vi" className={`${fontSans.variable} ${fontDisplay.variable}`}>
-      <body className="min-h-screen font-sans">
+      <body className="min-h-[100dvh] font-sans">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}

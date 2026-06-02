@@ -2,13 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { articles } from "@/data/articles";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
 
 export const metadata: Metadata = {
   title: "Tư vấn dây đai thép thực tế | checklist cho doanh nghiệp",
   description:
-    "Tổng hợp bài tư vấn dây đai thép, khóa đai thép và dụng cụ đóng đai kèm checklist triển khai cho nhà máy, kho bãi, logistics.",
+    "Tổng hợp bài tư vấn dây đai thép, khóa đai thép và dụng cụ đóng đai kèm checklist triển khai cho nhà máy, xưởng sản xuất, logistics.",
   keywords: [
     "tư vấn dây đai thép",
     "cách chọn dây đai thép",
@@ -55,8 +54,7 @@ export default function ConsultingIndexPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
-      <Header />
-      <main className="bg-background py-10">
+      <MarketingPageLayout>
         <section className="container mx-auto max-w-5xl px-4">
           <h1 className="font-display text-3xl font-bold tracking-tight text-foreground">
             Chuyên mục tư vấn đóng gói công nghiệp
@@ -91,8 +89,7 @@ export default function ConsultingIndexPage() {
             ))}
           </div>
         </section>
-      </main>
-      <Footer />
+      </MarketingPageLayout>
     </>
   );
 }

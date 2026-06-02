@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { catalogProducts } from "@/data/products";
 import type { CatalogProduct } from "@/data/products";
+import { steelStrappingFaqs } from "@/data/steel-strapping-content";
 import { ProductDetailPage } from "@/components/product/ProductDetailPage";
 import { siteConfig } from "@/config/site";
 
@@ -20,7 +21,7 @@ function getFaqForProduct(product: CatalogProduct) {
       {
         question: "Bộ dụng cụ đóng đai thép gồm những gì?",
         answer:
-          "Bộ cơ bản gồm tensioner (siết đai), sealer (bấm khóa) và tùy mẫu có thể có tool kết hợp.",
+          "Bộ cơ bản gồm kìm siết (siết đai), bấm khóa (bấm khóa) và tùy mẫu có thể có tool kết hợp.",
       },
       {
         question: "Dụng cụ dùng được cho những bản dây nào?",
@@ -55,23 +56,7 @@ function getFaqForProduct(product: CatalogProduct) {
     ];
   }
 
-  return [
-    {
-      question: "Dây đai thép chịu lực bao nhiêu?",
-      answer:
-        "Tùy bản rộng và độ dày, có thể đạt mức chịu tải cao khi đóng đúng kỹ thuật. Chúng tôi sẽ tư vấn theo loại hàng cụ thể.",
-    },
-    {
-      question: "Có giao hàng toàn quốc không?",
-      answer:
-        "Có. Chúng tôi hỗ trợ giao hàng toàn quốc qua chành xe hoặc đơn vị vận chuyển phù hợp.",
-    },
-    {
-      question: "Có bán sỉ cho nhà máy và đại lý không?",
-      answer:
-        "Có. Chúng tôi có chính sách giá sỉ theo khối lượng đơn hàng và tần suất nhập hàng.",
-    },
-  ];
+  return steelStrappingFaqs;
 }
 
 export function generateStaticParams() {
@@ -89,7 +74,10 @@ export async function generateMetadata({
   const product = getProductFromSlug(slug);
   if (!product) return {};
 
-  const title = `${product.name}`;
+  const title =
+    product.id === "steel-strapping"
+      ? "Dây đai thép | Bản 16/19/25/32mm, giao toàn quốc"
+      : `${product.name}`;
   const description = product.shortDescription;
 
   const keywords = [
@@ -102,7 +90,7 @@ export async function generateMetadata({
     "day dai thep",
     "đóng gói công nghiệp",
     "pallet hàng nặng",
-    "kho bãi",
+    "xưởng sản xuất",
     "logistics",
   ];
 
@@ -152,7 +140,8 @@ export default async function ProductRoutePage({
 
   const productUrl = `${siteConfig.url}/san-pham/${slug}`;
   const faqs = getFaqForProduct(product);
-  const offerPrice = product.salePrice ?? product.basePrice;
+  const offerPrice =
+    product.pricePerKg ?? product.salePrice ?? product.basePrice;
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -169,6 +158,16 @@ export default async function ProductRoutePage({
           "@type": "Offer",
           priceCurrency: "VND",
           price: offerPrice,
+          ...(product.pricePerKg
+            ? {
+                priceSpecification: {
+                  "@type": "UnitPriceSpecification",
+                  price: product.pricePerKg,
+                  priceCurrency: "VND",
+                  unitText: "kg",
+                },
+              }
+            : {}),
           availability: "https://schema.org/InStock",
           url: productUrl,
           seller: {

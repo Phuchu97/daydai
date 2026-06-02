@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import { siteConfig } from "@/config/site";
 import { Section } from "../Section";
 
-const PHONE = "0339689386";
+const PHONE = "0339.689.386";
 const ZALO_URL = `https://zalo.me/${PHONE}`;
 
 export function SteelHero() {
@@ -15,15 +16,14 @@ export function SteelHero() {
       <div className="relative grid gap-10 md:grid-cols-[minmax(0,1.25fr),minmax(0,1fr)] md:items-center">
         <div>
           <p className="eyebrow mb-4 inline-flex rounded-full border border-primary/20 bg-primary/10 px-3 py-1.5">
-            Giải pháp đóng gói an toàn cho nhà máy & logistics
+            {siteConfig.name} · {siteConfig.domain}
           </p>
           <h1 className="text-balance font-display text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-foreground sm:text-5xl md:text-6xl">
             Dây đai thép công nghiệp – Siết chặt hàng hóa, vận chuyển an toàn
           </h1>
           <p className="mt-5 max-w-[65ch] text-sm leading-7 text-muted-foreground sm:text-base">
-            Chuyên cung cấp dây đai thép và bộ dụng cụ đóng đai cho nhà máy,
-            kho bãi, logistics và xây dựng. Hàng luôn có sẵn, giao nhanh toàn
-            quốc, hỗ trợ kỹ thuật tận nơi.
+            {siteConfig.tagline}. Hàng luôn có sẵn, giao nhanh toàn quốc, hỗ trợ
+            kỹ thuật tận nơi.
           </p>
           <ul className="mt-7 grid gap-3 text-sm text-foreground/90 sm:grid-cols-2">
             <li className="flex items-start gap-2">
@@ -81,7 +81,7 @@ export function SteelHero() {
             <div className="grid grid-cols-2 gap-px bg-border/60">
               <div className="relative aspect-[4/3]">
                 <Image
-                  src="/images/day-dai-1.JPG"
+                  src="/images/day-dai-1.jpg"
                   alt="Cuộn dây đai thép trong kho"
                   fill
                   className="object-cover"
@@ -91,7 +91,7 @@ export function SteelHero() {
               </div>
               <div className="relative aspect-[4/3]">
                 <Image
-                  src="/images/day-dai-2.JPG"
+                  src="/images/day-dai-2.jpg"
                   alt="Dây đai thép đóng gói pallet"
                   fill
                   className="object-cover"
@@ -101,7 +101,7 @@ export function SteelHero() {
               </div>
               <div className="relative aspect-[4/3]">
                 <Image
-                  src="/images/day-dai-3.JPG"
+                  src="/images/day-dai-3.jpg"
                   alt="Kho dây đai thép"
                   fill
                   className="object-cover"
@@ -110,7 +110,7 @@ export function SteelHero() {
               </div>
               <div className="relative aspect-[4/3]">
                 <Image
-                  src="/images/day-dai-4.JPG"
+                  src="/images/day-dai-4.jpg"
                   alt="Dây đai thép trên xe tải"
                   fill
                   className="object-cover"

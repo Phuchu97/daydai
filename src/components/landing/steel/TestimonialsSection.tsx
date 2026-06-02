@@ -9,7 +9,7 @@ export function TestimonialsSection() {
           Khách hàng nói gì về chúng tôi
         </h2>
         <p className="mt-3 text-sm leading-7 text-muted-foreground sm:text-base">
-          Được tin tưởng bởi quản lý nhà máy, kho bãi và đơn vị logistics trên
+          Được tin tưởng bởi quản lý nhà máy, xưởng sản xuất và đơn vị logistics trên
           toàn quốc.
         </p>
       </div>
@@ -32,7 +32,7 @@ export function TestimonialsSection() {
             giao hàng và bảo hành rõ ràng, đáp ứng tốt khi mình cần gấp.”
           </blockquote>
           <figcaption className="mt-4 text-sm font-semibold text-foreground">
-            Chị Hương – Công ty logistics & kho bãi
+            Chị Hương – Công ty logistics & xưởng sản xuất
           </figcaption>
         </figure>
       </div>

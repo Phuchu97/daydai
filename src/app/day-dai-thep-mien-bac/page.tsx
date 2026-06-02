@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { QuickQuoteForm } from "@/components/seo/QuickQuoteForm";
 import { siteConfig } from "@/config/site";
+import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
 
 export const metadata: Metadata = {
   title: "Nhà cung cấp dây đai thép miền Bắc | tư vấn nhanh",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Nhà cung cấp dây đai thép miền Bắc | tư vấn nhanh",
     description:
-      "Giải pháp dây đai thép cho nhà máy, kho bãi và logistics tại miền Bắc, hỗ trợ báo giá và tư vấn nhanh.",
+      "Giải pháp dây đai thép cho nhà máy, xưởng sản xuất và logistics tại miền Bắc, hỗ trợ báo giá và tư vấn nhanh.",
     url: `${siteConfig.url}/day-dai-thep-mien-bac`,
     locale: "vi_VN",
     type: "article",
@@ -132,8 +132,7 @@ export default function NorthLandingPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <Header />
-      <main className="bg-background py-10">
+      <MarketingPageLayout>
         <article className="container mx-auto max-w-5xl px-4">
           <nav className="text-xs text-muted-foreground">
             <Link href="/" className="hover:text-foreground">
@@ -175,6 +174,36 @@ export default function NorthLandingPage() {
                 1 đầu mối
               </p>
               <p className="mt-1 text-sm text-foreground">Tư vấn dây + khóa + dụng cụ</p>
+            </div>
+          </section>
+
+          <section className="mt-6 grid gap-4 md:grid-cols-3">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/70 bg-muted">
+              <Image
+                src="/images/day-dai-thep-32mm.jpg"
+                alt="Dây đai thép 32mm dùng cho hàng nặng"
+                fill
+                className="object-cover"
+                sizes="(min-width: 768px) 33vw, 100vw"
+              />
+            </div>
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/70 bg-muted">
+              <Image
+                src="/images/day-dai-thep-32-chat-luong.jpg"
+                alt="Dây đai thép 32 chất lượng cao"
+                fill
+                className="object-cover"
+                sizes="(min-width: 768px) 33vw, 100vw"
+              />
+            </div>
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/70 bg-muted">
+              <Image
+                src="/images/day-dai-thep-ma-kem-xanh.jpg"
+                alt="Dây đai thép mạ kẽm xanh cho doanh nghiệp miền Bắc"
+                fill
+                className="object-cover"
+                sizes="(min-width: 768px) 33vw, 100vw"
+              />
             </div>
           </section>
 
@@ -228,8 +257,7 @@ export default function NorthLandingPage() {
             Gọi tư vấn khu vực miền Bắc
           </a>
         </article>
-      </main>
-      <Footer />
+      </MarketingPageLayout>
     </>
   );
 }

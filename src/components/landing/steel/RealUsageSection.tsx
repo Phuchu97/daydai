@@ -18,8 +18,8 @@ export function RealUsageSection() {
       <div className="mt-10 grid gap-4 md:grid-cols-3">
         <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border bg-muted">
           <Image
-            src="/images/day-dai-2.JPG"
-            alt="Dây đai thép siết pallet trong nhà máy"
+            src="/images/day-dai-thep-32-chat-luong.jpg"
+            alt="Dây đai thép tại kho công nghiệp"
             fill
             className="object-cover"
             sizes="(min-width: 768px) 33vw, 100vw"
@@ -27,8 +27,8 @@ export function RealUsageSection() {
         </div>
         <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border bg-muted">
           <Image
-            src="/images/day-dai-3.JPG"
-            alt="Kho đóng gói dây đai thép"
+            src="/images/day-dai-4.jpg"
+            alt="Dây đai thép tại kho khách hàng"
             fill
             className="object-cover"
             sizes="(min-width: 768px) 33vw, 100vw"
@@ -36,8 +36,8 @@ export function RealUsageSection() {
         </div>
         <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border bg-muted">
           <Image
-            src="/images/day-dai-4.JPG"
-            alt="Dây đai thép cố định hàng trên xe tải"
+            src="/images/lo-day-dai-thep-giao-cho-khach-hang.jpg"
+            alt="Lô dây đai thép chuẩn bị giao cho khách hàng"
             fill
             className="object-cover"
             sizes="(min-width: 768px) 33vw, 100vw"

@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { QuickQuoteForm } from "@/components/seo/QuickQuoteForm";
 import { siteConfig } from "@/config/site";
+import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
 
 export const metadata: Metadata = {
   title: "Đai thép công nghiệp | giải pháp cho pallet hàng nặng",
   description:
-    "Giải pháp đai thép công nghiệp cho nhà máy, kho bãi, logistics: chọn bản dây, khóa đai và bộ dụng cụ đúng kỹ thuật để đảm bảo an toàn vận chuyển.",
+    "Giải pháp đai thép công nghiệp cho nhà máy, xưởng sản xuất, logistics: chọn bản dây, khóa đai và bộ dụng cụ đúng kỹ thuật để đảm bảo an toàn vận chuyển.",
   keywords: [
     "đai thép công nghiệp",
     "đai thép đóng hàng",
@@ -100,8 +99,7 @@ export default function IndustrialSteelStrapPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(offerJsonLd) }}
       />
-      <Header />
-      <main className="bg-background py-10">
+      <MarketingPageLayout>
         <article className="container mx-auto max-w-5xl px-4">
           <nav className="text-xs text-muted-foreground">
             <Link href="/" className="hover:text-foreground">
@@ -182,8 +180,7 @@ export default function IndustrialSteelStrapPage() {
             </ul>
           </section>
         </article>
-      </main>
-      <Footer />
+      </MarketingPageLayout>
     </>
   );
 }

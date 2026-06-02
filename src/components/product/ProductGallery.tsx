@@ -1,56 +1,236 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { ProductImage } from "@/data/products";
+import { cn } from "@/lib/utils";
+import { ChevronLeftIcon, ChevronRightIcon } from "./GalleryNavIcons";
 
 type Props = {
   images: ProductImage[];
 };
 
-export function ProductGallery({ images }: Props) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const active = images[activeIndex];
+const THUMB_SIZE_MOBILE = 64;
+const THUMB_GAP_PX = 8;
+
+function GalleryNavButton({
+  direction,
+  onClick,
+  disabled,
+  label,
+  className,
+}: {
+  direction: "prev" | "next";
+  onClick: () => void;
+  disabled: boolean;
+  label: string;
+  className?: string;
+}) {
+  const Icon = direction === "prev" ? ChevronLeftIcon : ChevronRightIcon;
 
   return (
-    <div className="space-y-3">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-muted">
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={label}
+      className={cn(
+        "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border/80 bg-white/95 text-foreground shadow-[0_8px_20px_-12px_rgba(22,67,126,0.45)] backdrop-blur-sm transition",
+        "hover:border-primary/35 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
+        "active:scale-[0.97] disabled:pointer-events-none disabled:opacity-35",
+        className
+      )}
+    >
+      <Icon className="h-4 w-4" />
+    </button>
+  );
+}
+
+export function ProductGallery({ images }: Props) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const thumbTrackRef = useRef<HTMLDivElement>(null);
+  const thumbButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const active = images[activeIndex] ?? images[0];
+  const hasMultiple = images.length > 1;
+
+  const updateThumbScrollState = useCallback(() => {
+    const track = thumbTrackRef.current;
+    if (!track) return;
+    setCanScrollLeft(track.scrollLeft > 4);
+    setCanScrollRight(track.scrollLeft + track.clientWidth < track.scrollWidth - 4);
+  }, []);
+
+  const scrollThumbs = useCallback((direction: "prev" | "next") => {
+    const track = thumbTrackRef.current;
+    if (!track) return;
+    const firstThumb = track.querySelector<HTMLElement>('[role="tab"]');
+    const thumbWidth = firstThumb?.offsetWidth ?? THUMB_SIZE_MOBILE;
+    const step = (thumbWidth + THUMB_GAP_PX) * 3;
+    track.scrollBy({
+      left: direction === "prev" ? -step : step,
+      behavior: "smooth",
+    });
+  }, []);
+
+  const goToImage = useCallback((index: number) => {
+    setActiveIndex(index);
+  }, []);
+
+  const goPrev = useCallback(() => {
+    setActiveIndex((current) =>
+      current === 0 ? images.length - 1 : current - 1
+    );
+  }, [images.length]);
+
+  const goNext = useCallback(() => {
+    setActiveIndex((current) =>
+      current === images.length - 1 ? 0 : current + 1
+    );
+  }, [images.length]);
+
+  useEffect(() => {
+    const track = thumbTrackRef.current;
+    const thumb = thumbButtonRefs.current[activeIndex];
+    if (!track || !thumb) return;
+
+    const frame = window.requestAnimationFrame(() => {
+      const trackRect = track.getBoundingClientRect();
+      const thumbRect = thumb.getBoundingClientRect();
+      const overflowLeft = thumbRect.left < trackRect.left;
+      const overflowRight = thumbRect.right > trackRect.right;
+
+      if (overflowLeft || overflowRight) {
+        thumb.scrollIntoView({
+          behavior: "smooth",
+          inline: "center",
+          block: "nearest",
+        });
+      }
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [activeIndex]);
+
+  useEffect(() => {
+    const track = thumbTrackRef.current;
+    if (!track) return;
+
+    updateThumbScrollState();
+
+    const onScroll = () => updateThumbScrollState();
+    track.addEventListener("scroll", onScroll, { passive: true });
+
+    const resizeObserver = new ResizeObserver(() => updateThumbScrollState());
+    resizeObserver.observe(track);
+
+    return () => {
+      track.removeEventListener("scroll", onScroll);
+      resizeObserver.disconnect();
+    };
+  }, [images.length, updateThumbScrollState]);
+
+  if (!active) return null;
+
+  return (
+    <div className="min-w-0 space-y-3">
+      <div className="group relative aspect-[4/5] overflow-hidden rounded-2xl border border-border/80 bg-muted shadow-[0_20px_44px_-32px_rgba(22,67,126,0.35)]">
         <Image
           key={active.src}
           src={active.src}
           alt={active.alt}
           fill
-          className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+          className="object-cover transition duration-500 ease-out group-hover:scale-[1.02]"
           sizes="(min-width: 1024px) 480px, 100vw"
-          priority
+          priority={activeIndex === 0}
         />
+
+        {hasMultiple ? (
+          <>
+            <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-between bg-gradient-to-b from-black/25 to-transparent p-3 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100 md:opacity-100">
+              <span className="rounded-full bg-black/45 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">
+                {activeIndex + 1} / {images.length}
+              </span>
+            </div>
+
+            <GalleryNavButton
+              direction="prev"
+              onClick={goPrev}
+              disabled={false}
+              label="Ảnh trước"
+              className="absolute left-3 top-1/2 z-10 -translate-y-1/2 opacity-100 md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100"
+            />
+            <GalleryNavButton
+              direction="next"
+              onClick={goNext}
+              disabled={false}
+              label="Ảnh sau"
+              className="absolute right-3 top-1/2 z-10 -translate-y-1/2 opacity-100 md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100"
+            />
+          </>
+        ) : null}
       </div>
 
-      <div className="grid grid-cols-4 gap-2">
-        {images.map((item, index) => (
-          <button
-            key={item.src}
-            type="button"
-            onClick={() => setActiveIndex(index)}
-            className={`relative aspect-square overflow-hidden rounded-lg border ${
-              index === activeIndex
-                ? "border-primary ring-2 ring-primary/40"
-                : "border-border"
-            }`}
-            aria-label={`Xem hình ${index + 1}`}
+      {hasMultiple ? (
+        <div className="relative min-w-0 md:flex md:items-center md:gap-2">
+          <GalleryNavButton
+            direction="prev"
+            onClick={() => scrollThumbs("prev")}
+            disabled={!canScrollLeft}
+            label="Cuộn ảnh nhỏ sang trái"
+            className="absolute left-0 top-1/2 z-10 h-8 w-8 -translate-y-1/2 md:static md:h-9 md:w-9 md:translate-y-0"
+          />
+
+          <div
+            ref={thumbTrackRef}
+            className="gallery-thumb-track min-w-0 flex gap-2 overflow-x-auto scroll-smooth py-1 pl-10 pr-10 md:flex-1 md:px-0.5"
+            role="tablist"
+            aria-label="Danh sách ảnh sản phẩm"
           >
-            <Image
-              src={item.src}
-              alt={item.alt}
-              fill
-              className="object-cover"
-              sizes="96px"
-              loading="lazy"
-            />
-          </button>
-        ))}
-      </div>
+            {images.map((item, index) => {
+              const isActive = index === activeIndex;
+              return (
+                <button
+                  key={`${item.src}-${index}`}
+                  ref={(node) => {
+                    thumbButtonRefs.current[index] = node;
+                  }}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-label={`Xem hình ${index + 1}: ${item.alt}`}
+                  onClick={() => goToImage(index)}
+                  className={cn(
+                    "relative h-16 w-16 shrink-0 snap-center overflow-hidden rounded-xl border-2 transition duration-200 md:h-[76px] md:w-[76px]",
+                    isActive
+                      ? "border-primary shadow-[0_0_0_3px_hsl(var(--color-primary)/0.18)]"
+                      : "border-border/80 opacity-80 hover:border-primary/35 hover:opacity-100"
+                  )}
+                >
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    fill
+                    className="object-cover"
+                    sizes="(min-width: 768px) 76px, 64px"
+                    loading={index === 0 ? "eager" : "lazy"}
+                  />
+                </button>
+              );
+            })}
+          </div>
+
+          <GalleryNavButton
+            direction="next"
+            onClick={() => scrollThumbs("next")}
+            disabled={!canScrollRight}
+            label="Cuộn ảnh nhỏ sang phải"
+            className="absolute right-0 top-1/2 z-10 h-8 w-8 -translate-y-1/2 md:static md:h-9 md:w-9 md:translate-y-0"
+          />
+        </div>
+      ) : null}
     </div>
   );
 }
-

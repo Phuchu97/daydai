@@ -73,8 +73,11 @@ src/
 
 ## Deploy
 
-- **Vercel**: Kết nối repo, build command `npm run build`, output: Next.js.
-- **Docker / VPS**: Chạy `npm run build && npm start`, expose port 3000.
+Xem **[DEPLOY.md](./DEPLOY.md)** — hướng dẫn deploy Docker lên VPS (`160.30.160.31`).
+
+```bash
+VPS_PASSWORD='...' ./scripts/deploy-docker.sh
+```
 
 ---
 

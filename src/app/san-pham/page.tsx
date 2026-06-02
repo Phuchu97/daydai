@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { siteConfig } from "@/config/site";
 import { catalogProducts } from "@/data/products";
+import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
+import { ProductCatalogCard } from "@/components/product/ProductCatalogCard";
 
 export const metadata: Metadata = {
   title: "Dây đai thép, khóa đai thép và bộ dụng cụ đóng đai",
   description:
-    "Danh mục dây đai thép công nghiệp, khóa đai thép và bộ dụng cụ đóng đai cho nhà máy, kho bãi, logistics tại Việt Nam.",
+    "Danh mục dây đai thép công nghiệp, khóa đai thép và bộ dụng cụ đóng đai cho nhà máy, xưởng sản xuất, logistics tại Việt Nam.",
   keywords: [
     "dây đai thép",
     "dây đai sắt",
@@ -56,8 +55,7 @@ export default function ProductIndexPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
-      <Header />
-      <main className="bg-background py-10">
+      <MarketingPageLayout>
         <section className="container mx-auto max-w-6xl px-4">
           <nav className="text-xs text-muted-foreground">
             <Link href="/" className="hover:text-foreground">
@@ -70,45 +68,14 @@ export default function ProductIndexPage() {
             Dây đai thép, khóa đai thép và dụng cụ đóng đai công nghiệp
           </h1>
           <p className="mt-3 max-w-[70ch] text-sm leading-7 text-muted-foreground sm:text-base">
-            Danh mục sản phẩm dành cho nhà máy, kho bãi và logistics: dây đai
+            Danh mục sản phẩm dành cho nhà máy, xưởng sản xuất và logistics: dây đai
             thép chịu lực cao, khóa đai thép và bộ dụng cụ siết bấm đai theo
             từng tải trọng.
           </p>
 
           <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {catalogProducts.map((product) => (
-              <article
-                key={product.id}
-                className="surface-card overflow-hidden rounded-2xl"
-              >
-                <div className="relative aspect-[4/3]">
-                  <Image
-                    src={product.images[0]?.src ?? siteConfig.ogImage}
-                    alt={product.images[0]?.alt ?? product.name}
-                    fill
-                    className="object-cover"
-                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                  />
-                </div>
-                <div className="p-5">
-                  <h2 className="text-base font-semibold text-foreground">
-                    <Link href={product.slug} className="hover:text-primary">
-                      {product.name}
-                    </Link>
-                  </h2>
-                  <p className="mt-2 text-sm leading-7 text-muted-foreground">
-                    {product.shortDescription}
-                  </p>
-                  <div className="mt-4">
-                    <Link
-                      href={product.slug}
-                      className="btn-lift inline-flex rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
-                    >
-                      Xem chi tiết sản phẩm
-                    </Link>
-                  </div>
-                </div>
-              </article>
+              <ProductCatalogCard key={product.id} product={product} />
             ))}
           </div>
 
@@ -149,8 +116,7 @@ export default function ProductIndexPage() {
             </div>
           </section>
         </section>
-      </main>
-      <Footer />
+      </MarketingPageLayout>
     </>
   );
 }

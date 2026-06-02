@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { QuickQuoteForm } from "@/components/seo/QuickQuoteForm";
 import { siteConfig } from "@/config/site";
+import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
 
 export const metadata: Metadata = {
   title: "Bộ dụng cụ đóng đai thép | siết đai và kìm bấm bọ",
@@ -56,7 +55,7 @@ export default function SteelToolGuidePage() {
       {
         "@type": "HowToStep",
         name: "Siết căng dây",
-        text: "Dùng tensioner siết tới lực phù hợp với tải trọng kiện hàng.",
+        text: "Dùng kìm siết siết tới lực phù hợp với tải trọng kiện hàng.",
       },
       {
         "@type": "HowToStep",
@@ -72,8 +71,7 @@ export default function SteelToolGuidePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
       />
-      <Header />
-      <main className="bg-background py-10">
+      <MarketingPageLayout>
         <article className="container mx-auto max-w-5xl px-4">
           <nav className="text-xs text-muted-foreground">
             <Link href="/" className="hover:text-foreground">
@@ -132,7 +130,7 @@ export default function SteelToolGuidePage() {
               </h2>
               <ol className="mt-3 space-y-2 text-sm leading-7 text-muted-foreground">
                 <li>1. Luồn dây đúng vị trí và đặt bọ thép phù hợp bản dây.</li>
-                <li>2. Siết căng dây bằng tensioner tới lực yêu cầu.</li>
+                <li>2. Siết căng dây bằng kìm siết tới lực yêu cầu.</li>
                 <li>3. Bấm bọ bằng sealer và kiểm tra lại mối khóa.</li>
               </ol>
             </div>
@@ -172,8 +170,7 @@ export default function SteelToolGuidePage() {
             </a>
           </section>
         </article>
-      </main>
-      <Footer />
+      </MarketingPageLayout>
     </>
   );
 }

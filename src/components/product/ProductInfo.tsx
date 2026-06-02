@@ -1,13 +1,16 @@
  "use client";
 
 import { useState } from "react";
+import { ContactPhoneCta } from "@/components/contact/ContactPhoneCta";
 import { useCartStore } from "@/store/cartStore";
 import type { CatalogProduct } from "@/data/products";
 
 const widths = ["16mm", "19mm", "25mm", "32mm"];
 const thicknesses = ["0.6mm", "0.8mm", "1.0mm"];
-const STRAPPING_SALE_PRICE_PER_KG = 25000;
-const STRAPPING_DISCOUNT_PERCENT = 35;
+import {
+  STEEL_STRAPPING_DISCOUNT_PERCENT,
+  STEEL_STRAPPING_PRICE_PER_KG,
+} from "@/config/pricing";
 
 type Props = {
   product: CatalogProduct;
@@ -20,8 +23,9 @@ export function ProductInfo({ product }: Props) {
   const [qty, setQty] = useState(1);
   const addToCart = useCartStore((s) => s.addToCart);
   const isStrapping = product.id === "steel-strapping";
-  const discountPercent =
-    product.basePrice && product.salePrice
+  const discountPercent = isStrapping
+    ? STEEL_STRAPPING_DISCOUNT_PERCENT
+    : product.basePrice && product.salePrice
       ? Math.round(
           ((product.basePrice - product.salePrice) / product.basePrice) * 100,
         )
@@ -36,14 +40,14 @@ export function ProductInfo({ product }: Props) {
       ? `Bản ${width} • Dày ${thickness} • ${weightKg}kg`
       : undefined;
     const price = isStrapping
-      ? weightKg * STRAPPING_SALE_PRICE_PER_KG
+      ? weightKg * STEEL_STRAPPING_PRICE_PER_KG
       : (product.salePrice ?? product.basePrice ?? 0);
     addToCart(
       {
         id: product.id,
         name: product.name,
         price,
-        image: product.images[0]?.src ?? "/images/day-dai-2.JPG",
+        image: product.images[0]?.src ?? "/images/day-dai-2.jpg",
         variant,
       },
       qty,
@@ -58,7 +62,7 @@ export function ProductInfo({ product }: Props) {
   };
 
   return (
-    <section aria-labelledby="product-title" className="space-y-5">
+    <section aria-labelledby="product-title" className="min-w-0 space-y-5">
       <div className="space-y-2">
         <h1
           id="product-title"
@@ -71,31 +75,35 @@ export function ProductInfo({ product }: Props) {
           <span className="font-semibold text-foreground">4.8</span>
           <span>(256 đánh giá)</span>
         </p>
+        {isStrapping && product.shortDescription ? (
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            {product.shortDescription}
+          </p>
+        ) : null}
       </div>
 
+      {product.priceLabel ? (
+        <ContactPhoneCta variant="price" />
+      ) : (
       <div className="space-y-1 rounded-2xl border border-border bg-muted/40 p-4">
-        <div className="flex items-end gap-2">
+        <div className="flex max-w-full flex-wrap items-end gap-x-2 gap-y-1">
           {isStrapping ? (
             <>
               <p className="text-2xl font-bold text-secondary">
-                {(weightKg * STRAPPING_SALE_PRICE_PER_KG).toLocaleString("vi-VN")}
+                {(weightKg * STEEL_STRAPPING_PRICE_PER_KG).toLocaleString("vi-VN")}
                 đ
               </p>
               <p className="text-sm text-muted-foreground line-through">
                 {Math.round(
-                  (weightKg * STRAPPING_SALE_PRICE_PER_KG) /
-                    (1 - STRAPPING_DISCOUNT_PERCENT / 100),
+                  (weightKg * STEEL_STRAPPING_PRICE_PER_KG) /
+                    (1 - STEEL_STRAPPING_DISCOUNT_PERCENT / 100),
                 ).toLocaleString("vi-VN")}
                 đ
               </p>
               <span className="rounded-full bg-red-500/10 px-2 py-1 text-xs font-semibold uppercase text-red-500">
-                -{STRAPPING_DISCOUNT_PERCENT}%
+                -{STEEL_STRAPPING_DISCOUNT_PERCENT}%
               </span>
             </>
-          ) : product.priceLabel ? (
-            <p className="text-sm font-semibold text-secondary">
-              {product.priceLabel}
-            </p>
           ) : (
             <>
               <p className="text-2xl font-bold text-secondary">
@@ -118,6 +126,7 @@ export function ProductInfo({ product }: Props) {
           )}
         </div>
       </div>
+      )}
 
       <div className="space-y-4">
         {isStrapping && (
@@ -187,8 +196,8 @@ export function ProductInfo({ product }: Props) {
         )}
       </div>
 
-      <div className="space-y-3">
-        <div className="flex flex-col gap-2 sm:flex-row">
+      <div className="space-y-3 max-md:pb-2">
+        <div className="flex min-w-0 flex-col gap-2 overflow-hidden sm:flex-row max-md:[&_button]:min-h-11">
           <button
             type="button"
             onClick={handleAddToCart}

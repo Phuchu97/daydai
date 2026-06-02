@@ -1,16 +1,29 @@
-export function BenefitsSection() {
-  const benefits = [
-    "Siết chặt hàng hóa chắc chắn, hạn chế xê dịch khi vận chuyển.",
-    "Chịu lực cao, phù hợp cho pallet hàng nặng và cuộn thép.",
-    "Tối ưu vận chuyển container, kho bãi, bến cảng.",
-    "Dùng tốt trong môi trường công nghiệp, chịu nhiệt và va đập.",
-  ];
+import type { CatalogProduct } from "@/data/products";
+import { steelStrappingBenefits } from "@/data/steel-strapping-content";
+
+type Props = {
+  product?: CatalogProduct;
+};
+
+const defaultBenefits = [
+  "Siết chặt hàng hóa chắc chắn, hạn chế xê dịch khi vận chuyển.",
+  "Chịu lực cao, phù hợp cho pallet hàng nặng và cuộn thép.",
+  "Tối ưu vận chuyển container, xưởng sản xuất, bến cảng.",
+  "Dùng tốt trong môi trường công nghiệp, chịu nhiệt và va đập.",
+];
+
+export function BenefitsSection({ product }: Props) {
+  const isStrapping = product?.id === "steel-strapping";
+  const benefits = isStrapping ? steelStrappingBenefits : defaultBenefits;
+  const title = isStrapping
+    ? "Lợi ích khi sử dụng dây đai thép"
+    : "Lợi ích khi sử dụng dây đai thép công nghiệp";
 
   return (
     <section className="border-t border-border/60 bg-muted/40 py-10">
       <div className="container mx-auto max-w-5xl px-4">
         <h2 className="text-lg font-semibold text-foreground sm:text-xl">
-          Lợi ích khi sử dụng dây đai thép công nghiệp
+          {title}
         </h2>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           {benefits.map((item) => (

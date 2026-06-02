@@ -1,4 +1,9 @@
-const faqs = [
+export type FaqItem = {
+  question: string;
+  answer: string;
+};
+
+const defaultFaqs: FaqItem[] = [
   {
     question: "Dây đai thép chịu lực bao nhiêu?",
     answer:
@@ -21,7 +26,11 @@ const faqs = [
   },
 ];
 
-export function FAQSection() {
+type Props = {
+  faqs?: FaqItem[];
+};
+
+export function FAQSection({ faqs = defaultFaqs }: Props) {
   return (
     <section className="border-t border-border bg-muted/40 py-10">
       <div className="container mx-auto max-w-5xl px-4">

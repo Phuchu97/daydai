@@ -165,7 +165,7 @@ export function LeadFormSection() {
 
         <p className="mt-4 text-center text-xs text-muted-foreground">
           Hoặc gọi trực tiếp{" "}
-          <a href="tel:0339689386" className="font-semibold text-primary">
+          <a href="tel:0339.689.386" className="font-semibold text-primary">
             0339 689 386 (Mr. Phú)
           </a>{" "}
           hoặc Zalo cùng số.

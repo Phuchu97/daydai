@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { QuickQuoteForm } from "@/components/seo/QuickQuoteForm";
 import { siteConfig } from "@/config/site";
+import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
 
 export const metadata: Metadata = {
   title: "Dây đai thép Hà Nội | báo giá nhanh trong ngày",
@@ -132,8 +132,7 @@ export default function HanoiLandingPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <Header />
-      <main className="bg-background py-10">
+      <MarketingPageLayout>
         <article className="container mx-auto max-w-5xl px-4">
           <nav className="text-xs text-muted-foreground">
             <Link href="/" className="hover:text-foreground">
@@ -180,6 +179,36 @@ export default function HanoiLandingPage() {
             </div>
           </section>
 
+          <section className="mt-6 grid gap-4 md:grid-cols-3">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/70 bg-muted">
+              <Image
+                src="/images/day-dai-thep-tai-kho-khach-hang.jpg"
+                alt="Dây đai thép tại kho khu vực Hà Nội"
+                fill
+                className="object-cover"
+                sizes="(min-width: 768px) 33vw, 100vw"
+              />
+            </div>
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/70 bg-muted">
+              <Image
+                src="/images/day-dai-thep-tai-kho-khach-hang.jpg"
+                alt="Dây đai thép tại kho khách hàng ở miền Bắc"
+                fill
+                className="object-cover"
+                sizes="(min-width: 768px) 33vw, 100vw"
+              />
+            </div>
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/70 bg-muted">
+              <Image
+                src="/images/lo-day-dai-thep-giao-cho-khach-hang.jpg"
+                alt="Lô dây đai thép giao nhanh cho doanh nghiệp"
+                fill
+                className="object-cover"
+                sizes="(min-width: 768px) 33vw, 100vw"
+              />
+            </div>
+          </section>
+
           <section className="surface-card mt-6 p-6">
             <h2 className="text-lg font-semibold text-foreground">
               Câu hỏi thường gặp tại khu vực Hà Nội
@@ -217,8 +246,7 @@ export default function HanoiLandingPage() {
             </a>
           </section>
         </article>
-      </main>
-      <Footer />
+      </MarketingPageLayout>
     </>
   );
 }

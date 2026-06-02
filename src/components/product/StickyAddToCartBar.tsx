@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useCartStore } from "@/store/cartStore";
 
-const STRAPPING_SALE_PRICE_PER_KG = 25000;
+import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
 
 export function StickyAddToCartBar() {
   const [visible, setVisible] = useState(false);
@@ -25,9 +25,9 @@ export function StickyAddToCartBar() {
     addToCart(
       {
         id: "steel-strapping",
-        name: "Dây đai thép công nghiệp chịu lực cao",
-        price: STRAPPING_SALE_PRICE_PER_KG,
-        image: "/images/day-dai-2.JPG",
+        name: "Dây đai thép",
+        price: STEEL_STRAPPING_PRICE_PER_KG,
+        image: "/images/day-dai-2.jpg",
         variant: "Thêm nhanh 1kg (chọn lại kg trong phần tùy chọn)",
       },
       1,
@@ -40,7 +40,7 @@ export function StickyAddToCartBar() {
         <div className="flex items-center gap-3">
           <div className="relative h-12 w-12 overflow-hidden rounded-md border border-border bg-muted">
             <Image
-              src="/images/day-dai-2.JPG"
+              src="/images/day-dai-2.jpg"
               alt="Dây đai thép công nghiệp"
               fill
               className="object-cover"
@@ -49,10 +49,10 @@ export function StickyAddToCartBar() {
           </div>
           <div className="hidden flex-col text-xs sm:flex">
             <p className="line-clamp-1 font-medium text-foreground">
-              Dây đai thép công nghiệp chịu lực cao
+              Dây đai thép
             </p>
             <p className="mt-0.5 font-semibold text-secondary">
-              {STRAPPING_SALE_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg
+              {STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg
             </p>
           </div>
         </div>

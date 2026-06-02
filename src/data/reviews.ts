@@ -12,9 +12,9 @@ export type Review = {
 };
 
 const commonPhotos = [
-  "/images/day-dai-1.JPG",
-  "/images/day-dai-2.JPG",
-  "/images/day-dai-4.JPG",
+  "/images/day-dai-1.jpg",
+  "/images/day-dai-2.jpg",
+  "/images/day-dai-4.jpg",
   "/images/dung-cu-dong-dai-3.jpg",
   "/images/kho-dung-cu-dong-dai.png",
 ];
@@ -50,7 +50,7 @@ export const reviews: Review[] = [
   // steel-strapping-tools (tools: nhiều 4-5, vài 3 positive)
   r("t1", "steel-strapping-tools", 5, "Anh Quang", "Siết nhanh, khóa chắc", "Dụng cụ siết và bấm khóa chạy rất ổn. Làm nhanh hơn hẳn so với thao tác thủ công trước.", "2026-03-02", commonPhotos[3]),
   r("t2", "steel-strapping-tools", 5, "Chị Tâm", "Nhân sự học nhanh", "Hướng dẫn rõ ràng, dùng 1-2 lần là thao tác chuẩn. Khóa bấm chắc, ít lỗi.", "2026-02-25", commonPhotos[4]),
-  r("t3", "steel-strapping-tools", 4, "Anh Khoa", "Bộ đầy đủ, tiện cho kho", "Tensioner + sealer đủ dùng. Dùng cho các lô hàng nhỏ đến trung bình rất hợp.", "2026-02-18", commonPhotos[3]),
+  r("t3", "steel-strapping-tools", 4, "Anh Khoa", "Bộ đầy đủ, tiện cho kho", "Kìm siết + bấm khóa đủ dùng. Dùng cho các lô hàng nhỏ đến trung bình rất hợp.", "2026-02-18", commonPhotos[3]),
   r("t4", "steel-strapping-tools", 5, "Anh Nam", "Độ cứng tốt", "Kìm bấm chắc tay, ít rung. Kết hợp dây đúng bản là ổn định.", "2026-02-10", commonPhotos[4]),
   r("t5", "steel-strapping-tools", 4, "Chị Ngân", "Thao tác trơn", "Vận hành mượt, không bị kẹt. Nhân viên đánh giá cao vì dùng nhanh.", "2026-02-04", commonPhotos[3]),
   r("t6", "steel-strapping-tools", 5, "Anh Thắng", "Đóng đai chắc cho hàng nặng", "Khi siết đúng lực, vòng đai giữ chặt. Hàng vận chuyển bớt xê dịch rõ rệt.", "2026-01-30", commonPhotos[4]),
