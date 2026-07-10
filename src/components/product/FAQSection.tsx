@@ -32,8 +32,8 @@ type Props = {
 
 export function FAQSection({ faqs = defaultFaqs }: Props) {
   return (
-    <section className="border-t border-border bg-muted/40 py-10">
-      <div className="container mx-auto max-w-5xl px-4">
+    <section className="border-t border-border bg-muted/40 py-12 md:py-16">
+      <div className="site-container">
         <h2 className="text-lg font-semibold text-foreground sm:text-xl">
           Câu hỏi thường gặp
         </h2>

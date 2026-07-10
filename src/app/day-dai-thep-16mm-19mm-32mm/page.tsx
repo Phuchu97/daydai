@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PhoneCtaButton } from "@/components/contact/PhoneCtaButton";
 import { QuickQuoteForm } from "@/components/seo/QuickQuoteForm";
+import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
 import { siteConfig } from "@/config/site";
+import { buildOfferCatalogItem } from "@/lib/merchant-offer-schema";
 import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
 
 export const metadata: Metadata = {
@@ -107,14 +110,12 @@ export default function SteelStrappingSizePage() {
     "@context": "https://schema.org",
     "@type": "OfferCatalog",
     name: "Cấu hình dây đai thép theo quy cách",
-    itemListElement: compareRows.map((row) => ({
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Product",
-        name: `Dây đai thép ${row[0]}`,
-        description: `${row[1]} | ${row[2]} | ${row[3]}`,
-      },
-    })),
+    itemListElement: compareRows.map((row) =>
+      buildOfferCatalogItem(`Dây đai thép ${row[0]}`, STEEL_STRAPPING_PRICE_PER_KG, {
+        url: `${siteConfig.url}/san-pham/day-dai-thep-chiu-luc-cao`,
+        unitText: "kg",
+      }),
+    ),
   };
 
   return (
@@ -132,7 +133,7 @@ export default function SteelStrappingSizePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(offerJsonLd) }}
       />
       <MarketingPageLayout>
-        <article className="container mx-auto max-w-5xl px-4">
+        <article className="space-y-6 sm:space-y-8">
           <nav className="text-xs text-muted-foreground">
             <Link href="/" className="hover:text-foreground">
               Trang chủ
@@ -140,7 +141,7 @@ export default function SteelStrappingSizePage() {
             / <span className="text-foreground">Dây đai thép 16mm 19mm 32mm</span>
           </nav>
 
-          <h1 className="mt-4 text-balance font-display text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+          <h1 className="mt-4 text-balance font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl md:text-4xl">
             Dây đai thép 16mm, 19mm, 32mm: nên chọn loại nào?
           </h1>
           <p className="mt-3 max-w-[70ch] text-sm leading-7 text-muted-foreground sm:text-base">
@@ -159,7 +160,7 @@ export default function SteelStrappingSizePage() {
             <h2 className="text-xl font-semibold text-foreground">
               So sánh nhanh theo quy cách phổ biến
             </h2>
-            <div className="mt-4 overflow-x-auto">
+            <div className="responsive-table-wrap mt-4">
               <table className="min-w-full text-left text-sm">
                 <thead className="bg-muted/60 text-foreground">
                   <tr>
@@ -213,12 +214,9 @@ export default function SteelStrappingSizePage() {
                   Xem thêm bài tư vấn kỹ thuật
                 </Link>
               </div>
-              <a
-                href={`tel:${siteConfig.company.phone}`}
-                className="btn-lift mt-4 inline-flex rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
-              >
+              <PhoneCtaButton className="mt-4 px-4 py-2">
                 Gọi tư vấn chọn quy cách
-              </a>
+              </PhoneCtaButton>
             </div>
           </section>
         </article>

@@ -1,7 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PhoneCtaButton } from "@/components/contact/PhoneCtaButton";
 import { QuickQuoteForm } from "@/components/seo/QuickQuoteForm";
+import { BreadcrumbNav } from "@/components/seo/BreadcrumbNav";
+import {
+  PRICE_PAGE_LAST_UPDATED,
+  STEEL_SEAL_REFERENCE_PRICE_UNIT,
+  STEEL_STRAPPING_PRICE_PER_KG,
+} from "@/config/pricing";
 import { siteConfig } from "@/config/site";
+import { buildOfferCatalogItem } from "@/lib/merchant-offer-schema";
+import { formatSeoDate } from "@/lib/seo";
 import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
 
 export const metadata: Metadata = {
@@ -80,40 +89,46 @@ export default function PricePage() {
       },
     })),
   };
+  const priceUpdatedLabel = formatSeoDate(PRICE_PAGE_LAST_UPDATED);
+  const webPageJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "Báo giá dây đai thép và khóa đai thép",
+    url: `${siteConfig.url}/bao-gia-day-dai-thep`,
+    dateModified: PRICE_PAGE_LAST_UPDATED,
+    inLanguage: "vi-VN",
+  };
   const offerCatalogJsonLd = {
     "@context": "https://schema.org",
     "@type": "OfferCatalog",
     name: "Bảng giá tham khảo dây đai thép và khóa đai thép",
     itemListElement: [
-      ...strapPriceRows.map((row) => ({
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Product",
-          name: `${row[0]} ${row[1]}`,
-        },
-        priceSpecification: {
-          "@type": "PriceSpecification",
-          priceCurrency: "VND",
-          description: row[2],
-        },
-      })),
-      ...sealPriceRows.map((row) => ({
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Product",
-          name: row[0],
-        },
-        priceSpecification: {
-          "@type": "PriceSpecification",
-          priceCurrency: "VND",
-          description: row[2],
-        },
-      })),
+      ...strapPriceRows.map((row) =>
+        buildOfferCatalogItem(`${row[0]} ${row[1]}`, STEEL_STRAPPING_PRICE_PER_KG, {
+          url: `${siteConfig.url}/san-pham/day-dai-thep-chiu-luc-cao`,
+          unitText: "kg",
+        }),
+      ),
+      ...sealPriceRows.map((row, index) => {
+        const sealPrices = [1_800, 2_000, 2_600, 3_200];
+        return buildOfferCatalogItem(
+          row[0],
+          sealPrices[index] ?? STEEL_SEAL_REFERENCE_PRICE_UNIT,
+          {
+            url: `${siteConfig.url}/san-pham/khoa-dai-thep-seals`,
+            unitText: "cái",
+          },
+        );
+      }),
     ],
   };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(offerCatalogJsonLd) }}
@@ -123,33 +138,58 @@ export default function PricePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <MarketingPageLayout>
-        <article className="container mx-auto max-w-5xl px-4">
-          <nav className="text-xs text-muted-foreground">
-            <Link href="/" className="hover:text-foreground">
-              Trang chủ
-            </Link>{" "}
-            / <span className="text-foreground">Báo giá dây đai thép</span>
-          </nav>
+        <article className="space-y-6 sm:space-y-8">
+          <BreadcrumbNav
+            items={[
+              { label: "Trang chủ", href: "/" },
+              { label: "Báo giá dây đai thép" },
+            ]}
+          />
 
-          <h1 className="mt-4 text-balance font-display text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            Báo giá dây đai thép và khóa đai thép mới nhất
-          </h1>
-          <p className="mt-3 max-w-[70ch] text-sm leading-7 text-muted-foreground sm:text-base">
-            Trang này tổng hợp giá tham khảo cho các quy cách phổ biến và giúp
-            doanh nghiệp chuẩn bị ngân sách đóng gói trước khi chốt đơn.
-          </p>
+          <header>
+            <h1 className="text-balance font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl md:text-4xl">
+              Báo giá dây đai thép và khóa đai thép mới nhất
+            </h1>
+            <p className="mt-3 max-w-[70ch] text-sm leading-7 text-muted-foreground sm:text-base">
+              Trang này tổng hợp giá tham khảo cho các quy cách phổ biến và giúp
+              doanh nghiệp chuẩn bị ngân sách đóng gói trước khi chốt đơn.
+            </p>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Cập nhật lần cuối:{" "}
+              <time dateTime={PRICE_PAGE_LAST_UPDATED}>{priceUpdatedLabel}</time>
+            </p>
+          </header>
 
-          <QuickQuoteForm sourcePage="/bao-gia-day-dai-thep" className="mt-8" />
+          <section className="surface-card border-primary/20 bg-primary/[0.04] p-5 sm:p-6">
+            <p className="text-sm font-semibold text-primary">
+              Giá website (dây đai thép mạ kẽm)
+            </p>
+            <p className="mt-2 text-2xl font-semibold tabular-nums text-foreground">
+              {STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg
+            </p>
+            <p className="mt-2 text-sm leading-7 text-muted-foreground">
+              Đơn giá bán trên website, đồng bộ trang sản phẩm và giỏ hàng. Báo
+              giá theo lô có thể tốt hơn tùy khối lượng và quy cách.
+            </p>
+            <Link
+              href="/san-pham/day-dai-thep-chiu-luc-cao"
+              className="mt-3 inline-flex text-sm font-semibold text-primary hover:underline"
+            >
+              Xem chi tiết dây đai thép
+            </Link>
+          </section>
 
-          <section className="surface-card mt-6 p-6">
+          <QuickQuoteForm sourcePage="/bao-gia-day-dai-thep" />
+
+          <section className="surface-card p-6">
             <h2 className="text-xl font-semibold text-foreground">
               Bảng giá tham khảo dây đai thép
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
               Đơn giá có thể thay đổi theo thời điểm thép đầu vào và số lượng
-              đặt hàng.
+              đặt hàng. Cập nhật {priceUpdatedLabel}.
             </p>
-            <div className="mt-4 overflow-x-auto">
+            <div className="responsive-table-wrap mt-4">
               <table className="min-w-full text-left text-sm">
                 <thead className="bg-muted/60 text-foreground">
                   <tr>
@@ -177,7 +217,7 @@ export default function PricePage() {
             <h2 className="text-xl font-semibold text-foreground">
               Bảng giá tham khảo khóa đai thép
             </h2>
-            <div className="mt-4 overflow-x-auto">
+            <div className="responsive-table-wrap mt-4">
               <table className="min-w-full text-left text-sm">
                 <thead className="bg-muted/60 text-foreground">
                   <tr>
@@ -228,12 +268,9 @@ export default function PricePage() {
                 </Link>
                 .
               </p>
-              <a
-                href={`tel:${siteConfig.company.phone}`}
-                className="btn-lift mt-4 inline-flex rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
-              >
+              <PhoneCtaButton className="mt-4 px-4 py-2">
                 Gọi báo giá {siteConfig.company.phone}
-              </a>
+              </PhoneCtaButton>
             </div>
           </section>
         </article>

@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { QuickQuoteForm } from "@/components/seo/QuickQuoteForm";
+import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
 import { siteConfig } from "@/config/site";
+import { buildOfferCatalogItem } from "@/lib/merchant-offer-schema";
 import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
 
 export const metadata: Metadata = {
@@ -70,19 +72,15 @@ export default function IndustrialSteelStrapPage() {
     "@type": "OfferCatalog",
     name: "Giải pháp đai thép công nghiệp",
     itemListElement: [
-      {
-        "@type": "Offer",
-        itemOffered: { "@type": "Product", name: "Đai thép cho pallet thép và gỗ" },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: { "@type": "Product", name: "Đai thép cho cuộn thép và kết cấu nặng" },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: { "@type": "Product", name: "Đai thép cho tuyến vận chuyển rung lắc cao" },
-      },
-    ],
+      "Đai thép cho pallet thép và gỗ",
+      "Đai thép cho cuộn thép và kết cấu nặng",
+      "Đai thép cho tuyến vận chuyển rung lắc cao",
+    ].map((name) =>
+      buildOfferCatalogItem(name, STEEL_STRAPPING_PRICE_PER_KG, {
+        url: `${siteConfig.url}/san-pham/day-dai-thep-chiu-luc-cao`,
+        unitText: "kg",
+      }),
+    ),
   };
 
   return (
@@ -100,7 +98,7 @@ export default function IndustrialSteelStrapPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(offerJsonLd) }}
       />
       <MarketingPageLayout>
-        <article className="container mx-auto max-w-5xl px-4">
+        <article className="space-y-6 sm:space-y-8">
           <nav className="text-xs text-muted-foreground">
             <Link href="/" className="hover:text-foreground">
               Trang chủ
@@ -108,7 +106,7 @@ export default function IndustrialSteelStrapPage() {
             / <span className="text-foreground">Đai thép công nghiệp</span>
           </nav>
 
-          <h1 className="mt-4 text-balance font-display text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+          <h1 className="mt-4 text-balance font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl md:text-4xl">
             Đai thép công nghiệp cho pallet và hàng siêu nặng
           </h1>
           <p className="mt-3 max-w-[70ch] text-sm leading-7 text-muted-foreground sm:text-base">
@@ -127,7 +125,7 @@ export default function IndustrialSteelStrapPage() {
             <h2 className="text-lg font-semibold text-foreground">
               So sánh nhu cầu theo ngành
             </h2>
-            <div className="mt-3 overflow-x-auto">
+            <div className="responsive-table-wrap mt-3">
               <table className="min-w-full text-left text-sm">
                 <thead className="bg-muted/60 text-foreground">
                   <tr>

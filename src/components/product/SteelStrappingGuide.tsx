@@ -34,9 +34,9 @@ export function SteelStrappingGuide() {
       {/* Dây đai thép là gì */}
       <section
         aria-labelledby="what-is-steel-strapping"
-        className="py-10 sm:py-12"
+        className="py-12 md:py-16"
       >
-        <div className="container mx-auto w-full max-w-5xl px-4">
+        <div className="site-container">
           <p className="eyebrow">Kiến thức sản phẩm</p>
           <SectionHeading id="what-is-steel-strapping">
             {steelStrappingWhatIs.title}
@@ -52,9 +52,9 @@ export function SteelStrappingGuide() {
       {/* Cấu tạo */}
       <section
         aria-labelledby="steel-strapping-structure"
-        className="border-t border-border/60 bg-muted/25 py-10 sm:py-12"
+        className="border-t border-border/60 bg-muted/25 py-12 md:py-16"
       >
-        <div className="container mx-auto w-full max-w-5xl px-4">
+        <div className="site-container">
           <SectionHeading id="steel-strapping-structure">
             {steelStrappingStructure.title}
           </SectionHeading>
@@ -79,9 +79,9 @@ export function SteelStrappingGuide() {
       {/* Ứng dụng */}
       <section
         aria-labelledby="steel-strapping-applications"
-        className="py-10 sm:py-12"
+        className="py-12 md:py-16"
       >
-        <div className="container mx-auto w-full max-w-5xl px-4">
+        <div className="site-container">
           <SectionHeading id="steel-strapping-applications">
             {steelStrappingApplications.title}
           </SectionHeading>
@@ -117,9 +117,9 @@ export function SteelStrappingGuide() {
       {/* Thông số theo bản rộng */}
       <section
         aria-labelledby="steel-strapping-specs-detail"
-        className="border-t border-border/60 bg-muted/30 py-10 sm:py-12"
+        className="border-t border-border/60 bg-muted/30 py-12 md:py-16"
       >
-        <div className="container mx-auto w-full max-w-5xl px-4">
+        <div className="site-container">
           <SectionHeading id="steel-strapping-specs-detail">
             Thông số kỹ thuật theo bản rộng
           </SectionHeading>
@@ -127,7 +127,7 @@ export function SteelStrappingGuide() {
             Bảng tham khảo lực kéo đứt và ứng dụng — số liệu có thể thay đổi theo
             lô hàng và tiêu chuẩn nhà sản xuất. Liên hệ để nhận catalogue chi tiết.
           </p>
-          <div className="mt-5 overflow-x-auto rounded-2xl border border-border bg-background">
+          <div className="responsive-table-wrap mt-5 rounded-2xl border border-border bg-background">
             <table className="w-full min-w-[640px] text-left text-sm">
               <thead>
                 <tr className="border-b border-border bg-muted/50 text-xs font-semibold uppercase tracking-wide text-foreground">
@@ -174,9 +174,9 @@ export function SteelStrappingGuide() {
       {/* Cách chọn + quy trình */}
       <section
         aria-labelledby="steel-strapping-guide"
-        className="py-10 sm:py-12"
+        className="py-12 md:py-16"
       >
-        <div className="container mx-auto w-full max-w-5xl px-4">
+        <div className="site-container">
           <div className="grid gap-8 md:grid-cols-2">
             <div>
               <SectionHeading id="steel-strapping-guide">
@@ -213,13 +213,13 @@ export function SteelStrappingGuide() {
       {/* So sánh */}
       <section
         aria-labelledby="steel-strapping-compare"
-        className="border-t border-border/60 bg-muted/25 py-10 sm:py-12"
+        className="border-t border-border/60 bg-muted/25 py-12 md:py-16"
       >
-        <div className="container mx-auto w-full max-w-5xl px-4">
+        <div className="site-container">
           <SectionHeading id="steel-strapping-compare">
             {steelStrappingComparison.title}
           </SectionHeading>
-          <div className="mt-5 overflow-x-auto rounded-2xl border border-border bg-background">
+          <div className="responsive-table-wrap mt-5 rounded-2xl border border-border bg-background">
             <table className="w-full min-w-[480px] text-sm">
               <tbody>
                 {steelStrappingComparison.rows.map((row, i) => (

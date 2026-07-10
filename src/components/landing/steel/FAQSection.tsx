@@ -26,9 +26,9 @@ const faqs = [
 export function FAQSection() {
   return (
     <Section id="faq">
-      <div className="mx-auto max-w-3xl text-center">
+      <div className="section-intro">
         <p className="eyebrow">Giải đáp nhanh</p>
-        <h2 className="mt-3 text-balance font-display text-3xl font-semibold tracking-[-0.02em] text-foreground sm:text-4xl">
+        <h2 className="mt-3 text-balance font-display text-2xl font-semibold tracking-[-0.02em] text-foreground sm:text-3xl md:text-4xl">
           Câu hỏi thường gặp
         </h2>
         <p className="mt-3 text-sm leading-7 text-muted-foreground sm:text-base">
@@ -37,7 +37,7 @@ export function FAQSection() {
         </p>
       </div>
 
-      <div className="mx-auto mt-8 grid max-w-5xl gap-4 md:grid-cols-2">
+      <div className="mt-8 grid w-full gap-4 md:grid-cols-2">
         {faqs.map((faq) => (
           <article
             key={faq.question}

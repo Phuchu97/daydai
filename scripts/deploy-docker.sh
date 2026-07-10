@@ -54,6 +54,8 @@ tar -czf "$TAR_FILE" \
   --exclude=.next \
   --exclude=.git \
   --exclude=.cursor \
+  --exclude=.env \
+  --exclude=.env.* \
   -C "$PROJECT_ROOT" .
 
 docker save daydai-web:latest | gzip > "$IMAGE_FILE"
@@ -63,10 +65,23 @@ echo "==> Uploading to VPS..."
 run_scp "$TAR_FILE" "/root/daydaivn-src.tar.gz"
 run_scp "$IMAGE_FILE" "/root/daydaivn-image.tar.gz"
 run_scp "$PROJECT_ROOT/scripts/docker-setup-vps.sh" "/root/docker-setup-vps.sh"
+run_scp "$PROJECT_ROOT/scripts/docker-ensure-vps.sh" "/root/docker-ensure-vps.sh"
 run_scp "$PROJECT_ROOT/scripts/docker-deploy-remote.sh" "/root/docker-deploy-remote.sh"
+run_scp "$PROJECT_ROOT/scripts/ssl-setup-vps.sh" "/root/ssl-setup-vps.sh"
+run_scp "$PROJECT_ROOT/scripts/nginx-restore-ssl.sh" "/root/nginx-restore-ssl.sh"
 
-echo "==> Installing Docker & nginx on VPS..."
-REMOTE_SCRIPT="/root/docker-setup-vps.sh"
+if [[ -f "$PROJECT_ROOT/.env" ]]; then
+  echo "==> Uploading .env (không đóng gói trong tar — tránh lỗi ký tự \$)..."
+  run_scp "$PROJECT_ROOT/.env" "/root/daydaivn.env"
+fi
+
+if [[ "${SETUP_NGINX:-0}" == "1" ]]; then
+  echo "==> Thiết lập nginx lần đầu (SETUP_NGINX=1)..."
+  REMOTE_SCRIPT="/root/docker-setup-vps.sh"
+else
+  echo "==> Đảm bảo Docker trên VPS (không ghi đè nginx)..."
+  REMOTE_SCRIPT="/root/docker-ensure-vps.sh"
+fi
 export REMOTE_SCRIPT
 run_ssh
 
@@ -76,4 +91,5 @@ export REMOTE_SCRIPT
 run_ssh
 
 rm -rf "$TMP_DIR"
-echo "==> Deploy finished: http://${VPS_HOST}"
+echo "==> Deploy finished: https://daydaivn.com (HTTP: http://${VPS_HOST})"
+echo "    Nếu PC vẫn lỗi HTTPS, SSH chạy: bash /root/nginx-restore-ssl.sh"

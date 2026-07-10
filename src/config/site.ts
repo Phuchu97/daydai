@@ -40,11 +40,11 @@ export const siteConfig = {
     github: "",
   },
   nav: [
-    { label: "Giới thiệu", href: "/#hero" },
+    { label: "Giới thiệu", href: "/gioi-thieu" },
     { label: "Sản phẩm", href: "/san-pham" },
     { label: "Báo giá", href: "/bao-gia-day-dai-thep" },
     { label: "Tư vấn", href: "/tu-van" },
-    { label: "Liên hệ", href: "/#contact" },
+    { label: "Liên hệ", href: "/lien-he" },
   ],
 } as const;
 

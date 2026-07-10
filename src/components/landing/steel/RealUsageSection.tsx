@@ -4,7 +4,7 @@ import { Section } from "../Section";
 export function RealUsageSection() {
   return (
     <Section id="real-usage">
-      <div className="mx-auto max-w-3xl text-center">
+      <div className="section-intro">
         <h2 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
           Ứng dụng thực tế tại kho và nhà máy
         </h2>
@@ -15,7 +15,7 @@ export function RealUsageSection() {
         </p>
       </div>
 
-      <div className="mt-10 grid gap-4 md:grid-cols-3">
+      <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
         <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border bg-muted">
           <Image
             src="/images/day-dai-thep-32-chat-luong.jpg"

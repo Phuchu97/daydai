@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
+import { PRICE_PAGE_LAST_UPDATED } from "@/config/pricing";
 import { catalogProducts } from "@/data/products";
 import { articles } from "@/data/articles";
 
@@ -14,6 +15,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: `${siteConfig.url}/gioi-thieu`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
+      url: `${siteConfig.url}/lien-he`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.88,
+    },
+    {
       url: `${siteConfig.url}/san-pham`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -21,7 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${siteConfig.url}/bao-gia-day-dai-thep`,
-      lastModified: now,
+      lastModified: new Date(PRICE_PAGE_LAST_UPDATED),
       changeFrequency: "weekly",
       priority: 0.92,
     },

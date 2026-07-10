@@ -80,6 +80,11 @@ export const metadata: Metadata = {
   verification: {
     google: process.env.GOOGLE_SITE_VERIFICATION,
   },
+  icons: {
+    icon: [{ url: siteConfig.logoIcon, type: "image/svg+xml" }],
+    apple: [{ url: siteConfig.logoIcon, type: "image/svg+xml" }],
+  },
+  manifest: "/manifest.webmanifest",
 };
 
 export const viewport: Viewport = {
@@ -97,6 +102,7 @@ export default function RootLayout({
   const organizationJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${siteConfig.url}/#organization`,
     name: siteConfig.company.legalName,
     alternateName: [siteConfig.shortName, siteConfig.domain],
     url: siteConfig.url,

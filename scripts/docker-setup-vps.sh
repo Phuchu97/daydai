@@ -32,6 +32,16 @@ fi
 echo "==> Configuring nginx reverse proxy..."
 apt-get install -y -qq nginx
 
+if [ -f /etc/letsencrypt/live/daydaivn.com/fullchain.pem ]; then
+  echo "==> Đã có chứng chỉ Let's Encrypt — không ghi đè file nginx (tránh mất HTTPS)."
+  echo "    Nếu cần sửa proxy, chỉnh /etc/nginx/sites-enabled/ rồi: nginx -t && systemctl reload nginx"
+  nginx -t
+  systemctl enable nginx
+  systemctl restart nginx
+  echo "==> Docker setup complete (nginx giữ nguyên SSL)."
+  exit 0
+fi
+
 cat > /etc/nginx/sites-available/daydaivn << 'NGINXEOF'
 server {
     listen 80 default_server;

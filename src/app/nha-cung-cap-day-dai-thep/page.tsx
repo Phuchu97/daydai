@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { QuickQuoteForm } from "@/components/seo/QuickQuoteForm";
+import {
+  STEEL_STRAPPING_PRICE_PER_KG,
+  STEEL_STRAPPING_TOOLS_SALE_PRICE,
+} from "@/config/pricing";
 import { siteConfig } from "@/config/site";
+import { buildOfferCatalogItem } from "@/lib/merchant-offer-schema";
 import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
 
 export const metadata: Metadata = {
@@ -79,20 +84,22 @@ export default function SupplierPage() {
     "@type": "OfferCatalog",
     name: "Gói giải pháp cho doanh nghiệp",
     itemListElement: [
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Product",
-          name: "Gói dây đai thép + khóa đai theo quy cách",
+      buildOfferCatalogItem(
+        "Gói dây đai thép + khóa đai theo quy cách",
+        STEEL_STRAPPING_PRICE_PER_KG,
+        {
+          url: `${siteConfig.url}/san-pham/day-dai-thep-chiu-luc-cao`,
+          unitText: "kg",
         },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Product",
-          name: "Gói đồng bộ dây đai + bộ dụng cụ đóng đai",
+      ),
+      buildOfferCatalogItem(
+        "Gói đồng bộ dây đai + bộ dụng cụ đóng đai",
+        STEEL_STRAPPING_TOOLS_SALE_PRICE,
+        {
+          url: `${siteConfig.url}/san-pham/bo-dung-cu-dong-dai-thep`,
+          unitText: "bộ",
         },
-      },
+      ),
     ],
   };
 
@@ -115,7 +122,7 @@ export default function SupplierPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(offerJsonLd) }}
       />
       <MarketingPageLayout>
-        <article className="container mx-auto max-w-5xl px-4">
+        <article className="space-y-6 sm:space-y-8">
           <nav className="text-xs text-muted-foreground">
             <Link href="/" className="hover:text-foreground">
               Trang chủ
@@ -123,7 +130,7 @@ export default function SupplierPage() {
             / <span className="text-foreground">Nhà cung cấp dây đai thép</span>
           </nav>
 
-          <h1 className="mt-4 text-balance font-display text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+          <h1 className="mt-4 text-balance font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl md:text-4xl">
             Nhà cung cấp dây đai thép cho nhà máy, xưởng sản xuất và logistics
           </h1>
           <p className="mt-3 max-w-[70ch] text-sm leading-7 text-muted-foreground sm:text-base">
@@ -178,7 +185,7 @@ export default function SupplierPage() {
             <h2 className="text-lg font-semibold text-foreground">
               So sánh nhu cầu theo quy mô doanh nghiệp
             </h2>
-            <div className="mt-3 overflow-x-auto">
+            <div className="responsive-table-wrap mt-3">
               <table className="min-w-full text-left text-sm">
                 <thead className="bg-muted/60 text-foreground">
                   <tr>

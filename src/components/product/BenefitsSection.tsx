@@ -1,27 +1,16 @@
 import type { CatalogProduct } from "@/data/products";
-import { steelStrappingBenefits } from "@/data/steel-strapping-content";
+import { getProductBenefits } from "@/data/product-detail-content";
 
 type Props = {
   product?: CatalogProduct;
 };
 
-const defaultBenefits = [
-  "Siết chặt hàng hóa chắc chắn, hạn chế xê dịch khi vận chuyển.",
-  "Chịu lực cao, phù hợp cho pallet hàng nặng và cuộn thép.",
-  "Tối ưu vận chuyển container, xưởng sản xuất, bến cảng.",
-  "Dùng tốt trong môi trường công nghiệp, chịu nhiệt và va đập.",
-];
-
 export function BenefitsSection({ product }: Props) {
-  const isStrapping = product?.id === "steel-strapping";
-  const benefits = isStrapping ? steelStrappingBenefits : defaultBenefits;
-  const title = isStrapping
-    ? "Lợi ích khi sử dụng dây đai thép"
-    : "Lợi ích khi sử dụng dây đai thép công nghiệp";
+  const { title, benefits } = getProductBenefits(product);
 
   return (
-    <section className="border-t border-border/60 bg-muted/40 py-10">
-      <div className="container mx-auto max-w-5xl px-4">
+    <section className="border-t border-border/60 bg-muted/40 py-12 md:py-16">
+      <div className="site-container">
         <h2 className="text-lg font-semibold text-foreground sm:text-xl">
           {title}
         </h2>
@@ -42,4 +31,3 @@ export function BenefitsSection({ product }: Props) {
     </section>
   );
 }
-

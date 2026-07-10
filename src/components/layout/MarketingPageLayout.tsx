@@ -1,4 +1,6 @@
 import { SiteShell } from "@/components/layout/SiteShell";
+import { siteContainerClass } from "@/components/layout/siteContainer";
+import { cn } from "@/lib/utils";
 
 type MarketingPageLayoutProps = {
   children: React.ReactNode;
@@ -15,7 +17,9 @@ export function MarketingPageLayout({
       stackContactsAboveCartBar={false}
       mainClassName="py-8 sm:py-10"
     >
-      {children}
+      <div className={cn(siteContainerClass, "space-y-8 sm:space-y-10")}>
+        {children}
+      </div>
     </SiteShell>
   );
 }

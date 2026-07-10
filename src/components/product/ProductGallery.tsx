@@ -3,6 +3,10 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { ProductImage } from "@/data/products";
+import {
+  getVideoPosterSrc,
+  isProductVideo,
+} from "@/lib/product-media";
 import { cn } from "@/lib/utils";
 import { ChevronLeftIcon, ChevronRightIcon } from "./GalleryNavIcons";
 
@@ -46,14 +50,48 @@ function GalleryNavButton({
   );
 }
 
+function GalleryVideoThumb({
+  poster,
+  alt,
+}: {
+  poster?: string;
+  alt: string;
+}) {
+  return (
+    <div className="relative h-full w-full bg-muted">
+      {poster ? (
+        <Image
+          src={poster}
+          alt=""
+          fill
+          className="object-cover"
+          sizes="76px"
+          aria-hidden
+        />
+      ) : null}
+      <div className="absolute inset-0 flex items-center justify-center bg-black/25">
+        <span
+          className="flex h-7 w-7 items-center justify-center rounded-full bg-white/95 text-[10px] font-bold text-primary shadow-sm"
+          aria-hidden
+        >
+          ▶
+        </span>
+      </div>
+      <span className="sr-only">{alt}</span>
+    </div>
+  );
+}
+
 export function ProductGallery({ images }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
   const thumbTrackRef = useRef<HTMLDivElement>(null);
   const thumbButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const mainVideoRef = useRef<HTMLVideoElement>(null);
 
   const active = images[activeIndex] ?? images[0];
+  const activeIsVideo = active ? isProductVideo(active.src) : false;
   const hasMultiple = images.length > 1;
 
   const updateThumbScrollState = useCallback(() => {
@@ -90,6 +128,10 @@ export function ProductGallery({ images }: Props) {
       current === images.length - 1 ? 0 : current + 1
     );
   }, [images.length]);
+
+  useEffect(() => {
+    mainVideoRef.current?.pause();
+  }, [activeIndex]);
 
   useEffect(() => {
     const track = thumbTrackRef.current;
@@ -136,22 +178,36 @@ export function ProductGallery({ images }: Props) {
 
   return (
     <div className="min-w-0 space-y-3">
-      <div className="group relative aspect-[4/5] overflow-hidden rounded-2xl border border-border/80 bg-muted shadow-[0_20px_44px_-32px_rgba(22,67,126,0.35)]">
-        <Image
-          key={active.src}
-          src={active.src}
-          alt={active.alt}
-          fill
-          className="object-cover transition duration-500 ease-out group-hover:scale-[1.02]"
-          sizes="(min-width: 1024px) 480px, 100vw"
-          priority={activeIndex === 0}
-        />
+      <div className="group relative aspect-square w-full overflow-hidden rounded-2xl border border-border/80 bg-white shadow-[0_20px_44px_-32px_rgba(22,67,126,0.35)]">
+        {activeIsVideo ? (
+          <video
+            key={active.src}
+            ref={mainVideoRef}
+            src={active.src}
+            className="h-full w-full object-contain p-3 sm:p-5"
+            controls
+            playsInline
+            preload="metadata"
+            poster={getVideoPosterSrc(images, activeIndex)}
+            aria-label={active.alt}
+          />
+        ) : (
+          <Image
+            key={active.src}
+            src={active.src}
+            alt={active.alt}
+            fill
+            className="object-contain p-4 transition duration-500 ease-out group-hover:scale-[1.02] sm:p-6"
+            sizes="(min-width: 1024px) 480px, 100vw"
+            priority={activeIndex === 0}
+          />
+        )}
 
         {hasMultiple ? (
           <>
             <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-between bg-gradient-to-b from-black/25 to-transparent p-3 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100 md:opacity-100">
               <span className="rounded-full bg-black/45 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">
-                {activeIndex + 1} / {images.length}
+                {activeIsVideo ? "Video" : "Ảnh"} {activeIndex + 1} / {images.length}
               </span>
             </div>
 
@@ -159,14 +215,14 @@ export function ProductGallery({ images }: Props) {
               direction="prev"
               onClick={goPrev}
               disabled={false}
-              label="Ảnh trước"
+              label="Mục trước"
               className="absolute left-3 top-1/2 z-10 -translate-y-1/2 opacity-100 md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100"
             />
             <GalleryNavButton
               direction="next"
               onClick={goNext}
               disabled={false}
-              label="Ảnh sau"
+              label="Mục sau"
               className="absolute right-3 top-1/2 z-10 -translate-y-1/2 opacity-100 md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100"
             />
           </>
@@ -174,23 +230,24 @@ export function ProductGallery({ images }: Props) {
       </div>
 
       {hasMultiple ? (
-        <div className="relative min-w-0 md:flex md:items-center md:gap-2">
+        <div className="grid min-w-0 grid-cols-[auto_1fr_auto] items-center gap-1.5 sm:gap-2">
           <GalleryNavButton
             direction="prev"
             onClick={() => scrollThumbs("prev")}
             disabled={!canScrollLeft}
             label="Cuộn ảnh nhỏ sang trái"
-            className="absolute left-0 top-1/2 z-10 h-8 w-8 -translate-y-1/2 md:static md:h-9 md:w-9 md:translate-y-0"
+            className="h-8 w-8 md:h-9 md:w-9"
           />
 
           <div
             ref={thumbTrackRef}
-            className="gallery-thumb-track min-w-0 flex gap-2 overflow-x-auto scroll-smooth py-1 pl-10 pr-10 md:flex-1 md:px-0.5"
+            className="gallery-thumb-track min-w-0 flex w-full gap-2 overflow-x-auto scroll-smooth py-1"
             role="tablist"
-            aria-label="Danh sách ảnh sản phẩm"
+            aria-label="Danh sách ảnh và video sản phẩm"
           >
             {images.map((item, index) => {
               const isActive = index === activeIndex;
+              const itemIsVideo = isProductVideo(item.src);
               return (
                 <button
                   key={`${item.src}-${index}`}
@@ -200,7 +257,11 @@ export function ProductGallery({ images }: Props) {
                   type="button"
                   role="tab"
                   aria-selected={isActive}
-                  aria-label={`Xem hình ${index + 1}: ${item.alt}`}
+                  aria-label={
+                    itemIsVideo
+                      ? `Xem video: ${item.alt}`
+                      : `Xem hình ${index + 1}: ${item.alt}`
+                  }
                   onClick={() => goToImage(index)}
                   className={cn(
                     "relative h-16 w-16 shrink-0 snap-center overflow-hidden rounded-xl border-2 transition duration-200 md:h-[76px] md:w-[76px]",
@@ -209,14 +270,21 @@ export function ProductGallery({ images }: Props) {
                       : "border-border/80 opacity-80 hover:border-primary/35 hover:opacity-100"
                   )}
                 >
-                  <Image
-                    src={item.src}
-                    alt={item.alt}
-                    fill
-                    className="object-cover"
-                    sizes="(min-width: 768px) 76px, 64px"
-                    loading={index === 0 ? "eager" : "lazy"}
-                  />
+                  {itemIsVideo ? (
+                    <GalleryVideoThumb
+                      poster={getVideoPosterSrc(images, index)}
+                      alt={item.alt}
+                    />
+                  ) : (
+                    <Image
+                      src={item.src}
+                      alt={item.alt}
+                      fill
+                      className="object-cover"
+                      sizes="(min-width: 768px) 76px, 64px"
+                      loading={index === 0 ? "eager" : "lazy"}
+                    />
+                  )}
                 </button>
               );
             })}
@@ -227,7 +295,7 @@ export function ProductGallery({ images }: Props) {
             onClick={() => scrollThumbs("next")}
             disabled={!canScrollRight}
             label="Cuộn ảnh nhỏ sang phải"
-            className="absolute right-0 top-1/2 z-10 h-8 w-8 -translate-y-1/2 md:static md:h-9 md:w-9 md:translate-y-0"
+            className="h-8 w-8 md:h-9 md:w-9"
           />
         </div>
       ) : null}

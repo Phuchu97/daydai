@@ -10,6 +10,7 @@ import { SpecsTable } from "@/components/product/SpecsTable";
 import { UpsellSection } from "@/components/product/UpsellSection";
 import { FAQSection, type FaqItem } from "@/components/product/FAQSection";
 import { steelStrappingFaqs } from "@/data/steel-strapping-content";
+import { getProductFaqs } from "@/data/product-detail-content";
 import { ReviewsSection } from "@/components/product/ReviewsSection";
 import { getRelatedArticlesByProduct } from "@/data/articles";
 
@@ -22,6 +23,8 @@ function getBreadcrumbLabel(product: CatalogProduct) {
 }
 
 function getFaqsForProduct(product: CatalogProduct): FaqItem[] {
+  const productFaqs = getProductFaqs(product);
+  if (productFaqs) return productFaqs;
   if (product.id === "steel-strapping") return steelStrappingFaqs;
   return [];
 }
@@ -33,7 +36,7 @@ export function ProductDetailPage({ product }: Props) {
   return (
     <SiteShell showTopBar stackContactsAboveCartBar={false}>
       <section className="overflow-x-hidden border-b border-border/60 bg-background pb-10 pt-5 sm:pb-12 sm:pt-6">
-        <div className="container mx-auto w-full max-w-5xl space-y-5 px-4 sm:space-y-6">
+        <div className="site-container space-y-5 sm:space-y-6">
           <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground">
             <ol className="flex flex-wrap items-center gap-x-1 gap-y-0.5">
               <li>
@@ -54,8 +57,8 @@ export function ProductDetailPage({ product }: Props) {
             </ol>
           </nav>
 
-          <div className="grid min-w-0 gap-8 max-md:gap-6 md:grid-cols-[minmax(0,1.1fr),minmax(0,1fr)] md:items-start">
-            <div className="min-w-0">
+          <div className="grid min-w-0 gap-8 max-md:gap-6 md:grid-cols-[minmax(0,1fr),minmax(0,1.05fr)] md:items-start lg:grid-cols-[minmax(0,0.95fr),minmax(0,1fr)]">
+            <div className="min-w-0 w-full">
               <ProductGallery images={product.images} />
             </div>
             <div className="min-w-0">
@@ -78,8 +81,8 @@ export function ProductDetailPage({ product }: Props) {
       <ReviewsSection product={product} />
       <FAQSection faqs={productFaqs.length > 0 ? productFaqs : undefined} />
       {relatedArticles.length > 0 && (
-        <section className="border-t border-border bg-background py-10">
-          <div className="container mx-auto max-w-5xl px-4">
+        <section className="border-t border-border bg-background py-12 md:py-16">
+          <div className="site-container">
             <h2 className="text-lg font-semibold text-foreground sm:text-xl">
               Bài viết tư vấn liên quan
             </h2>

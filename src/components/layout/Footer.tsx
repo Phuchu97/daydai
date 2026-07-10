@@ -1,10 +1,14 @@
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
+import { ContactCtaLabel } from "@/components/contact/ContactCtaLabel";
+import { PhoneIcon } from "@/components/contact/ContactIcons";
 import { Logo } from "@/components/brand/Logo";
 
 const currentYear = new Date().getFullYear();
 
 const resourceLinks = [
+  { href: "/gioi-thieu", label: "Giới thiệu" },
+  { href: "/lien-he", label: "Liên hệ" },
   { href: "/bao-gia-day-dai-thep", label: "Báo giá dây đai thép" },
   { href: "/khoa-dai-thep", label: "Khóa đai thép" },
   { href: "/day-dai-thep-16mm-19mm-32mm", label: "Dây đai 16-19-32mm" },
@@ -23,22 +27,24 @@ const legalLinks = [
 export function Footer() {
   return (
     <footer className="mt-auto border-t border-border/50 bg-muted/25">
-      <div className="container mx-auto max-w-7xl px-4 py-10 sm:py-12 lg:px-6">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-12">
-          <div className="max-w-md">
+      <div className="site-container py-10 sm:py-12">
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
+          <div className="lg:col-span-4">
             <Logo showTagline className="max-w-sm" />
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
               {siteConfig.description}
             </p>
             <a
               href={`tel:${siteConfig.company.zaloPhone}`}
-              className="btn-lift mt-4 inline-flex rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-[0_12px_24px_-16px_rgba(22,67,126,0.85)] lg:hidden"
+              className="btn-lift mt-4 inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-[0_12px_24px_-16px_rgba(22,67,126,0.85)] lg:hidden"
             >
-              Gọi {siteConfig.company.phone}
+              <ContactCtaLabel icon={<PhoneIcon className="h-4 w-4" />}>
+                Gọi {siteConfig.company.phone}
+              </ContactCtaLabel>
             </a>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
+          <div className="grid gap-8 sm:grid-cols-2 lg:col-span-8 lg:grid-cols-3">
             <nav aria-label="Điều hướng chính" className="space-y-3">
               <p className="text-xs font-semibold uppercase tracking-wide text-foreground">
                 Điều hướng
@@ -57,11 +63,11 @@ export function Footer() {
               </ul>
             </nav>
 
-            <nav aria-label="Tài nguyên mua hàng" className="space-y-3">
+            <nav aria-label="Tài nguyên mua hàng" className="space-y-3 sm:col-span-2">
               <p className="text-xs font-semibold uppercase tracking-wide text-foreground">
                 Tài nguyên
               </p>
-              <ul className="space-y-2">
+              <ul className="grid gap-2 sm:grid-cols-2">
                 {resourceLinks.map((item) => (
                   <li key={item.href}>
                     <Link
@@ -75,10 +81,7 @@ export function Footer() {
               </ul>
             </nav>
 
-            <nav
-              aria-label="Pháp lý"
-              className="col-span-2 space-y-3 sm:col-span-1"
-            >
+            <nav aria-label="Pháp lý" className="space-y-3">
               <p className="text-xs font-semibold uppercase tracking-wide text-foreground">
                 Pháp lý
               </p>

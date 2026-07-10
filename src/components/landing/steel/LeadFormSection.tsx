@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { ContactCtaLabel } from "@/components/contact/ContactCtaLabel";
+import { QuoteIcon } from "@/components/contact/ContactIcons";
 import { Section } from "../Section";
 import { getStoredAttribution } from "@/lib/attribution";
 import { trackConversion } from "@/lib/analytics";
@@ -59,9 +61,9 @@ export function LeadFormSection() {
 
   return (
     <Section id="contact">
-      <div className="mx-auto max-w-3xl text-center">
+      <div className="section-intro">
         <p className="eyebrow">Tư vấn theo nhu cầu thực tế</p>
-        <h2 className="mt-3 text-balance font-display text-3xl font-semibold tracking-[-0.02em] text-foreground sm:text-4xl">
+        <h2 className="mt-3 text-balance font-display text-2xl font-semibold tracking-[-0.02em] text-foreground sm:text-3xl md:text-4xl">
           Nhận báo giá nhanh trong ngày
         </h2>
         <p className="mt-3 text-sm leading-7 text-muted-foreground sm:text-base">
@@ -149,7 +151,9 @@ export function LeadFormSection() {
             disabled={submitting}
             className="btn-lift mt-2 inline-flex w-full items-center justify-center rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-[0_18px_32px_-18px_rgba(25,61,112,0.84)] disabled:cursor-not-allowed disabled:opacity-70"
           >
-            {submitting ? "Đang gửi..." : "Nhận báo giá nhanh"}
+            <ContactCtaLabel icon={<QuoteIcon className="h-4 w-4" />}>
+              {submitting ? "Đang gửi..." : "Nhận báo giá nhanh"}
+            </ContactCtaLabel>
           </button>
         </form>
 

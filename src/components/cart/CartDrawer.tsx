@@ -1,13 +1,17 @@
  "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { useCartStore } from "@/store/cartStore";
 import { CartItem } from "./CartItem";
 import { CartSummary } from "./CartSummary";
 import { useToast } from "@/hooks/useToast";
 import { getStoredAttribution } from "@/lib/attribution";
 import { trackConversion } from "@/lib/analytics";
+import {
+  isValidVietnamesePhone,
+  normalizeVietnamesePhone,
+  VIETNAM_PHONE_ERROR,
+} from "@/lib/phone";
 
 type Props = {
   open: boolean;
@@ -20,7 +24,7 @@ export function CartDrawer({ open, onClose }: Props) {
   const { showSuccess } = useToast();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [note, setNote] = useState("");
+  const [address, setAddress] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -35,8 +39,16 @@ export function CartDrawer({ open, onClose }: Props) {
   const handlePlaceOrder = async () => {
     setError(null);
     setSuccess(false);
-    if (!name || !phone) {
-      setError("Vui lòng nhập họ tên và số điện thoại.");
+    const trimmedName = name.trim();
+    const trimmedPhone = phone.trim();
+    const trimmedAddress = address.trim();
+
+    if (!trimmedName || !trimmedPhone || !trimmedAddress) {
+      setError("Vui lòng nhập đầy đủ họ tên, số điện thoại và địa chỉ.");
+      return;
+    }
+    if (!isValidVietnamesePhone(trimmedPhone)) {
+      setError(VIETNAM_PHONE_ERROR);
       return;
     }
     if (items.length === 0) {
@@ -48,34 +60,18 @@ export function CartDrawer({ open, onClose }: Props) {
       setSubmitting(true);
       const orderItems = [...items];
       const attribution = getStoredAttribution();
-      const toPhone = "0339.689.386";
       const total = orderItems.reduce(
         (sum, item) => sum + item.price * item.quantity,
         0,
       );
-      const lines = orderItems
-        .map((item) => {
-          const variant = item.variant ? ` | ${item.variant}` : "";
-          return `- ${item.name}${variant} x${item.quantity}`;
-        })
-        .join("\n");
-      const zaloText = [
-        "ĐƠN ĐẶT HÀNG MỚI",
-        `Tên: ${name}`,
-        `SĐT: ${phone}`,
-        `Ghi chú: ${note || "Không có"}`,
-        "Sản phẩm:",
-        lines,
-        `Tạm tính: ${total.toLocaleString("vi-VN")}đ`,
-      ].join("\n");
 
       const res = await fetch("/api/cart-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name,
-          phone,
-          note,
+          name: trimmedName,
+          phone: normalizeVietnamesePhone(trimmedPhone),
+          address: trimmedAddress,
           items: orderItems,
           attribution,
         }),
@@ -93,7 +89,7 @@ export function CartDrawer({ open, onClose }: Props) {
       clearCart();
       setName("");
       setPhone("");
-      setNote("");
+      setAddress("");
 
       trackConversion({
         conversionType: "cart_order",
@@ -107,22 +103,13 @@ export function CartDrawer({ open, onClose }: Props) {
       setTimeout(() => {
         onClose();
       }, 1600);
-
-      // Mở Zalo chat kèm nội dung đã điền (deep link).
-      // Lưu ý: Zalo deep link giúp tạo sẵn tin nhắn; người nhận vẫn có thể phải bấm gửi tùy theo thiết bị/trình duyệt.
-      if (typeof window !== "undefined") {
-        const url = `https://zalo.me/${toPhone}?text=${encodeURIComponent(
-          zaloText,
-        )}`;
-        setTimeout(() => {
-          window.open(url, "_blank", "noopener,noreferrer");
-        }, 2200);
-      }
     } catch (e) {
       console.error(e);
-      setError(
-        "Không gửi được đơn hàng. Vui lòng thử lại hoặc liên hệ trực tiếp.",
-      );
+      const message =
+        e instanceof Error && e.message
+          ? e.message
+          : "Không gửi được đơn hàng. Vui lòng thử lại hoặc liên hệ trực tiếp.";
+      setError(message);
     } finally {
       setSubmitting(false);
     }
@@ -157,13 +144,13 @@ export function CartDrawer({ open, onClose }: Props) {
           {items.length === 0 ? (
             <div className="flex h-full flex-col items-center justify-center text-center text-xs text-muted-foreground">
               <p>Giỏ hàng của bạn đang trống.</p>
-              <Link
-                href="/#products"
+              <button
+                type="button"
                 onClick={onClose}
                 className="mt-3 inline-flex rounded-md bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground"
               >
                 Tiếp tục mua sắm
-              </Link>
+              </button>
             </div>
           ) : (
             items.map((item) => <CartItem key={`${item.id}-${item.variant ?? ""}`} item={item} />)
@@ -183,22 +170,23 @@ export function CartDrawer({ open, onClose }: Props) {
                   placeholder="Họ tên *"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="rounded-md border border-border bg-background px-3 py-2 text-xs outline-none ring-primary/20 focus:ring-2"
+                  className="rounded-md border border-border bg-background px-3 py-2 text-base outline-none ring-primary/20 focus:ring-2 lg:text-xs"
                 />
                 <input
                   type="tel"
                   placeholder="Số điện thoại *"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="rounded-md border border-border bg-background px-3 py-2 text-xs outline-none ring-primary/20 focus:ring-2"
+                  className="rounded-md border border-border bg-background px-3 py-2 text-base outline-none ring-primary/20 focus:ring-2 lg:text-xs"
                 />
               </div>
               <textarea
                 rows={2}
-                placeholder="Ghi chú thêm (tùy chọn)"
-                value={note}
-                onChange={(e) => setNote(e.target.value)}
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-xs outline-none ring-primary/20 focus:ring-2"
+                required
+                placeholder="Địa chỉ giao hàng *"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                className="w-full rounded-md border border-border bg-background px-3 py-2 text-base outline-none ring-primary/20 focus:ring-2 lg:text-xs"
               />
               {success && (
                 <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-[11px] text-emerald-900">

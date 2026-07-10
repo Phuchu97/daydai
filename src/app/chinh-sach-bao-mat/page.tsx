@@ -4,7 +4,7 @@ import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
 export default function PrivacyPolicyPage() {
   return (
     <MarketingPageLayout>
-      <article className="container mx-auto max-w-4xl px-4 lg:px-6">
+      <article className="max-w-3xl space-y-6 sm:space-y-8">
         <Link
           href="/"
           className="text-sm font-medium text-primary transition-colors hover:text-primary/80"

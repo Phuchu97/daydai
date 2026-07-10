@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { ContactCtaLabel } from "@/components/contact/ContactCtaLabel";
+import { QuoteIcon } from "@/components/contact/ContactIcons";
 import { getStoredAttribution } from "@/lib/attribution";
 import { trackConversion } from "@/lib/analytics";
 
@@ -115,7 +117,9 @@ export function QuickQuoteForm({
             disabled={submitting}
             className="btn-lift inline-flex w-full items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-70"
           >
-            {submitting ? "Đang gửi yêu cầu..." : "Nhận báo giá nhanh"}
+            <ContactCtaLabel icon={<QuoteIcon className="h-4 w-4" />}>
+              {submitting ? "Đang gửi yêu cầu..." : "Nhận báo giá nhanh"}
+            </ContactCtaLabel>
           </button>
         </form>
 

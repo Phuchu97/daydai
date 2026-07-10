@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { catalogProducts } from "@/data/products";
 import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
+import { BreadcrumbNav } from "@/components/seo/BreadcrumbNav";
 import { ProductCatalogCard } from "@/components/product/ProductCatalogCard";
+import { ProductsCatalogBottomCta } from "@/components/product/ProductsCatalogBottomCta";
+import { ProductsCatalogHero } from "@/components/product/ProductsCatalogHero";
 
 export const metadata: Metadata = {
   title: "Dây đai thép, khóa đai thép và bộ dụng cụ đóng đai",
@@ -56,66 +58,30 @@ export default function ProductIndexPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
       <MarketingPageLayout>
-        <section className="container mx-auto max-w-6xl px-4">
-          <nav className="text-xs text-muted-foreground">
-            <Link href="/" className="hover:text-foreground">
-              Trang chủ
-            </Link>{" "}
-            / <span className="text-foreground">Sản phẩm</span>
-          </nav>
+        <div className="space-y-4 sm:space-y-5">
+          <BreadcrumbNav
+            items={[
+              { label: "Trang chủ", href: "/" },
+              { label: "Sản phẩm" },
+            ]}
+          />
 
-          <h1 className="mt-4 text-balance font-display text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            Dây đai thép, khóa đai thép và dụng cụ đóng đai công nghiệp
-          </h1>
-          <p className="mt-3 max-w-[70ch] text-sm leading-7 text-muted-foreground sm:text-base">
-            Danh mục sản phẩm dành cho nhà máy, xưởng sản xuất và logistics: dây đai
-            thép chịu lực cao, khóa đai thép và bộ dụng cụ siết bấm đai theo
-            từng tải trọng.
-          </p>
+          <ProductsCatalogHero />
 
-          <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <div
+            className="grid grid-cols-2 gap-3 xl:grid-cols-4 xl:gap-4"
+            role="list"
+            aria-label="Danh mục sản phẩm"
+          >
             {catalogProducts.map((product) => (
-              <ProductCatalogCard key={product.id} product={product} />
+              <div key={product.id} role="listitem" className="min-w-0">
+                <ProductCatalogCard product={product} />
+              </div>
             ))}
           </div>
 
-          <section className="mt-10 surface-card p-6">
-            <h2 className="font-display text-xl font-semibold text-foreground">
-              Cần tư vấn chọn dây đai thép theo tải trọng?
-            </h2>
-            <p className="mt-2 text-sm leading-7 text-muted-foreground">
-              Xem thêm hướng dẫn tại chuyên mục{" "}
-              <Link href="/tu-van" className="font-semibold text-primary">
-                tư vấn đóng gói công nghiệp
-              </Link>{" "}
-              hoặc liên hệ hotline{" "}
-              <a
-                href={`tel:${siteConfig.company.phone}`}
-                className="font-semibold text-primary"
-              >
-                {siteConfig.company.phone}
-              </a>
-              .
-            </p>
-            <div className="mt-4 flex flex-wrap gap-3 text-sm">
-              <Link href="/bao-gia-day-dai-thep" className="text-primary">
-                Xem bảng giá dây đai thép
-              </Link>
-              <Link
-                href="/day-dai-thep-16mm-19mm-32mm"
-                className="text-primary"
-              >
-                So sánh 16mm, 19mm, 32mm
-              </Link>
-              <Link href="/khoa-dai-thep" className="text-primary">
-                Tìm hiểu khóa đai thép
-              </Link>
-              <Link href="/bo-dung-cu-dong-dai-thep" className="text-primary">
-                Chọn bộ dụng cụ đóng đai
-              </Link>
-            </div>
-          </section>
-        </section>
+          <ProductsCatalogBottomCta />
+        </div>
       </MarketingPageLayout>
     </>
   );

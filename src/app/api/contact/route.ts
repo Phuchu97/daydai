@@ -1,27 +1,13 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
 import type { AttributionData } from "@/types/analytics";
-
-const TO_EMAIL = "phuchu199749@gmail.com";
-
-function renderAttributionHtml(attribution?: AttributionData): string {
-  if (!attribution) return "<p><strong>Nguồn:</strong> Không có dữ liệu UTM</p>";
-
-  return `
-    <h3>Nguồn traffic (SEO/Ads)</h3>
-    <p><strong>Landing page:</strong> ${attribution.landingPath || "N/A"}</p>
-    <p><strong>Last page:</strong> ${attribution.lastPath || "N/A"}</p>
-    <p><strong>Referrer:</strong> ${attribution.referrer || "Direct"}</p>
-    <p><strong>UTM Source:</strong> ${attribution.utmSource || "N/A"}</p>
-    <p><strong>UTM Medium:</strong> ${attribution.utmMedium || "N/A"}</p>
-    <p><strong>UTM Campaign:</strong> ${attribution.utmCampaign || "N/A"}</p>
-    <p><strong>UTM Term:</strong> ${attribution.utmTerm || "N/A"}</p>
-    <p><strong>UTM Content:</strong> ${attribution.utmContent || "N/A"}</p>
-    <p><strong>gclid/fbclid/ttclid:</strong> ${
-      attribution.gclid || attribution.fbclid || attribution.ttclid || "N/A"
-    }</p>
-  `;
-}
+import {
+  formatAttributionText,
+  renderAttributionHtml,
+} from "@/lib/notification-content";
+import {
+  dispatchNotifications,
+  isNotificationConfigured,
+} from "@/lib/notify-channels";
 
 export async function POST(request: Request) {
   try {
@@ -41,21 +27,26 @@ export async function POST(request: Request) {
       );
     }
 
-    const apiKey = process.env.RESEND_API_KEY;
-
-    if (!apiKey) {
+    if (!isNotificationConfigured()) {
       return NextResponse.json(
         {
           success: false,
-          message: "Chưa cấu hình RESEND_API_KEY trên server.",
+          message: "Chưa cấu hình email hoặc Telegram trên server.",
         },
         { status: 500 },
       );
     }
 
-    const resend = new Resend(apiKey);
-
     const subject = `Yêu cầu báo giá dây đai thép từ ${name}`;
+    const telegramBody = [
+      `Tên: ${name}`,
+      `SĐT: ${phone}`,
+      `Công ty: ${company || "Không cung cấp"}`,
+      `Nội dung: ${message || "Không có"}`,
+      formatAttributionText(attribution),
+    ]
+      .filter(Boolean)
+      .join("\n");
 
     const html = `
       <h2>Thông tin khách hàng yêu cầu báo giá</h2>
@@ -67,24 +58,29 @@ export async function POST(request: Request) {
       ${renderAttributionHtml(attribution)}
     `;
 
-    await resend.emails.send({
-      // Sử dụng domain mặc định của Resend để không cần cấu hình DNS
-      from: "Day dai thep <onboarding@resend.dev>",
-      to: [TO_EMAIL],
+    const result = await dispatchNotifications({
       subject,
       html,
+      telegramTitle: "YÊU CẦU BÁO GIÁ MỚI",
+      telegramBody,
     });
 
-    return NextResponse.json({ success: true });
+    if (!result.success) {
+      return NextResponse.json(
+        { success: false, message: result.message },
+        { status: 500 },
+      );
+    }
+
+    return NextResponse.json({ success: true, channels: result.channels });
   } catch (error) {
-    console.error("Error sending contact email:", error);
+    console.error("Error sending contact notification:", error);
     return NextResponse.json(
       {
         success: false,
-        message: "Không gửi được email, vui lòng thử lại sau.",
+        message: "Không gửi được yêu cầu, vui lòng thử lại sau.",
       },
       { status: 500 },
     );
   }
 }
-

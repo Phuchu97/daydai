@@ -55,6 +55,29 @@
 }
 
 @layer utilities {
+  .site-container {
+    @apply container mx-auto w-full max-w-7xl px-4 lg:px-6;
+  }
+
+  .section-intro {
+    @apply mx-auto w-full max-w-3xl text-center;
+  }
+
+  .responsive-table-wrap {
+    @apply -mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0;
+  }
+
+  /* Nav drawer: ~75% viewport on phone, capped for tablet readability */
+  .nav-drawer-panel {
+    width: clamp(17.5rem, 75vw, 26rem);
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
   .surface-card {
     @apply rounded-2xl border border-border/80 bg-white/90 shadow-[0_18px_40px_-24px_rgba(25,61,112,0.45)] backdrop-blur-sm;
   }
@@ -90,98 +113,114 @@
     }
   }
 
-  .ring-pulse {
+  /* Contact / báo giá / Zalo: sóng lan từ icon + rung chuông (không rung cả nút) */
+  .cta-attention-bell {
+    --cta-wave-color: hsl(var(--color-primary) / 0.55);
     position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    vertical-align: middle;
   }
 
-  .ring-pulse::before {
+  .cta-attention-bell--zalo {
+    --cta-wave-color: rgb(0 104 255 / 0.6);
+  }
+
+  .cta-attention-bell::before,
+  .cta-attention-bell::after {
     content: "";
     position: absolute;
-    inset: -4px;
+    inset: -7px;
     border-radius: 9999px;
-    border: 2px solid currentColor;
-    opacity: 0.6;
-    animation: ring-pulse 1.6s ease-out infinite;
-    animation-play-state: running;
-  }
-
-  @keyframes ring-pulse {
-    0% {
-      transform: scale(0.9);
-      opacity: 0.8;
-    }
-    70% {
-      transform: scale(1.2);
-      opacity: 0;
-    }
-    100% {
-      transform: scale(0.9);
-      opacity: 0;
-    }
-  }
-
-  /* High-attention ecommerce CTA ring effect */
-  .buy-now-ring {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-  }
-
-  @media (min-width: 640px) {
-    .buy-now-ring {
-      overflow: visible;
-    }
-  }
-
-  .buy-now-ring::before,
-  .buy-now-ring::after {
-    content: "";
-    position: absolute;
-    inset: -6px;
-    border-radius: 9999px;
-    border: 2px solid rgba(30, 64, 175, 0.45);
-    z-index: -1;
+    border: 2px solid var(--cta-wave-color);
     pointer-events: none;
-    animation: buy-now-pulse 2s cubic-bezier(0.39, 0.58, 0.57, 1) infinite;
+    z-index: 0;
+    animation: cta-icon-wave 2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
   }
 
-  .buy-now-ring::after {
-    animation-delay: 0.9s;
-    border-color: rgba(249, 115, 22, 0.5);
+  .cta-attention-bell::after {
+    animation-delay: 1s;
   }
 
-  @keyframes buy-now-pulse {
+  .cta-attention-bell :is(svg, img) {
+    position: relative;
+    z-index: 2;
+    display: block;
+    transform-origin: 50% 8%;
+    animation: cta-bell-swing 2.8s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  a:has(.cta-attention-bell),
+  button:has(.cta-attention-bell) {
+    overflow: visible;
+  }
+
+  button:disabled .cta-attention-bell::before,
+  button:disabled .cta-attention-bell::after,
+  button:disabled .cta-attention-bell :is(svg, img),
+  a[aria-disabled="true"] .cta-attention-bell::before,
+  a[aria-disabled="true"] .cta-attention-bell::after,
+  a[aria-disabled="true"] .cta-attention-bell :is(svg, img) {
+    animation: none;
+  }
+
+  @keyframes cta-icon-wave {
     0% {
-      transform: scale(0.98);
+      transform: scale(0.75);
       opacity: 0.85;
     }
-    70% {
-      transform: scale(1.12);
-      opacity: 0;
-    }
     100% {
-      transform: scale(1.14);
+      transform: scale(1.55);
       opacity: 0;
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .buy-now-ring::before,
-    .buy-now-ring::after {
-      animation: none;
+  @keyframes cta-bell-swing {
+    0%,
+    72%,
+    100% {
+      transform: rotate(0deg);
+    }
+    74% {
+      transform: rotate(14deg);
+    }
+    76% {
+      transform: rotate(-12deg);
+    }
+    78% {
+      transform: rotate(10deg);
+    }
+    80% {
+      transform: rotate(-8deg);
+    }
+    82% {
+      transform: rotate(6deg);
+    }
+    84% {
+      transform: rotate(-4deg);
+    }
+    86% {
+      transform: rotate(2deg);
     }
   }
 
   .contact-cta-shine {
     position: relative;
     isolation: isolate;
-    overflow: hidden;
+    overflow: visible;
   }
 
-  .contact-cta-shine::after {
+  .contact-cta-shine::before {
     content: "";
     position: absolute;
     inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    overflow: hidden;
     background: linear-gradient(
       105deg,
       transparent 42%,
@@ -204,6 +243,148 @@
     }
   }
 
+  /* Product detail: primary purchase CTA — tinted shadow, subtle glow pulse */
+  .purchase-cta-primary {
+    box-shadow:
+      0 1px 2px hsl(var(--color-primary) / 0.12),
+      0 10px 28px -8px hsl(var(--color-primary) / 0.5),
+      inset 0 1px 0 rgb(255 255 255 / 0.14);
+    animation: purchase-cta-glow 3.5s ease-in-out infinite;
+  }
+
+  .purchase-cta-primary:hover {
+    box-shadow:
+      0 2px 4px hsl(var(--color-primary) / 0.16),
+      0 14px 36px -6px hsl(var(--color-primary) / 0.58),
+      inset 0 1px 0 rgb(255 255 255 / 0.18);
+  }
+
+  @keyframes discount-badge-enter {
+    0% {
+      opacity: 0;
+      transform: scale(0.55) rotate(6deg);
+    }
+    65% {
+      transform: scale(1.1) rotate(-2deg);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
+  @keyframes discount-badge-glow {
+    0%,
+    82%,
+    100% {
+      box-shadow:
+        0 4px 14px -4px hsl(6 68% 38% / 0.5),
+        inset 0 1px 0 rgb(255 255 255 / 0.28);
+    }
+    90% {
+      box-shadow:
+        0 8px 22px -2px hsl(8 78% 46% / 0.62),
+        inset 0 1px 0 rgb(255 255 255 / 0.38);
+    }
+  }
+
+  @keyframes discount-badge-shine {
+    0%,
+    76%,
+    100% {
+      transform: translateX(-140%) skewX(-14deg);
+    }
+    86% {
+      transform: translateX(140%) skewX(-14deg);
+    }
+  }
+
+  @keyframes discount-badge-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-2px);
+    }
+  }
+
+  .product-discount-badge-wrap {
+    animation: discount-badge-float 2.8s ease-in-out 0.75s infinite;
+  }
+
+  .product-discount-badge {
+    position: relative;
+    display: inline-flex;
+    min-width: 2.75rem;
+    border-radius: 0.5rem 0.5rem 0.5rem 0.125rem;
+    padding: 0.3rem 0.45rem 0.35rem;
+    background: linear-gradient(
+      145deg,
+      hsl(7 82% 54%) 0%,
+      hsl(12 76% 46%) 52%,
+      hsl(18 68% 40%) 100%
+    );
+    box-shadow:
+      0 4px 14px -4px hsl(6 68% 38% / 0.5),
+      inset 0 1px 0 rgb(255 255 255 / 0.28);
+    animation:
+      discount-badge-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) both,
+      discount-badge-glow 3.4s ease-in-out 0.6s infinite;
+  }
+
+  .product-discount-badge__shine {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    border-radius: inherit;
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      rgb(255 255 255 / 0.34) 50%,
+      transparent 60%
+    );
+    animation: discount-badge-shine 4.2s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes purchase-cta-glow {
+    0%,
+    88%,
+    100% {
+      filter: brightness(1);
+    }
+    94% {
+      filter: brightness(1.04);
+    }
+  }
+
+  .purchase-action-zone {
+    background: linear-gradient(
+      165deg,
+      hsl(var(--color-primary) / 0.06) 0%,
+      hsl(var(--color-background)) 55%,
+      hsl(var(--color-muted) / 0.35) 100%
+    );
+  }
+
+  @keyframes qty-bump {
+    0% {
+      transform: scale(1);
+    }
+    45% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .qty-bump {
+    animation: qty-bump 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
   .sticky-contact-panel {
     animation: sticky-contact-enter 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
@@ -220,8 +401,15 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .contact-cta-shine::after,
-    .ring-pulse::before {
+    .contact-cta-shine::before,
+    .cta-attention-bell::before,
+    .cta-attention-bell::after,
+    .cta-attention-bell :is(svg, img),
+    .purchase-cta-primary {
+      animation: none;
+    }
+
+    .qty-bump {
       animation: none;
     }
 

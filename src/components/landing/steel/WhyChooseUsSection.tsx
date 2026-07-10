@@ -28,9 +28,9 @@ const items = [
 export function WhyChooseUsSection() {
   return (
     <Section id="why-us" className="bg-muted/35">
-      <div className="mx-auto max-w-3xl text-center">
+      <div className="section-intro">
         <p className="eyebrow">Lý do hợp tác lâu dài</p>
-        <h2 className="mt-3 text-balance font-display text-3xl font-semibold tracking-[-0.02em] text-foreground sm:text-4xl">
+        <h2 className="mt-3 text-balance font-display text-2xl font-semibold tracking-[-0.02em] text-foreground sm:text-3xl md:text-4xl">
           Tại sao nên chọn chúng tôi?
         </h2>
         <p className="mt-3 text-sm leading-7 text-muted-foreground sm:text-base">
@@ -52,7 +52,7 @@ export function WhyChooseUsSection() {
               sản xuất thay vì quy trình cứng.
             </p>
           </div>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          <div className="mt-6 grid gap-3 md:grid-cols-2">
             {items.slice(0, 2).map((item) => (
               <div
                 key={item.title}
@@ -67,7 +67,7 @@ export function WhyChooseUsSection() {
           </div>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-1">
           {items.slice(2).map((item) => (
           <div
             key={item.title}

@@ -5,6 +5,8 @@ import { siteConfig } from "@/config/site";
 import { articles, getArticleBySlug } from "@/data/articles";
 import { catalogProducts } from "@/data/products";
 import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
+import { BreadcrumbNav } from "@/components/seo/BreadcrumbNav";
+import { formatSeoDate, getArticleOgImageUrl } from "@/lib/seo";
 
 type Params = {
   slug: string;
@@ -26,6 +28,7 @@ export async function generateMetadata({
   const canonical = `${siteConfig.url}/tu-van/${article.slug}`;
   const seoTitle = `${article.title} | Kinh nghiệm thực tế cho doanh nghiệp`;
   const seoDescription = `${article.description} Cập nhật kinh nghiệm triển khai tại kho và nhà máy.`;
+  const ogImageUrl = getArticleOgImageUrl(article);
   return {
     title: seoTitle,
     description: seoDescription,
@@ -40,9 +43,11 @@ export async function generateMetadata({
       url: canonical,
       siteName: siteConfig.name,
       locale: "vi_VN",
+      publishedTime: article.publishedAt,
+      modifiedTime: article.updatedAt,
       images: [
         {
-          url: `${siteConfig.url}${siteConfig.ogImage}`,
+          url: ogImageUrl,
           width: 1200,
           height: 630,
           alt: article.title,
@@ -53,7 +58,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: seoTitle,
       description: seoDescription,
-      images: [`${siteConfig.url}${siteConfig.ogImage}`],
+      images: [ogImageUrl],
     },
   };
 }
@@ -93,11 +98,13 @@ export default async function ArticleDetailPage({
   if (keywordText.includes("dây đai sắt")) {
     commercialLinks.push({ href: "/day-dai-sat", label: "Trang dây đai sắt" });
   }
+  const ogImageUrl = getArticleOgImageUrl(article);
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: article.title,
     description: article.description,
+    image: [ogImageUrl],
     datePublished: article.publishedAt,
     dateModified: article.updatedAt,
     author: {
@@ -107,6 +114,10 @@ export default async function ArticleDetailPage({
     publisher: {
       "@type": "Organization",
       name: siteConfig.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteConfig.url}${siteConfig.logoIcon}`,
+      },
     },
     mainEntityOfPage: canonical,
   };
@@ -146,17 +157,14 @@ export default async function ArticleDetailPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
       <MarketingPageLayout>
-        <article className="container mx-auto max-w-3xl px-4">
-          <nav className="mb-6 text-xs text-muted-foreground">
-            <Link href="/" className="hover:text-foreground">
-              Trang chủ
-            </Link>{" "}
-            /{" "}
-            <Link href="/tu-van" className="hover:text-foreground">
-              Tư vấn
-            </Link>{" "}
-            / <span className="text-foreground">{article.title}</span>
-          </nav>
+        <article className="max-w-3xl space-y-6 sm:space-y-8">
+          <BreadcrumbNav
+            items={[
+              { label: "Trang chủ", href: "/" },
+              { label: "Tư vấn", href: "/tu-van" },
+              { label: article.title },
+            ]}
+          />
 
           <h1 className="font-display text-3xl font-bold tracking-tight text-foreground">
             {article.title}
@@ -165,7 +173,15 @@ export default async function ArticleDetailPage({
             {article.description}
           </p>
           <p className="mt-3 text-xs text-muted-foreground">
-            Cập nhật: {new Date(article.updatedAt).toLocaleDateString("vi-VN")}
+            Xuất bản:{" "}
+            <time dateTime={article.publishedAt}>
+              {formatSeoDate(article.publishedAt)}
+            </time>
+            {" · "}
+            Cập nhật:{" "}
+            <time dateTime={article.updatedAt}>
+              {formatSeoDate(article.updatedAt)}
+            </time>
           </p>
 
           <div className="mt-8 space-y-8">

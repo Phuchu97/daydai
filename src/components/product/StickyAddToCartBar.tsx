@@ -36,7 +36,7 @@ export function StickyAddToCartBar() {
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border/80 bg-background/95 shadow-[0_-4px_12px_rgba(15,23,42,0.18)] backdrop-blur">
-      <div className="container mx-auto flex max-w-5xl items-center gap-3 px-4 py-3">
+      <div className="site-container flex items-center gap-3 py-3">
         <div className="flex items-center gap-3">
           <div className="relative h-12 w-12 overflow-hidden rounded-md border border-border bg-muted">
             <Image

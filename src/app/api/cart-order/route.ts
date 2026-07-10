@@ -1,27 +1,19 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
 import type { AttributionData } from "@/types/analytics";
-
-const TO_EMAIL = "phuchu199749@gmail.com";
-
-function renderAttributionHtml(attribution?: AttributionData): string {
-  if (!attribution) return "<p><strong>Nguồn:</strong> Không có dữ liệu UTM</p>";
-
-  return `
-    <h3>Nguồn traffic (SEO/Ads)</h3>
-    <p><strong>Landing page:</strong> ${attribution.landingPath || "N/A"}</p>
-    <p><strong>Last page:</strong> ${attribution.lastPath || "N/A"}</p>
-    <p><strong>Referrer:</strong> ${attribution.referrer || "Direct"}</p>
-    <p><strong>UTM Source:</strong> ${attribution.utmSource || "N/A"}</p>
-    <p><strong>UTM Medium:</strong> ${attribution.utmMedium || "N/A"}</p>
-    <p><strong>UTM Campaign:</strong> ${attribution.utmCampaign || "N/A"}</p>
-    <p><strong>UTM Term:</strong> ${attribution.utmTerm || "N/A"}</p>
-    <p><strong>UTM Content:</strong> ${attribution.utmContent || "N/A"}</p>
-    <p><strong>gclid/fbclid/ttclid:</strong> ${
-      attribution.gclid || attribution.fbclid || attribution.ttclid || "N/A"
-    }</p>
-  `;
-}
+import {
+  buildOrderNotificationText,
+  formatAttributionText,
+  renderAttributionHtml,
+} from "@/lib/notification-content";
+import {
+  dispatchNotifications,
+  isNotificationConfigured,
+} from "@/lib/notify-channels";
+import {
+  isValidVietnamesePhone,
+  normalizeVietnamesePhone,
+  VIETNAM_PHONE_ERROR,
+} from "@/lib/phone";
 
 export async function POST(request: Request) {
   try {
@@ -29,13 +21,13 @@ export async function POST(request: Request) {
     const {
       name,
       phone,
-      note,
+      address,
       items,
       attribution,
     } = body as {
       name?: string;
       phone?: string;
-      note?: string;
+      address?: string;
       attribution?: AttributionData;
       items?: Array<{
         id: string;
@@ -47,12 +39,28 @@ export async function POST(request: Request) {
       }>;
     };
 
-    if (!name || !phone) {
+    const trimmedName = name?.trim();
+    const trimmedPhone = phone?.trim();
+    const trimmedAddress = address?.trim();
+
+    if (!trimmedName || !trimmedPhone || !trimmedAddress) {
       return NextResponse.json(
-        { success: false, message: "Thiếu họ tên hoặc số điện thoại." },
+        {
+          success: false,
+          message: "Vui lòng nhập đầy đủ họ tên, số điện thoại và địa chỉ.",
+        },
         { status: 400 },
       );
     }
+
+    if (!isValidVietnamesePhone(trimmedPhone)) {
+      return NextResponse.json(
+        { success: false, message: VIETNAM_PHONE_ERROR },
+        { status: 400 },
+      );
+    }
+
+    const normalizedPhone = normalizeVietnamesePhone(trimmedPhone);
 
     if (!items || items.length === 0) {
       return NextResponse.json(
@@ -61,26 +69,25 @@ export async function POST(request: Request) {
       );
     }
 
-    const apiKey = process.env.RESEND_API_KEY;
-
-    if (!apiKey) {
+    if (!isNotificationConfigured()) {
       return NextResponse.json(
         {
           success: false,
-          message: "Chưa cấu hình RESEND_API_KEY trên server.",
+          message: "Chưa cấu hình email hoặc Telegram trên server.",
         },
         { status: 500 },
       );
     }
 
-    const resend = new Resend(apiKey);
+    const { title, body: orderBody, subtotal } = buildOrderNotificationText({
+      name: trimmedName,
+      phone: normalizedPhone,
+      address: trimmedAddress,
+      items,
+    });
 
-    const subtotal = items.reduce(
-      (sum, item) => sum + item.price * item.quantity,
-      0,
-    );
-
-    const subject = `Đơn đặt hàng mới từ ${name}`;
+    const telegramBody = orderBody + formatAttributionText(attribution);
+    const subject = `Đơn đặt hàng mới từ ${trimmedName}`;
 
     const rows = items
       .map(
@@ -100,9 +107,9 @@ export async function POST(request: Request) {
 
     const html = `
       <h2>Thông tin đơn đặt hàng mới</h2>
-      <p><strong>Họ tên:</strong> ${name}</p>
-      <p><strong>Số điện thoại:</strong> ${phone}</p>
-      <p><strong>Ghi chú:</strong> ${note || "Không có"}</p>
+      <p><strong>Họ tên:</strong> ${trimmedName}</p>
+      <p><strong>Số điện thoại:</strong> ${normalizedPhone}</p>
+      <p><strong>Địa chỉ:</strong> ${trimmedAddress}</p>
       <h3>Chi tiết giỏ hàng</h3>
       <table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse;">
         <thead>
@@ -122,14 +129,21 @@ export async function POST(request: Request) {
       ${renderAttributionHtml(attribution)}
     `;
 
-    await resend.emails.send({
-      from: "Dat hang day dai thep <onboarding@resend.dev>",
-      to: [TO_EMAIL],
+    const result = await dispatchNotifications({
       subject,
       html,
+      telegramTitle: title,
+      telegramBody,
     });
 
-    return NextResponse.json({ success: true });
+    if (!result.success) {
+      return NextResponse.json(
+        { success: false, message: result.message },
+        { status: 500 },
+      );
+    }
+
+    return NextResponse.json({ success: true, channels: result.channels });
   } catch (error) {
     console.error("Error sending cart order:", error);
     return NextResponse.json(
@@ -141,4 +155,3 @@ export async function POST(request: Request) {
     );
   }
 }
-

@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { PhoneCtaButton } from "@/components/contact/PhoneCtaButton";
 import { QuickQuoteForm } from "@/components/seo/QuickQuoteForm";
+import {
+  STEEL_SEAL_REFERENCE_PRICE_UNIT,
+  STEEL_STRAPPING_PRICE_PER_KG,
+} from "@/config/pricing";
 import { siteConfig } from "@/config/site";
+import { buildOfferCatalogItem } from "@/lib/merchant-offer-schema";
 import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
 
 export const metadata: Metadata = {
@@ -97,20 +103,22 @@ export default function NorthLandingPage() {
     "@type": "OfferCatalog",
     name: "Giải pháp dây đai thép miền Bắc",
     itemListElement: [
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Product",
-          name: "Dây đai thép cho pallet hàng nặng",
+      buildOfferCatalogItem(
+        "Dây đai thép cho pallet hàng nặng",
+        STEEL_STRAPPING_PRICE_PER_KG,
+        {
+          url: `${siteConfig.url}/san-pham/day-dai-thep-chiu-luc-cao`,
+          unitText: "kg",
         },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Product",
-          name: "Khóa đai thép và dụng cụ đóng đai đồng bộ",
+      ),
+      buildOfferCatalogItem(
+        "Khóa đai thép và dụng cụ đóng đai đồng bộ",
+        STEEL_SEAL_REFERENCE_PRICE_UNIT,
+        {
+          url: `${siteConfig.url}/san-pham/khoa-dai-thep-seals`,
+          unitText: "cái",
         },
-      },
+      ),
     ],
   };
 
@@ -133,7 +141,7 @@ export default function NorthLandingPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <MarketingPageLayout>
-        <article className="container mx-auto max-w-5xl px-4">
+        <article className="space-y-6 sm:space-y-8">
           <nav className="text-xs text-muted-foreground">
             <Link href="/" className="hover:text-foreground">
               Trang chủ
@@ -141,7 +149,7 @@ export default function NorthLandingPage() {
             / <span className="text-foreground">Dây đai thép miền Bắc</span>
           </nav>
 
-          <h1 className="mt-4 text-balance font-display text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+          <h1 className="mt-4 text-balance font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl md:text-4xl">
             Nhà cung cấp dây đai thép miền Bắc cho doanh nghiệp B2B
           </h1>
           <p className="mt-3 max-w-[70ch] text-sm leading-7 text-muted-foreground sm:text-base">
@@ -156,7 +164,7 @@ export default function NorthLandingPage() {
             title="Nhận báo giá dây đai thép miền Bắc"
           />
 
-          <section className="mt-6 grid gap-6 md:grid-cols-3">
+          <section className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
             <div className="surface-card p-5">
               <p className="text-2xl font-semibold text-primary [font-variant-numeric:tabular-nums]">
                 16 - 32mm
@@ -177,7 +185,7 @@ export default function NorthLandingPage() {
             </div>
           </section>
 
-          <section className="mt-6 grid gap-4 md:grid-cols-3">
+          <section className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/70 bg-muted">
               <Image
                 src="/images/day-dai-thep-32mm.jpg"
@@ -250,12 +258,9 @@ export default function NorthLandingPage() {
             </div>
           </section>
 
-          <a
-            href={`tel:${siteConfig.company.phone}`}
-            className="btn-lift mt-6 inline-flex rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
-          >
+          <PhoneCtaButton className="mt-6 px-5 py-3">
             Gọi tư vấn khu vực miền Bắc
-          </a>
+          </PhoneCtaButton>
         </article>
       </MarketingPageLayout>
     </>

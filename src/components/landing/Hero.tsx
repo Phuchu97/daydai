@@ -20,7 +20,7 @@ export function Hero({
 }: HeroProps) {
   return (
     <Section className="pb-12 pt-8 md:pb-20 md:pt-16" container={true}>
-      <div className="mx-auto max-w-3xl text-center">
+      <div className="section-intro">
         <h1 className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
           {headline}
         </h1>

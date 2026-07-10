@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PhoneCtaButton } from "@/components/contact/PhoneCtaButton";
 import { QuickQuoteForm } from "@/components/seo/QuickQuoteForm";
 import { siteConfig } from "@/config/site";
 import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
@@ -62,7 +63,7 @@ export default function SteelSealsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
       <MarketingPageLayout>
-        <article className="container mx-auto max-w-5xl px-4">
+        <article className="space-y-6 sm:space-y-8">
           <nav className="text-xs text-muted-foreground">
             <Link href="/" className="hover:text-foreground">
               Trang chủ
@@ -70,7 +71,7 @@ export default function SteelSealsPage() {
             / <span className="text-foreground">Khóa đai thép</span>
           </nav>
 
-          <h1 className="mt-4 text-balance font-display text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+          <h1 className="mt-4 text-balance font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl md:text-4xl">
             Khóa đai thép (bọ sắt) cho dây đai công nghiệp
           </h1>
           <p className="mt-3 max-w-[70ch] text-sm leading-7 text-muted-foreground sm:text-base">
@@ -85,7 +86,7 @@ export default function SteelSealsPage() {
             <h2 className="text-xl font-semibold text-foreground">
               Bảng quy cách khóa đai thép phổ biến
             </h2>
-            <div className="mt-4 overflow-x-auto">
+            <div className="responsive-table-wrap mt-4">
               <table className="min-w-full text-left text-sm">
                 <thead className="bg-muted/60 text-foreground">
                   <tr>
@@ -146,12 +147,9 @@ export default function SteelSealsPage() {
                   </Link>
                 </li>
               </ul>
-              <a
-                href={`tel:${siteConfig.company.phone}`}
-                className="btn-lift mt-4 inline-flex rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
-              >
+              <PhoneCtaButton className="mt-4 px-4 py-2">
                 Gọi tư vấn khóa đai
-              </a>
+              </PhoneCtaButton>
             </div>
           </section>
         </article>

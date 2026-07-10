@@ -5,6 +5,7 @@ import {
   TrustSection,
   ProductsSection,
   WhyChooseUsSection,
+  BulkShippingShowcase,
   RealUsageSection,
   TestimonialsSection,
   LeadFormSection,
@@ -34,18 +35,16 @@ export default function HomePage() {
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${baseUrl}/#website`,
     name: siteConfig.name,
     url: baseUrl,
     inLanguage: "vi-VN",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${baseUrl}/tu-van?query={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
+    publisher: { "@id": `${baseUrl}/#organization` },
   };
   const localBusinessJsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
+    "@id": `${baseUrl}/#localbusiness`,
     name: siteConfig.company.legalName,
     url: baseUrl,
     image: `${baseUrl}${siteConfig.ogImage}`,
@@ -53,12 +52,29 @@ export default function HomePage() {
     telephone: siteConfig.company.phone,
     address: {
       "@type": "PostalAddress",
+      streetAddress: siteConfig.company.address,
       addressLocality: "Hà Nội",
+      addressRegion: "Hà Nội",
       addressCountry: "VN",
     },
-    areaServed: ["VN", "Hà Nội", "Miền Bắc"],
+    areaServed: siteConfig.company.serviceArea,
     sameAs: [`https://zalo.me/${siteConfig.company.zaloPhone}`],
     description: siteConfig.description,
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ],
+        opens: "08:00",
+        closes: "18:00",
+      },
+    ],
   };
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -91,6 +107,7 @@ export default function HomePage() {
       <TrustSection />
       <ProductsSection />
       <WhyChooseUsSection />
+      <BulkShippingShowcase />
       <RealUsageSection />
       <TestimonialsSection />
       <LeadFormSection />

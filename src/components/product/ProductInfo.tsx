@@ -1,9 +1,15 @@
- "use client";
+"use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { ContactPhoneCta } from "@/components/contact/ContactPhoneCta";
+import { ProductPurchaseActions } from "@/components/product/ProductPurchaseActions";
+import { PromotionCountdown } from "@/components/product/PromotionCountdown";
+import { ProductQuantityStepper } from "@/components/product/ProductQuantityStepper";
+import { ProductSocialProof } from "@/components/product/ProductSocialProof";
+import { ProductWeightStepper } from "@/components/product/ProductWeightStepper";
 import { useCartStore } from "@/store/cartStore";
 import type { CatalogProduct } from "@/data/products";
+import { getReviewsForProduct } from "@/data/reviews";
 
 const widths = ["16mm", "19mm", "25mm", "32mm"];
 const thicknesses = ["0.6mm", "0.8mm", "1.0mm"];
@@ -11,6 +17,7 @@ import {
   STEEL_STRAPPING_DISCOUNT_PERCENT,
   STEEL_STRAPPING_PRICE_PER_KG,
 } from "@/config/pricing";
+import { getProductDiscountPercent } from "@/lib/product-pricing";
 
 type Props = {
   product: CatalogProduct;
@@ -22,17 +29,26 @@ export function ProductInfo({ product }: Props) {
   const [weightKg, setWeightKg] = useState(25);
   const [qty, setQty] = useState(1);
   const addToCart = useCartStore((s) => s.addToCart);
+  const productReviews = useMemo(
+    () => getReviewsForProduct(product.id),
+    [product.id],
+  );
+  const reviewStats = useMemo(() => {
+    if (productReviews.length === 0) return null;
+    const sum = productReviews.reduce((total, review) => total + review.rating, 0);
+    return {
+      average: sum / productReviews.length,
+      count: productReviews.length,
+    };
+  }, [productReviews]);
   const isStrapping = product.id === "steel-strapping";
-  const discountPercent = isStrapping
-    ? STEEL_STRAPPING_DISCOUNT_PERCENT
-    : product.basePrice && product.salePrice
-      ? Math.round(
-          ((product.basePrice - product.salePrice) / product.basePrice) * 100,
-        )
-      : null;
+  const discountPercent = getProductDiscountPercent(product);
 
-  const handleQtyChange = (delta: number) => {
-    setQty((prev) => Math.max(1, prev + delta));
+  const showPromotionCountdown =
+    isStrapping || (product.basePrice != null && product.salePrice != null);
+
+  const handleQtyChange = (next: number) => {
+    setQty(Math.max(1, next));
   };
 
   const handleAddToCart = () => {
@@ -70,11 +86,10 @@ export function ProductInfo({ product }: Props) {
         >
           {product.name}
         </h1>
-        <p className="flex items-center gap-2 text-xs text-muted-foreground">
-          <span className="text-sm text-yellow-400">★★★★★</span>
-          <span className="font-semibold text-foreground">4.8</span>
-          <span>(256 đánh giá)</span>
-        </p>
+        <ProductSocialProof
+          reviewStats={reviewStats}
+          soldCount={product.soldCount}
+        />
         {isStrapping && product.shortDescription ? (
           <p className="text-sm leading-relaxed text-muted-foreground">
             {product.shortDescription}
@@ -85,7 +100,7 @@ export function ProductInfo({ product }: Props) {
       {product.priceLabel ? (
         <ContactPhoneCta variant="price" />
       ) : (
-      <div className="space-y-1 rounded-2xl border border-border bg-muted/40 p-4">
+      <div className="space-y-2 rounded-2xl border border-border bg-muted/40 p-4">
         <div className="flex max-w-full flex-wrap items-end gap-x-2 gap-y-1">
           {isStrapping ? (
             <>
@@ -125,6 +140,9 @@ export function ProductInfo({ product }: Props) {
             </>
           )}
         </div>
+        {showPromotionCountdown ? (
+          <PromotionCountdown storageKey={`promo-countdown-${product.id}`} />
+        ) : null}
       </div>
       )}
 
@@ -143,76 +161,33 @@ export function ProductInfo({ product }: Props) {
               value={thickness}
               onChange={setThickness}
             />
-            <div className="space-y-1">
-              <p className="text-xs font-medium text-foreground">
-                Khối lượng cần mua (kg)
-              </p>
-              <input
-                type="number"
-                min={1}
-                step={1}
-                value={weightKg}
-                onChange={(e) =>
-                  setWeightKg(
-                    Number.isNaN(Number(e.target.value))
-                      ? 1
-                      : Math.max(1, Math.round(Number(e.target.value))),
-                  )
-                }
-                className="w-[128px] rounded-md border border-border bg-background px-3 py-2 text-sm outline-none ring-primary/20 focus:ring-2"
-                placeholder="Nhập số kg, ví dụ 25"
-              />
-            </div>
+            <ProductWeightStepper
+              label="Khối lượng cần mua"
+              value={weightKg}
+              onChange={setWeightKg}
+              min={1}
+              step={5}
+            />
           </>
         )}
 
         {!isStrapping && (
-          <div className="flex items-center gap-4">
-            <div>
-              <p className="text-xs font-medium text-foreground">Số lượng bộ</p>
-              <div className="mt-1 inline-flex items-center rounded-full border border-border bg-background">
-                <button
-                  type="button"
-                  onClick={() => handleQtyChange(-1)}
-                  className="h-8 w-8 text-sm font-semibold"
-                  aria-label="Giảm số lượng"
-                >
-                  -
-                </button>
-                <span className="w-10 text-center text-sm font-semibold">
-                  {qty}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => handleQtyChange(1)}
-                  className="h-8 w-8 text-sm font-semibold"
-                  aria-label="Tăng số lượng"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-          </div>
+          <ProductQuantityStepper
+            label="Số lượng bộ"
+            value={qty}
+            onChange={handleQtyChange}
+            min={1}
+            max={99}
+            unit="bộ"
+          />
         )}
       </div>
 
-      <div className="space-y-3 max-md:pb-2">
-        <div className="flex min-w-0 flex-col gap-2 overflow-hidden sm:flex-row max-md:[&_button]:min-h-11">
-          <button
-            type="button"
-            onClick={handleAddToCart}
-            className="add-to-cart-button flex-1 rounded-full bg-secondary px-4 py-3 text-sm font-semibold text-secondary-foreground shadow-md shadow-secondary/40 transition hover:-translate-y-0.5 hover:opacity-90"
-          >
-            Thêm vào giỏ hàng
-          </button>
-          <button
-            type="button"
-            onClick={handleBuyNow}
-            className="buy-now-ring flex-1 rounded-full border border-primary bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/40 transition hover:-translate-y-0.5 hover:opacity-95"
-          >
-            Mua ngay
-          </button>
-        </div>
+      <div className="max-md:pb-2">
+        <ProductPurchaseActions
+          onAddToCart={handleAddToCart}
+          onBuyNow={handleBuyNow}
+        />
       </div>
 
       <div className="space-y-2 rounded-2xl border border-border bg-background p-3">

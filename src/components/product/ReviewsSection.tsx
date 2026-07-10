@@ -34,8 +34,11 @@ export function ReviewsSection({ product }: { product: CatalogProduct }) {
   }, [allReviews]);
 
   return (
-    <section className="border-t border-border bg-background py-10">
-      <div className="container mx-auto max-w-5xl px-4">
+    <section
+      id="product-reviews"
+      className="border-t border-border bg-background py-12 md:py-16 scroll-mt-24"
+    >
+      <div className="site-container">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h2 className="text-lg font-semibold text-foreground sm:text-xl">

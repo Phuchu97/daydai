@@ -1,3 +1,6 @@
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+
 type IconProps = {
   className?: string;
 };
@@ -19,7 +22,8 @@ export function PhoneIcon({ className }: IconProps) {
   );
 }
 
-export function ChatIcon({ className }: IconProps) {
+/** Báo giá / gửi yêu cầu */
+export function QuoteIcon({ className }: IconProps) {
   return (
     <svg
       className={className}
@@ -31,7 +35,26 @@ export function ChatIcon({ className }: IconProps) {
       strokeLinejoin="round"
       aria-hidden
     >
-      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
     </svg>
   );
+}
+
+export function ZaloIcon({ className }: IconProps) {
+  return (
+    <Image
+      src="/images/Icon_of_Zalo.svg"
+      alt=""
+      width={20}
+      height={20}
+      className={cn("h-5 w-5 shrink-0", className)}
+      aria-hidden
+    />
+  );
+}
+
+/** @deprecated Use ZaloIcon for Zalo CTAs */
+export function ChatIcon({ className }: IconProps) {
+  return <ZaloIcon className={className} />;
 }

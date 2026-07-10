@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils";
-import { Header } from "@/components/layout/Header";
+import { SiteHeader } from "@/components/layout/SiteHeader";
 import { Footer } from "@/components/layout/Footer";
-import { StickyTopBar } from "@/components/layout/StickyTopBar";
 import { StickyContacts } from "@/components/layout/StickyContacts";
 import { StickyAddToCartBar } from "@/components/product/StickyAddToCartBar";
 
@@ -24,8 +23,7 @@ export function SiteShell({
 }: SiteShellProps) {
   return (
     <div className="flex min-h-[100dvh] flex-col">
-      {showTopBar ? <StickyTopBar /> : null}
-      <Header />
+      <SiteHeader showTopBar={showTopBar} />
       <main
         id={mainId}
         className={cn(

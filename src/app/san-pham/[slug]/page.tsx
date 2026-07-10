@@ -3,8 +3,11 @@ import { notFound } from "next/navigation";
 import { catalogProducts } from "@/data/products";
 import type { CatalogProduct } from "@/data/products";
 import { steelStrappingFaqs } from "@/data/steel-strapping-content";
+import { getProductFaqs } from "@/data/product-detail-content";
 import { ProductDetailPage } from "@/components/product/ProductDetailPage";
 import { siteConfig } from "@/config/site";
+import { getProductAggregateRating } from "@/data/reviews";
+import { buildProductSchemaOffer } from "@/lib/merchant-offer-schema";
 
 type Params = {
   slug: string;
@@ -16,6 +19,9 @@ function getProductFromSlug(slug: string): CatalogProduct | undefined {
 }
 
 function getFaqForProduct(product: CatalogProduct) {
+  const productFaqs = getProductFaqs(product);
+  if (productFaqs) return productFaqs;
+
   if (product.id === "steel-strapping-tools") {
     return [
       {
@@ -140,8 +146,7 @@ export default async function ProductRoutePage({
 
   const productUrl = `${siteConfig.url}/san-pham/${slug}`;
   const faqs = getFaqForProduct(product);
-  const offerPrice =
-    product.pricePerKg ?? product.salePrice ?? product.basePrice;
+  const aggregateRating = getProductAggregateRating(product.id);
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -153,43 +158,8 @@ export default async function ProductRoutePage({
       "@type": "Brand",
       name: siteConfig.name,
     },
-    offers: offerPrice
-      ? {
-          "@type": "Offer",
-          priceCurrency: "VND",
-          price: offerPrice,
-          ...(product.pricePerKg
-            ? {
-                priceSpecification: {
-                  "@type": "UnitPriceSpecification",
-                  price: product.pricePerKg,
-                  priceCurrency: "VND",
-                  unitText: "kg",
-                },
-              }
-            : {}),
-          availability: "https://schema.org/InStock",
-          url: productUrl,
-          seller: {
-            "@type": "Organization",
-            name: siteConfig.company.legalName,
-          },
-        }
-      : {
-          "@type": "Offer",
-          priceCurrency: "VND",
-          availability: "https://schema.org/InStock",
-          url: productUrl,
-          seller: {
-            "@type": "Organization",
-            name: siteConfig.company.legalName,
-          },
-        },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      reviewCount: "256",
-    },
+    offers: buildProductSchemaOffer(product, productUrl),
+    ...(aggregateRating ? { aggregateRating } : {}),
   };
 
   const breadcrumbJsonLd = {
