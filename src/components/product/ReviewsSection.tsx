@@ -66,16 +66,6 @@ export function ReviewsSection({ product }: { product: CatalogProduct }) {
               active={filter === 5}
               onClick={() => setFilter(5)}
             />
-            <FilterButton
-              label="4 sao"
-              active={filter === 4}
-              onClick={() => setFilter(4)}
-            />
-            <FilterButton
-              label="3 sao"
-              active={filter === 3}
-              onClick={() => setFilter(3)}
-            />
           </div>
         </div>
 

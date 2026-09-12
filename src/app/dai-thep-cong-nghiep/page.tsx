@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { QuickQuoteForm } from "@/components/seo/QuickQuoteForm";
+import { SeoPageGallery } from "@/components/seo/SeoPageGallery";
 import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
 import { siteConfig } from "@/config/site";
 import { buildOfferCatalogItem } from "@/lib/merchant-offer-schema";
@@ -107,13 +108,32 @@ export default function IndustrialSteelStrapPage() {
           </nav>
 
           <h1 className="mt-4 text-balance font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl md:text-4xl">
-            Đai thép công nghiệp cho pallet và hàng siêu nặng
+            Dây đai thép công nghiệp là gì? Tìm hiểu về đai thép công nghiệp
           </h1>
           <p className="mt-3 max-w-[70ch] text-sm leading-7 text-muted-foreground sm:text-base">
             Đai thép công nghiệp phù hợp cho kiện hàng có rung lắc cao, tải
             trọng lớn hoặc tuyến vận chuyển dài. Cần triển khai đồng bộ dây,
             khóa và dụng cụ để giữ ổn định mối đai.
           </p>
+
+          <SeoPageGallery
+            variant="editorial"
+            hero={{
+              src: "/images/nha-may-dong-dai-3.webp",
+              alt: "Đai thép công nghiệp tại nhà máy đóng gói",
+              caption: "Đai thép công nghiệp cho pallet và hàng siêu nặng",
+            }}
+            gallery={[
+              {
+                src: "/images/day-dai-thep-32mm.jpg",
+                alt: "Dây đai thép công nghiệp bản rộng chịu lực cao",
+              },
+              {
+                src: "/images/nha-may-dong-dai-2.jpg",
+                alt: "Dây chuyền đóng đai thép công nghiệp",
+              },
+            ]}
+          />
 
           <QuickQuoteForm
             sourcePage="/dai-thep-cong-nghiep"

@@ -1,43 +1,126 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { QuickQuoteForm } from "@/components/seo/QuickQuoteForm";
+import { HybridProductGuide } from "@/components/seo/HybridProductGuide";
+import { DayDaiSatGuideBody } from "@/components/seo/DayDaiSatGuideBody";
 import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
 import { siteConfig } from "@/config/site";
-import { buildOfferCatalogItem } from "@/lib/merchant-offer-schema";
-import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
+import { catalogProducts } from "@/data/products";
+import { getProductAggregateRating } from "@/data/reviews";
+import { buildProductSchemaOffer } from "@/lib/merchant-offer-schema";
+
+const PAGE_PATH = "/day-dai-sat";
+const PAGE_URL = `${siteConfig.url}${PAGE_PATH}`;
+const HEADING = "Dây đai sắt 16mm 19mm 32mm cho pallet hàng nặng";
+const LEAD =
+  "Dây đai sắt (cùng loại dây đai thép đóng hàng) bản 16/19/32mm, tính giá theo kg. Chọn quy cách theo tải, khớp bọ sắt và kìm siết, giao Hà Nội cùng KCN miền Bắc.";
+
+const faqs = [
+  {
+    question: "Dây đai sắt khác dây đai thép không?",
+    answer:
+      "Không. Trong đóng pallet, dây đai sắt và dây đai thép là một sản phẩm: băng thép dẹt 16mm, 19mm hoặc 32mm. Khác với đai thép cột hay thép phi dùng trong xây dựng.",
+  },
+  {
+    question: "Nên lấy dây đai sắt 16mm, 19mm hay 32mm?",
+    answer:
+      "Pallet dưới khoảng 500kg thường dùng 16mm. Kiện 500-1.200kg và tuyến rung lắc ưu tiên 19mm. Cuộn thép hoặc kiện trên 1.200kg dùng 32mm, kèm bọ và kìm đúng khổ.",
+  },
+  {
+    question: "Giá dây đai sắt bao nhiêu một kg?",
+    answer: `Giá website tham khảo ${STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg. Giá lô chốt theo loại dầu / mạ kẽm / sơn, độ dày, số kg và điểm giao. Cuộn phổ biến 30-50kg.`,
+  },
+  {
+    question: "Dây đai sắt dầu hay mạ kẽm?",
+    answer:
+      "Kho khô nội địa lấy dầu để tối ưu chi phí. Kho ẩm, bãi ngoài trời hoặc xuất khẩu ưu tiên mạ kẽm hoặc sơn tĩnh điện để chống gỉ lâu hơn.",
+  },
+  {
+    question: "Cần bọ sắt và dụng cụ gì đi kèm?",
+    answer:
+      "Mỗi bản dây cần bọ đúng khổ (16.2 / 19.2 / 32mm) và kìm siết, kìm bấm bọ cùng size. Lệch size dễ tuột mối dù dây mới.",
+  },
+  {
+    question: "Có giao dây đai sắt tại Hà Nội không?",
+    answer: `Có. ${siteConfig.name} ưu tiên Hà Nội và KCN miền Bắc trong 24-48 giờ khi hàng sẵn kho, đồng thời gửi chành xe toàn quốc.`,
+  },
+];
 
 export const metadata: Metadata = {
-  title: "Dây đai sắt (dây đai thép) | tư vấn nhanh theo tải trọng",
+  title: "Dây đai sắt 16/19/32mm, giá theo kg, giao Hà Nội",
   description:
-    "Dây đai sắt hay dây đai thép dùng để đóng pallet hàng nặng, cuộn thép, vật tư xây dựng. Tư vấn quy cách 16mm, 19mm, 32mm theo tải trọng thực tế.",
+    "Dây đai sắt đóng hàng (dây đai thép) 16mm, 19mm, 32mm. Giá theo kg, chọn dầu / mạ kẽm / sơn, khớp bọ sắt và kìm siết. Giao Hà Nội, miền Bắc và toàn quốc.",
   keywords: [
     "dây đai sắt",
     "đai sắt đóng hàng",
-    "dây đai thép",
+    "dây đai sắt 19mm",
+    "dây đai sắt 16mm",
+    "dây đai sắt 32mm",
+    "giá dây đai sắt",
+    "bọ sắt đóng đai",
     "day dai sat",
   ],
   alternates: {
-    canonical: `${siteConfig.url}/day-dai-sat`,
+    canonical: PAGE_URL,
   },
   openGraph: {
-    title: "Dây đai sắt (dây đai thép) | tư vấn nhanh theo tải trọng",
+    title: "Dây đai sắt 16/19/32mm, giá theo kg, giao Hà Nội",
     description:
-      "Giải pháp dây đai sắt cho pallet hàng nặng, cuộn thép và vật tư xây dựng, kèm hỗ trợ chọn quy cách phù hợp.",
-    url: `${siteConfig.url}/day-dai-sat`,
+      "Cùng loại dây đai thép đóng pallet. Chọn khổ 16/19/32mm theo tải, báo giá theo kg, giao Hà Nội và KCN miền Bắc.",
+    url: PAGE_URL,
     locale: "vi_VN",
-    type: "article",
+    type: "website",
     images: [
       {
-        url: `${siteConfig.url}${siteConfig.ogImage}`,
+        url: `${siteConfig.url}/images/day-dai-thep-dau.jpg`,
         width: 1200,
         height: 630,
-        alt: "Dây đai sắt công nghiệp",
+        alt: "Cuộn dây đai sắt đóng hàng tại kho",
       },
     ],
   },
 };
 
+const product = catalogProducts.find((item) => item.id === "steel-strapping")!;
+
+const galleryImages = [
+  {
+    src: "/images/day-dai-thep-dau.jpg",
+    alt: "Cuộn dây đai sắt phủ dầu, dùng đóng pallet hàng nặng",
+  },
+  {
+    src: "/images/day-dai-thep-chat-luong-cao.jpg",
+    alt: "Dây đai sắt chất lượng cao cuốn đều tại kho",
+  },
+  {
+    src: "/images/day-dai-thep-ma-kem-xanh.jpg",
+    alt: "Dây đai sắt mạ kẽm bản rộng, chống gỉ khi lưu kho",
+  },
+  {
+    src: "/images/day-dai-thep-tai-kho-khach-hang.jpg",
+    alt: "Dây đai sắt tại kho khách hàng sẵn sàng xuất dùng",
+  },
+  {
+    src: "/images/lo-day-dai-thep-giao-cho-khach-hang.jpg",
+    alt: "Lô dây đai sắt giao cho nhà máy và logistics",
+  },
+];
+
 export default function SteelBandPage() {
+  const aggregateRating = getProductAggregateRating(product.id);
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "Dây đai sắt",
+    alternateName: ["dây đai thép", "đai sắt đóng hàng", "dây đai sắt 19mm"],
+    description: LEAD,
+    image: galleryImages.map((img) => `${siteConfig.url}${img.src}`),
+    sku: "steel-strapping-sat",
+    brand: {
+      "@type": "Brand",
+      name: siteConfig.name,
+    },
+    offers: buildProductSchemaOffer(product, PAGE_URL),
+    ...(aggregateRating ? { aggregateRating } : {}),
+  };
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -52,42 +135,25 @@ export default function SteelBandPage() {
         "@type": "ListItem",
         position: 2,
         name: "Dây đai sắt",
-        item: `${siteConfig.url}/day-dai-sat`,
+        item: PAGE_URL,
       },
     ],
   };
-  const serviceJsonLd = {
+  const faqJsonLd = {
     "@context": "https://schema.org",
-    "@type": "Service",
-    serviceType: "Tư vấn và cung cấp dây đai sắt cho hàng nặng",
-    provider: {
-      "@type": "Organization",
-      name: siteConfig.company.legalName,
-      telephone: siteConfig.company.phone,
-    },
-    areaServed: ["VN", "Hà Nội", "Miền Bắc"],
-  };
-  const offerJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "OfferCatalog",
-    name: "Giải pháp dây đai sắt theo nhóm ngành",
-    itemListElement: [
-      "Dây đai sắt cho vật liệu xây dựng",
-      "Dây đai sắt cho pallet kim loại",
-      "Dây đai sắt cho logistics hàng nặng",
-    ].map((name) =>
-      buildOfferCatalogItem(name, STEEL_STRAPPING_PRICE_PER_KG, {
-        url: `${siteConfig.url}/san-pham/day-dai-thep-chiu-luc-cao`,
-        unitText: "kg",
-      }),
-    ),
+    "@type": "FAQPage",
+    mainEntity: faqs.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
   };
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
       />
       <script
         type="application/ld+json"
@@ -95,84 +161,23 @@ export default function SteelBandPage() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(offerJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <MarketingPageLayout>
-        <article className="space-y-6 sm:space-y-8">
-          <nav className="text-xs text-muted-foreground">
-            <Link href="/" className="hover:text-foreground">
-              Trang chủ
-            </Link>{" "}
-            / <span className="text-foreground">Dây đai sắt</span>
-          </nav>
-
-          <h1 className="mt-4 text-balance font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl md:text-4xl">
-            Dây đai sắt cho hàng nặng trong kho và nhà máy
-          </h1>
-          <p className="mt-3 max-w-[70ch] text-sm leading-7 text-muted-foreground sm:text-base">
-            Trong thực tế vận hành, dây đai sắt thường được gọi cùng nghĩa với
-            dây đai thép. Việc chọn đúng bản dây, độ dày và loại khóa giúp
-            giảm nguy cơ bung đai trong quá trình bốc xếp và vận chuyển.
-          </p>
-
-          <QuickQuoteForm
-            sourcePage="/day-dai-sat"
-            className="mt-8"
-            title="Nhận tư vấn dây đai sắt theo tải trọng"
-          />
-
-          <section className="surface-card mt-6 p-6">
-            <h2 className="text-lg font-semibold text-foreground">
-              So sánh nhanh theo nhóm ngành
-            </h2>
-            <div className="responsive-table-wrap mt-3">
-              <table className="min-w-full text-left text-sm">
-                <thead className="bg-muted/60 text-foreground">
-                  <tr>
-                    <th className="px-3 py-2">Ngành</th>
-                    <th className="px-3 py-2">Nhu cầu chính</th>
-                    <th className="px-3 py-2">Gợi ý quy cách</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-t border-border/60">
-                    <td className="px-3 py-2">Xây dựng, vật liệu</td>
-                    <td className="px-3 py-2">Kiện nặng, cạnh sắc</td>
-                    <td className="px-3 py-2">19mm - 32mm, khóa kín</td>
-                  </tr>
-                  <tr className="border-t border-border/60">
-                    <td className="px-3 py-2">Kho vận nội địa</td>
-                    <td className="px-3 py-2">Ổn định pallet khi bốc xếp</td>
-                    <td className="px-3 py-2">16mm - 19mm theo tải trọng</td>
-                  </tr>
-                  <tr className="border-t border-border/60">
-                    <td className="px-3 py-2">Cơ khí, thép cuộn</td>
-                    <td className="px-3 py-2">Biên an toàn cao</td>
-                    <td className="px-3 py-2">32mm + kiểm tra lực siết</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
-
-          <section className="surface-card mt-6 p-6">
-            <h2 className="text-lg font-semibold text-foreground">
-              Tài liệu nên xem trước khi đặt hàng
-            </h2>
-            <div className="mt-3 flex flex-wrap gap-3 text-sm">
-              <Link href="/day-dai-thep-16mm-19mm-32mm" className="text-primary">
-                So sánh bản dây 16mm 19mm 32mm
-              </Link>
-              <Link href="/khoa-dai-thep" className="text-primary">
-                Chọn khóa đai thép tương thích
-              </Link>
-              <Link href="/bao-gia-day-dai-thep" className="text-primary">
-                Xem bảng giá tham khảo
-              </Link>
-            </div>
-          </section>
-        </article>
-      </MarketingPageLayout>
+      <HybridProductGuide
+        product={product}
+        heading={HEADING}
+        lead={LEAD}
+        cartName="Dây đai sắt"
+        images={galleryImages}
+        breadcrumbs={[
+          { label: "Trang chủ", href: "/" },
+          { label: "Sản phẩm", href: "/san-pham" },
+          { label: "Dây đai sắt" },
+        ]}
+        faqs={faqs}
+      >
+        <DayDaiSatGuideBody />
+      </HybridProductGuide>
     </>
   );
 }

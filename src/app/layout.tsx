@@ -33,10 +33,6 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   alternates: {
     canonical: "/",
-    languages: {
-      "vi-VN": "/",
-      "x-default": "/",
-    },
   },
   openGraph: {
     type: "website",
@@ -75,7 +71,6 @@ export const metadata: Metadata = {
   other: {
     "geo.region": "VN-HN",
     "geo.placename": "Ha Noi",
-    "og:locale:alternate": "en_US",
   },
   verification: {
     google: process.env.GOOGLE_SITE_VERIFICATION,

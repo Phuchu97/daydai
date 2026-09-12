@@ -39,10 +39,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.92,
     },
     {
+      url: `${siteConfig.url}/day-dai-thep`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.96,
+    },
+    {
       url: `${siteConfig.url}/khoa-dai-thep`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.9,
+    },
+    {
+      url: `${siteConfig.url}/bo-sat`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.88,
     },
     {
       url: `${siteConfig.url}/bo-dung-cu-dong-dai-thep`,
@@ -51,10 +63,58 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${siteConfig.url}/siet-day-thep`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.88,
+    },
+    {
       url: `${siteConfig.url}/day-dai-thep-16mm-19mm-32mm`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.9,
+    },
+    {
+      url: `${siteConfig.url}/day-dai-thep-16mm`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.89,
+    },
+    {
+      url: `${siteConfig.url}/day-dai-thep-19mm`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.89,
+    },
+    {
+      url: `${siteConfig.url}/day-dai-thep-32mm`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.89,
+    },
+    {
+      url: `${siteConfig.url}/day-dai-thep-dau`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.88,
+    },
+    {
+      url: `${siteConfig.url}/day-dai-thep-ma-kem`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.88,
+    },
+    {
+      url: `${siteConfig.url}/day-dai-thep-son-tinh-dien`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.88,
+    },
+    {
+      url: `${siteConfig.url}/day-dai-thep-dong-pallet`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.88,
     },
     {
       url: `${siteConfig.url}/day-dai-thep-ha-noi`,
@@ -70,6 +130,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${siteConfig.url}/day-dai-sat`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.87,
+    },
+    {
+      url: `${siteConfig.url}/day-dai-sat-gia-re`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.87,

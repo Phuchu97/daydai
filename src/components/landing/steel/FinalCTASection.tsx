@@ -54,20 +54,29 @@ export function FinalCTASection() {
           </Link>
         </div>
         <div className="mt-4 flex flex-col items-center gap-2 text-center text-sm sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3">
+          <Link href="/day-dai-thep" className="font-medium text-primary">
+            Hướng dẫn dây đai thép
+          </Link>
           <Link href="/bao-gia-day-dai-thep" className="font-medium text-primary">
             Xem bảng giá mới nhất
           </Link>
-          <Link
-            href="/day-dai-thep-ha-noi"
-            className="font-medium text-primary"
-          >
+          <Link href="/day-dai-thep-16mm-19mm-32mm" className="font-medium text-primary">
+            So sánh 16 · 19 · 32mm
+          </Link>
+          <Link href="/day-dai-thep-ha-noi" className="font-medium text-primary">
             Dây đai thép tại Hà Nội
           </Link>
-          <Link
-            href="/day-dai-thep-mien-bac"
-            className="font-medium text-primary"
-          >
-            Nhà cung cấp miền Bắc
+          <Link href="/day-dai-thep-mien-bac" className="font-medium text-primary">
+            Dây đai thép miền Bắc
+          </Link>
+          <Link href="/day-dai-sat-gia-re" className="font-medium text-primary">
+            Dây đai sắt giá rẻ
+          </Link>
+          <Link href="/bo-sat" className="font-medium text-primary">
+            Bọ sắt, bọ kẹp đai
+          </Link>
+          <Link href="/siet-day-thep" className="font-medium text-primary">
+            Siết dây thép
           </Link>
         </div>
       </div>

@@ -1,6 +1,20 @@
+import { priorityArticles, priorityArticleSlugs } from "./priority-articles";
+import { secondaryArticles, secondaryArticleSlugs } from "./secondary-articles";
+
+export type ArticleTable = {
+  headers: string[];
+  rows: string[][];
+};
+
 export type ArticleSection = {
   heading: string;
   paragraphs: string[];
+  table?: ArticleTable;
+};
+
+export type ArticleFaq = {
+  question: string;
+  answer: string;
 };
 
 export type Article = {
@@ -13,9 +27,10 @@ export type Article = {
   keywords: string[];
   relatedProductIds: string[];
   sections: ArticleSection[];
+  faqs?: ArticleFaq[];
 };
 
-export const articles: Article[] = [
+const rawArticles: Article[] = [
   {
     slug: "cach-chon-day-dai-thep-theo-tai-trong",
     title: "Cách chọn dây đai thép theo tải trọng thực tế",
@@ -605,6 +620,110 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "day-dai-pet-hay-day-dai-thep",
+    title: "Dây đai PET hay dây đai thép? Cách chọn theo tải và ngành",
+    description:
+      "So sánh dây đai PET và dây đai thép theo tải trọng, độ co giãn, an toàn thao tác, chi phí và môi trường vận chuyển để chọn đúng vật tư đóng gói.",
+    excerpt:
+      "PET nhẹ và an toàn khi cắt; thép chịu lực cao và ít co giãn. Bài viết giúp chốt lựa chọn theo từng nhóm hàng.",
+    publishedAt: "2026-07-08",
+    updatedAt: "2026-07-10",
+    keywords: [
+      "dây đai pet hay dây đai thép",
+      "so sánh dây đai pet và thép",
+      "dây đai thép vs pet",
+      "chọn dây đai đóng hàng",
+    ],
+    relatedProductIds: ["steel-strapping", "steel-seals"],
+    sections: [
+      {
+        heading: "Khác biệt cốt lõi giữa PET và thép",
+        paragraphs: [
+          "Dây đai thép chịu lực kéo cao, độ dãn thấp sau khi siết — phù hợp kiện nặng, cạnh sắc, tuyến rung lắc mạnh. Dây đai PET nhẹ hơn, đàn hồi có kiểm soát, cắt an toàn hơn và thường tối ưu chi phí cho hàng vừa.",
+          "Không có loại nào “tốt tuyệt đối”: chọn theo tải kiện, hình dạng hàng, số lần bốc xếp và yêu cầu an toàn lao động tại kho.",
+        ],
+      },
+      {
+        heading: "Khi nào nên ưu tiên dây đai thép",
+        paragraphs: [
+          "Cuộn thép, dầm, VLXD nặng, máy móc trên pallet, hàng xuất khẩu đường dài có nhiều lần nâng hạ — thép thường cho biên an toàn cao hơn.",
+          "Nếu hàng có cạnh sắc dễ cắt dây nhựa, hoặc yêu cầu giữ lực ổn định nhiều ngày trong kho/container, dây đai thép + bọ kín là lựa chọn phổ biến.",
+        ],
+      },
+      {
+        heading: "Khi nào PET đủ dùng",
+        paragraphs: [
+          "Pallet hàng tiêu dùng, thùng carton ổn định, tải vừa và tuyến nội địa ngắn — PET giúp giảm chi phí và giảm rủi ro đứt dây gây thương tích khi cắt.",
+          "Nếu đang cân nhắc chuyển từ thép sang PET, hãy test cùng số vòng đai và cùng quy trình nâng hạ trước khi thay toàn bộ dây chuyền.",
+        ],
+      },
+      {
+        heading: "Checklist quyết định nhanh",
+        paragraphs: [
+          "Ghi tải kiện, số điểm đai, loại pallet, quãng đường và môi trường ẩm. Nếu tải cao / cạnh sắc / xuất khẩu dài → nghiêng về thép. Nếu tải vừa / ưu tiên an toàn cắt / tối ưu giá → cân nhắc PET.",
+          "Xem thêm trang tổng quan dây đai thép và bảng so sánh 16/19/32mm để chốt quy cách khi đã chọn thép.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "huong-dan-chon-day-dai-thep-cho-nha-may",
+    title: "Hướng dẫn chọn dây đai thép cho nhà máy và kho logistics",
+    description:
+      "Quy trình chọn dây đai thép cho nhà máy: khảo sát tải, chuẩn hóa quy cách, đồng bộ khóa–dụng cụ, test mẫu và dự trù tồn kho theo tháng.",
+    excerpt:
+      "Chuẩn hóa vật tư đóng đai giúp giảm bung hàng và chi phí phát sinh. Checklist dành cho quản lý kho và sản xuất.",
+    publishedAt: "2026-07-09",
+    updatedAt: "2026-07-10",
+    keywords: [
+      "chọn dây đai thép cho nhà máy",
+      "dây đai thép kho logistics",
+      "chuẩn hóa dây đai thép",
+      "vật tư đóng đai công nghiệp",
+    ],
+    relatedProductIds: ["steel-strapping", "steel-seals", "steel-strapping-tools"],
+    sections: [
+      {
+        heading: "Khảo sát hiện trạng trước khi mua",
+        paragraphs: [
+          "Liệt kê các nhóm SKU theo tải kiện, hình dạng và tuyến vận chuyển. Ghi nhận quy cách dây–bọ–dụng cụ đang dùng và tỷ lệ sự cố bung đai / đứt dây trong 1–3 tháng gần nhất.",
+          "Ảnh thực tế mối đai lỗi giúp nhà cung cấp tư vấn đúng hơn là chỉ hỏi “báo giá dây 19mm”.",
+        ],
+      },
+      {
+        heading: "Chuẩn hóa 1–2 quy cách chính",
+        paragraphs: [
+          "Tránh tồn quá nhiều khổ dây khác nhau. Nhiều nhà máy chỉ cần 16mm cho hàng vừa và 19mm (hoặc 32mm) cho hàng nặng — kèm bọ và kìm khớp từng dòng.",
+          "Gắn nhãn rõ tại khu vực cấp phát để công nhân không nhầm khóa 16 với 19.",
+        ],
+      },
+      {
+        heading: "Test mẫu và chốt SOP",
+        paragraphs: [
+          "Chạy thử 1–2 ca với quy cách mới: siết, bấm, nâng hạ forklift, quan sát độ võng sau 24 giờ nếu hàng lưu kho.",
+          "Viết SOP ngắn: số vòng đai theo SKU, lực siết tham chiếu, checklist kiểm tra trước khi xuất.",
+        ],
+      },
+      {
+        heading: "Dự trù tồn và giao hàng miền Bắc",
+        paragraphs: [
+          "Tính tiêu hao theo kg/tháng và giữ tồn an toàn theo lead time giao. Với Hà Nội và KCN miền Bắc, có thể chia nhỏ lô giao để giảm tồn kho mà vẫn đủ chạy sản xuất.",
+          "Kết hợp báo giá theo tháng để ổn định đơn giá khi thép đầu vào biến động.",
+        ],
+      },
+    ],
+  },
+];
+
+export const articles: Article[] = [
+  ...priorityArticles,
+  ...secondaryArticles,
+  ...rawArticles.filter(
+    (article) =>
+      !priorityArticleSlugs.has(article.slug) &&
+      !secondaryArticleSlugs.has(article.slug),
+  ),
 ];
 
 export function getArticleBySlug(slug: string): Article | undefined {

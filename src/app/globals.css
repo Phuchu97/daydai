@@ -82,6 +82,23 @@
     @apply rounded-2xl border border-border/80 bg-white/90 shadow-[0_18px_40px_-24px_rgba(25,61,112,0.45)] backdrop-blur-sm;
   }
 
+  /* Compact SEO media: nested shell, soft crop, no caption clutter */
+  .seo-media {
+    @apply w-full;
+  }
+
+  .seo-media-shell {
+    @apply rounded-[1.15rem] border border-border/50 bg-muted/40 p-1 shadow-[0_14px_36px_-28px_rgba(25,61,112,0.55)];
+  }
+
+  .seo-media-frame {
+    @apply rounded-[calc(1.15rem-0.25rem)] bg-muted;
+  }
+
+  .seo-media-caption {
+    @apply mt-2.5 max-w-[65ch] text-xs leading-5 text-muted-foreground sm:text-[13px] sm:leading-6;
+  }
+
   .eyebrow {
     @apply text-[11px] font-semibold tracking-[0.16em] text-primary/80 uppercase;
   }

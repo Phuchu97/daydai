@@ -1,16 +1,26 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PhoneCtaButton } from "@/components/contact/PhoneCtaButton";
+import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
+import { BreadcrumbNav } from "@/components/seo/BreadcrumbNav";
 import { QuickQuoteForm } from "@/components/seo/QuickQuoteForm";
+import { SeoPageGallery } from "@/components/seo/SeoPageGallery";
+import { SeoRelatedLinks } from "@/components/seo/SeoRelatedLinks";
 import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
 import { siteConfig } from "@/config/site";
+import {
+  INDUSTRY_CASES,
+  LOAD_GUIDE_ROWS,
+  SPEC_ROWS,
+} from "@/data/steel-strapping-guide";
 import { buildOfferCatalogItem } from "@/lib/merchant-offer-schema";
-import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
+
+const PAGE_PATH = "/day-dai-thep-16mm-19mm-32mm";
 
 export const metadata: Metadata = {
-  title: "Dây đai thép 16mm 19mm 32mm | cách chọn nhanh",
+  title: "Dây đai thép 16mm 19mm 32mm | bảng so sánh & cách chọn",
   description:
-    "So sánh dây đai thép 16mm, 19mm, 32mm theo tải trọng, độ dày và ứng dụng thực tế tại kho, nhà máy, logistics. Tư vấn chọn quy cách để giảm rủi ro bung đai.",
+    "So sánh dây đai thép 16mm, 19mm, 32mm: độ dày, chịu lực (N), m/kg, tải tham khảo và checklist chọn theo tải trọng thực tế tại kho.",
   keywords: [
     "dây đai thép 16mm",
     "dây đai thép 19mm",
@@ -19,13 +29,13 @@ export const metadata: Metadata = {
     "day dai thep 19mm",
   ],
   alternates: {
-    canonical: `${siteConfig.url}/day-dai-thep-16mm-19mm-32mm`,
+    canonical: `${siteConfig.url}${PAGE_PATH}`,
   },
   openGraph: {
-    title: "Dây đai thép 16mm 19mm 32mm | cách chọn nhanh",
+    title: "Dây đai thép 16mm 19mm 32mm | bảng so sánh & cách chọn",
     description:
-      "Bảng so sánh nhanh theo tải trọng và checklist chọn dây đai thép đúng nhu cầu vận hành.",
-    url: `${siteConfig.url}/day-dai-thep-16mm-19mm-32mm`,
+      "Bảng spec đầy đủ + hướng dẫn chọn theo tải trọng và điều kiện vận chuyển.",
+    url: `${siteConfig.url}${PAGE_PATH}`,
     locale: "vi_VN",
     type: "article",
     images: [
@@ -38,27 +48,6 @@ export const metadata: Metadata = {
     ],
   },
 };
-
-const compareRows = [
-  [
-    "16mm",
-    "0.5 - 0.8mm",
-    "400 - 900kg/đai",
-    "Pallet vừa, kiện ổn định hình khối",
-  ],
-  [
-    "19mm",
-    "0.6 - 0.9mm",
-    "800 - 1.400kg/đai",
-    "Pallet thép, vật tư xây dựng, hàng rung lắc cao",
-  ],
-  [
-    "32mm",
-    "0.8 - 1.2mm",
-    "1.300kg+/đai",
-    "Cuộn thép, cấu kiện siêu nặng, tuyến xa",
-  ],
-];
 
 export default function SteelStrappingSizePage() {
   const guideFaq = [
@@ -74,6 +63,10 @@ export default function SteelStrappingSizePage() {
       q: "Có thể chọn dây chỉ theo trọng lượng kiện hàng không?",
       a: "Không nên. Cần xét thêm số điểm đai, hình dạng kiện, kiểu pallet, tần suất bốc xếp và quãng đường vận chuyển.",
     },
+    {
+      q: "m/kg nghĩa là gì?",
+      a: "Số mét dây ước tính trên mỗi kg. Bản dây càng rộng/dày thì m/kg càng thấp — hữu ích khi dự trù số cuộn theo chu vi kiện.",
+    },
   ];
 
   const faqJsonLd = {
@@ -82,10 +75,7 @@ export default function SteelStrappingSizePage() {
     mainEntity: guideFaq.map((faq) => ({
       "@type": "Question",
       name: faq.q,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.a,
-      },
+      acceptedAnswer: { "@type": "Answer", text: faq.a },
     })),
   };
   const breadcrumbJsonLd = {
@@ -102,7 +92,7 @@ export default function SteelStrappingSizePage() {
         "@type": "ListItem",
         position: 2,
         name: "Dây đai thép 16mm 19mm 32mm",
-        item: `${siteConfig.url}/day-dai-thep-16mm-19mm-32mm`,
+        item: `${siteConfig.url}${PAGE_PATH}`,
       },
     ],
   };
@@ -110,9 +100,11 @@ export default function SteelStrappingSizePage() {
     "@context": "https://schema.org",
     "@type": "OfferCatalog",
     name: "Cấu hình dây đai thép theo quy cách",
-    itemListElement: compareRows.map((row) =>
-      buildOfferCatalogItem(`Dây đai thép ${row[0]}`, STEEL_STRAPPING_PRICE_PER_KG, {
-        url: `${siteConfig.url}/san-pham/day-dai-thep-chiu-luc-cao`,
+    itemListElement: SPEC_ROWS.filter((row) =>
+      [16, 19, 32].includes(row.widthMm),
+    ).map((row) =>
+      buildOfferCatalogItem(`Dây đai thép ${row.widthMm}mm`, STEEL_STRAPPING_PRICE_PER_KG, {
+        url: `${siteConfig.url}${row.href}`,
         unitText: "kg",
       }),
     ),
@@ -134,49 +126,78 @@ export default function SteelStrappingSizePage() {
       />
       <MarketingPageLayout>
         <article className="space-y-6 sm:space-y-8">
-          <nav className="text-xs text-muted-foreground">
-            <Link href="/" className="hover:text-foreground">
-              Trang chủ
-            </Link>{" "}
-            / <span className="text-foreground">Dây đai thép 16mm 19mm 32mm</span>
-          </nav>
+          <BreadcrumbNav
+            items={[
+              { label: "Trang chủ", href: "/" },
+              { label: "Dây đai thép", href: "/day-dai-thep" },
+              { label: "16mm · 19mm · 32mm" },
+            ]}
+          />
 
-          <h1 className="mt-4 text-balance font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl md:text-4xl">
-            Dây đai thép 16mm, 19mm, 32mm: nên chọn loại nào?
-          </h1>
-          <p className="mt-3 max-w-[70ch] text-sm leading-7 text-muted-foreground sm:text-base">
-            Chọn sai bản dây có thể làm tăng chi phí hoặc giảm an toàn khi vận
-            chuyển. Bảng dưới đây giúp bạn đối chiếu nhanh theo tải trọng và
-            điều kiện khai thác thực tế.
-          </p>
+          <header>
+            <h1 className="text-balance font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl md:text-4xl">
+              Dây đai thép 16mm, 19mm, 32mm: nên chọn loại nào?
+            </h1>
+            <p className="mt-3 max-w-[70ch] text-sm leading-7 text-muted-foreground sm:text-base">
+              Chọn sai bản dây có thể làm tăng chi phí hoặc giảm an toàn khi vận
+              chuyển. Bảng dưới đối chiếu độ dày, chịu lực, m/kg và tải tham
+              khảo — kèm checklist theo điều kiện kho thực tế.
+            </p>
+          </header>
+
+          <SeoPageGallery
+            variant="editorial"
+            hero={{
+              src: "/images/day-dai-thep-32-chat-luong.jpg",
+              alt: "So sánh quy cách dây đai thép 16mm 19mm 32mm",
+              caption: "Đối chiếu bản dây theo tải trọng trước khi đặt hàng",
+            }}
+            gallery={[
+              {
+                src: "/images/day-dai-thep-chat-luong-cao.jpg",
+                alt: "Dây đai thép 16mm cho pallet vừa",
+              },
+              {
+                src: "/images/day-dai-thep-32mm.jpg",
+                alt: "Dây đai thép 32mm chịu lực cao",
+              },
+            ]}
+          />
 
           <QuickQuoteForm
-            sourcePage="/day-dai-thep-16mm-19mm-32mm"
-            className="mt-8"
+            sourcePage={PAGE_PATH}
             title="Nhận tư vấn chọn bản dây phù hợp"
           />
 
-          <section className="surface-card mt-6 p-6">
+          <section className="surface-card p-6">
             <h2 className="text-xl font-semibold text-foreground">
-              So sánh nhanh theo quy cách phổ biến
+              Bảng so sánh thông số kỹ thuật
             </h2>
             <div className="responsive-table-wrap mt-4">
               <table className="min-w-full text-left text-sm">
                 <thead className="bg-muted/60 text-foreground">
                   <tr>
                     <th className="px-3 py-2">Bản dây</th>
-                    <th className="px-3 py-2">Độ dày thường dùng</th>
-                    <th className="px-3 py-2">Tải trọng tham khảo</th>
-                    <th className="px-3 py-2">Ứng dụng phù hợp</th>
+                    <th className="px-3 py-2">Độ dày</th>
+                    <th className="px-3 py-2">Chịu lực (N)</th>
+                    <th className="px-3 py-2">m/kg</th>
+                    <th className="px-3 py-2">Tải tham khảo</th>
+                    <th className="px-3 py-2">Ứng dụng</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {compareRows.map((row) => (
-                    <tr key={row.join("-")} className="border-t border-border/60">
-                      <td className="px-3 py-2 font-medium text-foreground">{row[0]}</td>
-                      <td className="px-3 py-2">{row[1]}</td>
-                      <td className="px-3 py-2">{row[2]}</td>
-                      <td className="px-3 py-2">{row[3]}</td>
+                  {SPEC_ROWS.map((row) => (
+                    <tr key={row.widthMm} className="border-t border-border/60">
+                      <td className="px-3 py-2 font-medium text-foreground">
+                        <Link href={row.href} className="text-primary hover:underline">
+                          {row.widthMm}mm
+                        </Link>
+                      </td>
+                      <td className="px-3 py-2">{row.thicknessMm}mm</td>
+                      <td className="px-3 py-2">{row.breakLoadN}</td>
+                      <td className="px-3 py-2">{row.metersPerKg}</td>
+                      <td className="px-3 py-2">{row.loadHint}</td>
+                      <td className="px-3 py-2">{row.bestFor}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -184,34 +205,90 @@ export default function SteelStrappingSizePage() {
             </div>
           </section>
 
-          <section className="mt-6 grid gap-6 md:grid-cols-2">
+          <section className="surface-card p-6">
+            <h2 className="text-xl font-semibold text-foreground">
+              Chọn theo tải trọng kiện
+            </h2>
+            <div className="responsive-table-wrap mt-4">
+              <table className="min-w-full text-left text-sm">
+                <thead className="bg-muted/60 text-foreground">
+                  <tr>
+                    <th className="px-3 py-2">Tải kiện</th>
+                    <th className="px-3 py-2">Khuyến nghị</th>
+                    <th className="px-3 py-2">Ghi chú</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {LOAD_GUIDE_ROWS.map((row) => (
+                    <tr key={row.load} className="border-t border-border/60">
+                      <td className="px-3 py-2 font-medium text-foreground">
+                        {row.load}
+                      </td>
+                      <td className="px-3 py-2">{row.recommend}</td>
+                      <td className="px-3 py-2">{row.notes}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section className="surface-card p-6">
+            <h2 className="text-xl font-semibold text-foreground">
+              Gợi ý theo ngành
+            </h2>
+            <div className="responsive-table-wrap mt-4">
+              <table className="min-w-full text-left text-sm">
+                <thead className="bg-muted/60 text-foreground">
+                  <tr>
+                    <th className="px-3 py-2">Ngành</th>
+                    <th className="px-3 py-2">Nhu cầu</th>
+                    <th className="px-3 py-2">Gợi ý</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {INDUSTRY_CASES.map((row) => (
+                    <tr key={row.industry} className="border-t border-border/60">
+                      <td className="px-3 py-2 font-medium text-foreground">
+                        {row.industry}
+                      </td>
+                      <td className="px-3 py-2">{row.need}</td>
+                      <td className="px-3 py-2">{row.recommend}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section className="grid gap-6 md:grid-cols-2">
             <div className="surface-card p-6">
               <h2 className="text-lg font-semibold text-foreground">
-                Checklist chọn bản dây trước khi đặt hàng
+                Checklist trước khi đặt hàng
               </h2>
               <ul className="mt-3 space-y-2 text-sm leading-7 text-muted-foreground">
                 <li>• Xác định tải trọng thực và số điểm đai trên mỗi kiện.</li>
                 <li>• Kiểm tra điều kiện vận chuyển: nội địa, xuất khẩu, rung lắc.</li>
-                <li>• Đánh giá loại khóa đai và dụng cụ đang sử dụng tại kho.</li>
+                <li>• Đánh giá loại khóa đai và dụng cụ đang dùng tại kho.</li>
                 <li>• Test mẫu trong ca thực tế trước khi nhập số lượng lớn.</li>
               </ul>
             </div>
             <div className="surface-card p-6">
               <h2 className="text-lg font-semibold text-foreground">
-                Liên kết tư vấn liên quan
+                Trang chi tiết từng quy cách
               </h2>
               <div className="mt-3 flex flex-col gap-2 text-sm">
-                <Link href="/bao-gia-day-dai-thep" className="text-primary">
-                  Bảng giá dây đai thép và khóa đai
+                <Link href="/day-dai-thep-16mm" className="text-primary hover:underline">
+                  Dây đai thép 16mm
                 </Link>
-                <Link href="/khoa-dai-thep" className="text-primary">
-                  Chọn khóa đai thép tương thích
+                <Link href="/day-dai-thep-19mm" className="text-primary hover:underline">
+                  Dây đai thép 19mm
                 </Link>
-                <Link href="/bo-dung-cu-dong-dai-thep" className="text-primary">
-                  Chọn bộ dụng cụ siết bấm phù hợp
+                <Link href="/day-dai-thep-32mm" className="text-primary hover:underline">
+                  Dây đai thép 32mm
                 </Link>
-                <Link href="/tu-van" className="text-primary">
-                  Xem thêm bài tư vấn kỹ thuật
+                <Link href="/bao-gia-day-dai-thep" className="text-primary hover:underline">
+                  Bảng giá dây đai & khóa đai
                 </Link>
               </div>
               <PhoneCtaButton className="mt-4 px-4 py-2">
@@ -219,6 +296,22 @@ export default function SteelStrappingSizePage() {
               </PhoneCtaButton>
             </div>
           </section>
+
+          <section className="surface-card p-6">
+            <h2 className="text-lg font-semibold text-foreground">FAQ</h2>
+            <div className="mt-4 space-y-4">
+              {guideFaq.map((item) => (
+                <div key={item.q}>
+                  <h3 className="text-sm font-semibold text-foreground">{item.q}</h3>
+                  <p className="mt-1 text-sm leading-7 text-muted-foreground">
+                    {item.a}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <SeoRelatedLinks excludeHref={PAGE_PATH} />
         </article>
       </MarketingPageLayout>
     </>

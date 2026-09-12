@@ -109,12 +109,21 @@ export function buildProductSchemaOffer(product: CatalogProduct, productUrl: str
   return buildMerchantOffer({ price, url: productUrl, unitText });
 }
 
+const DEFAULT_CATALOG_PRODUCT_IMAGE = `${siteConfig.url}/images/day-dai-thep-dau.jpg`;
+
 /** Một mục trong OfferCatalog (trang SEO / báo giá). */
 export function buildOfferCatalogItem(
   productName: string,
   price: number,
-  options?: { url?: string; unitText?: string },
+  options?: {
+    url?: string;
+    unitText?: string;
+    /** Absolute URL(s) — bắt buộc cho Merchant listings Product.image */
+    image?: string | string[];
+  },
 ) {
+  const image = options?.image ?? DEFAULT_CATALOG_PRODUCT_IMAGE;
+
   return {
     ...buildMerchantOffer({
       price,
@@ -124,6 +133,7 @@ export function buildOfferCatalogItem(
     itemOffered: {
       "@type": "Product" as const,
       name: productName,
+      image,
     },
   };
 }

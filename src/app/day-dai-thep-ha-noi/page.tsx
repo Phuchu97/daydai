@@ -1,39 +1,79 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import { PhoneCtaButton } from "@/components/contact/PhoneCtaButton";
-import { QuickQuoteForm } from "@/components/seo/QuickQuoteForm";
-import {
-  STEEL_SEAL_REFERENCE_PRICE_UNIT,
-  STEEL_STRAPPING_PRICE_PER_KG,
-} from "@/config/pricing";
+import { HybridProductGuide } from "@/components/seo/HybridProductGuide";
+import { LocalRegionGuideBody } from "@/components/seo/LocalRegionGuideBody";
 import { siteConfig } from "@/config/site";
-import { buildOfferCatalogItem } from "@/lib/merchant-offer-schema";
-import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
+import { catalogProducts } from "@/data/products";
+import { getProductAggregateRating } from "@/data/reviews";
+import { buildProductSchemaOffer } from "@/lib/merchant-offer-schema";
+
+const PAGE_PATH = "/day-dai-thep-ha-noi";
+const PAGE_URL = `${siteConfig.url}${PAGE_PATH}`;
+const HEADING = "Dây đai thép Hà Nội — giao nhanh KCN, báo giá trong ngày";
+const LEAD =
+  "Cung cấp dây đai thép 16/19/32mm, khóa đai và bộ dụng cụ cho kho và nhà máy tại Hà Nội, Bắc Ninh, Hưng Yên. Giao 24–48h khi hàng sẵn kho.";
+
+const faqs = [
+  {
+    question: "Có giao dây đai thép nội thành Hà Nội không?",
+    answer:
+      "Có. Chúng tôi ưu tiên giao Hà Nội và các KCN phụ cận theo lịch nhập hàng của kho, thường trong 24–48 giờ khi hàng sẵn.",
+  },
+  {
+    question: "Bao lâu nhận được báo giá tại Hà Nội?",
+    answer:
+      "Trong ngày làm việc sau khi nhận đủ quy cách (bản, độ dày, loại bề mặt) và số kg cần lấy.",
+  },
+  {
+    question: "Có tư vấn khóa đai và dụng cụ cùng lúc không?",
+    answer:
+      "Có. Chúng tôi đồng bộ dây, bọ sắt và kìm siết/bấm theo tải trọng để giảm lỗi tuột mối.",
+  },
+  {
+    question: "Địa chỉ và hotline liên hệ?",
+    answer: `${siteConfig.company.legalName} — ${siteConfig.company.address}. Hotline ${siteConfig.company.phone}.`,
+  },
+];
+
+const galleryImages = [
+  {
+    src: "/images/day-dai-thep-tai-kho-khach-hang.jpg",
+    alt: "Dây đai thép tại kho khu vực Hà Nội",
+  },
+  {
+    src: "/images/lo-day-dai-thep-giao-cho-khach-hang.jpg",
+    alt: "Lô dây đai thép giao nhanh cho doanh nghiệp Hà Nội",
+  },
+  {
+    src: "/images/day-dai-thep-chat-luong-cao.jpg",
+    alt: "Cuộn dây đai thép chất lượng cao",
+  },
+  {
+    src: "/images/day-dai-thep-ma-kem-xanh.jpg",
+    alt: "Dây đai thép mạ kẽm giao kho Hà Nội",
+  },
+];
 
 export const metadata: Metadata = {
-  title: "Dây đai thép Hà Nội | báo giá nhanh trong ngày",
+  title: "Dây đai thép Hà Nội | giao nhanh KCN, báo giá trong ngày",
   description:
-    "Cung cấp dây đai thép tại Hà Nội: quy cách 16mm, 19mm, 32mm, hỗ trợ giao nhanh khu công nghiệp miền Bắc và tư vấn kỹ thuật đóng đai hàng nặng.",
+    "Mua dây đai thép tại Hà Nội: 16mm, 19mm, 32mm, khóa đai và dụng cụ đồng bộ. Giao nhanh KCN miền Bắc, báo giá trong ngày làm việc.",
   keywords: [
     "dây đai thép hà nội",
     "mua dây đai thép hà nội",
     "khóa đai thép hà nội",
     "nhà cung cấp dây đai thép hà nội",
   ],
-  alternates: {
-    canonical: `${siteConfig.url}/day-dai-thep-ha-noi`,
-  },
+  alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: "Dây đai thép Hà Nội | báo giá nhanh trong ngày",
+    title: "Dây đai thép Hà Nội | giao nhanh KCN, báo giá trong ngày",
     description:
-      "Giải pháp dây đai thép và khóa đai thép cho doanh nghiệp tại Hà Nội, Bắc Ninh, Hưng Yên, Hải Dương.",
-    url: `${siteConfig.url}/day-dai-thep-ha-noi`,
+      "Dây đai thép và khóa đai cho doanh nghiệp Hà Nội, Bắc Ninh, Hưng Yên, Hải Dương.",
+    url: PAGE_URL,
     locale: "vi_VN",
-    type: "article",
+    type: "website",
     images: [
       {
-        url: `${siteConfig.url}${siteConfig.ogImage}`,
+        url: `${siteConfig.url}/images/day-dai-thep-tai-kho-khach-hang.jpg`,
         width: 1200,
         height: 630,
         alt: "Dây đai thép Hà Nội",
@@ -43,82 +83,51 @@ export const metadata: Metadata = {
 };
 
 export default function HanoiLandingPage() {
-  const faq = [
-    {
-      q: "Có hỗ trợ giao dây đai thép nội thành Hà Nội không?",
-      a: "Có. Chúng tôi hỗ trợ điều phối giao theo khu vực và lịch nhập hàng của kho.",
-    },
-    {
-      q: "Bao lâu nhận được báo giá tại Hà Nội?",
-      a: "Thông thường trong ngày làm việc, sau khi nhận đủ thông tin quy cách và số lượng.",
-    },
-    {
-      q: "Có tư vấn luôn khóa đai và dụng cụ không?",
-      a: "Có. Chúng tôi hỗ trợ đồng bộ dây, khóa và bộ dụng cụ siết bấm theo từng tải trọng.",
-    },
-  ];
-  const serviceAreaJsonLd = {
+  const product = catalogProducts.find((item) => item.id === "steel-strapping")!;
+  const aggregateRating = getProductAggregateRating(product.id);
+
+  const localBusinessJsonLd = {
     "@context": "https://schema.org",
-    "@type": "Service",
-    serviceType: "Cung cấp dây đai thép và khóa đai thép tại Hà Nội",
-    provider: {
-      "@type": "Organization",
-      name: siteConfig.company.legalName,
-      telephone: siteConfig.company.phone,
+    "@type": "LocalBusiness",
+    name: siteConfig.company.legalName,
+    url: PAGE_URL,
+    telephone: siteConfig.company.phone,
+    image: `${siteConfig.url}/images/day-dai-thep-tai-kho-khach-hang.jpg`,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Hà Nội",
+      addressCountry: "VN",
+      streetAddress: siteConfig.company.address,
     },
-    areaServed: ["Hà Nội", "Bắc Ninh", "Hưng Yên", "Hải Dương"],
+    areaServed: ["Hà Nội", "Bắc Ninh", "Hưng Yên", "Hải Dương", "Vĩnh Phúc"],
+    priceRange: "$$",
+  };
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "Dây đai thép Hà Nội",
+    description: LEAD,
+    image: galleryImages.map((img) => `${siteConfig.url}${img.src}`),
+    sku: "steel-strapping-hanoi",
+    brand: { "@type": "Brand", name: siteConfig.name },
+    offers: buildProductSchemaOffer(product, PAGE_URL),
+    ...(aggregateRating ? { aggregateRating } : {}),
   };
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Trang chủ",
-        item: `${siteConfig.url}/`,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Dây đai thép Hà Nội",
-        item: `${siteConfig.url}/day-dai-thep-ha-noi`,
-      },
-    ],
-  };
-  const offerJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "OfferCatalog",
-    name: "Giải pháp dây đai thép khu vực Hà Nội",
-    itemListElement: [
-      buildOfferCatalogItem(
-        "Dây đai thép cho doanh nghiệp Hà Nội",
-        STEEL_STRAPPING_PRICE_PER_KG,
-        {
-          url: `${siteConfig.url}/san-pham/day-dai-thep-chiu-luc-cao`,
-          unitText: "kg",
-        },
-      ),
-      buildOfferCatalogItem(
-        "Khóa đai thép và bộ dụng cụ đồng bộ",
-        STEEL_SEAL_REFERENCE_PRICE_UNIT,
-        {
-          url: `${siteConfig.url}/san-pham/khoa-dai-thep-seals`,
-          unitText: "cái",
-        },
-      ),
+      { "@type": "ListItem", position: 1, name: "Trang chủ", item: `${siteConfig.url}/` },
+      { "@type": "ListItem", position: 2, name: "Dây đai thép Hà Nội", item: PAGE_URL },
     ],
   };
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faq.map((item) => ({
+    mainEntity: faqs.map((item) => ({
       "@type": "Question",
-      name: item.q,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.a,
-      },
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
     })),
   };
 
@@ -126,7 +135,11 @@ export default function HanoiLandingPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceAreaJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
       />
       <script
         type="application/ld+json"
@@ -134,124 +147,23 @@ export default function HanoiLandingPage() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(offerJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <MarketingPageLayout>
-        <article className="space-y-6 sm:space-y-8">
-          <nav className="text-xs text-muted-foreground">
-            <Link href="/" className="hover:text-foreground">
-              Trang chủ
-            </Link>{" "}
-            / <span className="text-foreground">Dây đai thép Hà Nội</span>
-          </nav>
-
-          <h1 className="mt-4 text-balance font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl md:text-4xl">
-            Dây đai thép Hà Nội cho kho và nhà máy công nghiệp
-          </h1>
-          <p className="mt-3 max-w-[70ch] text-sm leading-7 text-muted-foreground sm:text-base">
-            Chúng tôi hỗ trợ doanh nghiệp tại Hà Nội và các KCN lân cận chọn
-            đúng dây đai thép theo tải trọng, đồng thời cung cấp khóa đai và bộ
-            dụng cụ tương thích để giảm lỗi vận hành.
-          </p>
-
-          <QuickQuoteForm
-            sourcePage="/day-dai-thep-ha-noi"
-            className="mt-8"
-            title="Nhận báo giá dây đai thép tại Hà Nội"
-          />
-
-          <section className="mt-6 grid gap-6 md:grid-cols-2">
-            <div className="surface-card p-6">
-              <h2 className="text-lg font-semibold text-foreground">
-                Khu vực hỗ trợ giao nhanh
-              </h2>
-              <ul className="mt-3 space-y-2 text-sm leading-7 text-muted-foreground">
-                <li>• Nội thành Hà Nội và vùng công nghiệp phụ cận</li>
-                <li>• Bắc Ninh, Hưng Yên, Hải Dương, Vĩnh Phúc</li>
-                <li>• Hỗ trợ điều phối theo ca nhập hàng của kho</li>
-              </ul>
-            </div>
-            <div className="surface-card p-6">
-              <h2 className="text-lg font-semibold text-foreground">
-                Dịch vụ đi kèm
-              </h2>
-              <ul className="mt-3 space-y-2 text-sm leading-7 text-muted-foreground">
-                <li>• Tư vấn quy cách dây theo nhóm hàng nặng</li>
-                <li>• Đề xuất khóa đai và dụng cụ siết bấm phù hợp</li>
-                <li>• Hỗ trợ báo giá nhanh trong ngày làm việc</li>
-              </ul>
-            </div>
-          </section>
-
-          <section className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/70 bg-muted">
-              <Image
-                src="/images/day-dai-thep-tai-kho-khach-hang.jpg"
-                alt="Dây đai thép tại kho khu vực Hà Nội"
-                fill
-                className="object-cover"
-                sizes="(min-width: 768px) 33vw, 100vw"
-              />
-            </div>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/70 bg-muted">
-              <Image
-                src="/images/day-dai-thep-tai-kho-khach-hang.jpg"
-                alt="Dây đai thép tại kho khách hàng ở miền Bắc"
-                fill
-                className="object-cover"
-                sizes="(min-width: 768px) 33vw, 100vw"
-              />
-            </div>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/70 bg-muted">
-              <Image
-                src="/images/lo-day-dai-thep-giao-cho-khach-hang.jpg"
-                alt="Lô dây đai thép giao nhanh cho doanh nghiệp"
-                fill
-                className="object-cover"
-                sizes="(min-width: 768px) 33vw, 100vw"
-              />
-            </div>
-          </section>
-
-          <section className="surface-card mt-6 p-6">
-            <h2 className="text-lg font-semibold text-foreground">
-              Câu hỏi thường gặp tại khu vực Hà Nội
-            </h2>
-            <div className="mt-3 space-y-3">
-              {faq.map((item) => (
-                <article key={item.q} className="rounded-lg border border-border/70 bg-muted/35 p-4">
-                  <h3 className="text-sm font-semibold text-foreground">{item.q}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{item.a}</p>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <section className="surface-card mt-6 p-6">
-            <h2 className="text-lg font-semibold text-foreground">
-              Trang liên quan bạn nên xem
-            </h2>
-            <div className="mt-3 flex flex-wrap gap-3 text-sm">
-              <Link href="/bao-gia-day-dai-thep" className="text-primary">
-                Báo giá dây đai thép mới nhất
-              </Link>
-              <Link href="/day-dai-thep-16mm-19mm-32mm" className="text-primary">
-                So sánh quy cách 16mm 19mm 32mm
-              </Link>
-              <Link href="/khoa-dai-thep" className="text-primary">
-                Chọn khóa đai thép tương thích
-              </Link>
-            </div>
-            <PhoneCtaButton className="mt-4 px-4 py-2">
-              Gọi ngay {siteConfig.company.phone}
-            </PhoneCtaButton>
-          </section>
-        </article>
-      </MarketingPageLayout>
+      <HybridProductGuide
+        product={product}
+        heading={HEADING}
+        lead={LEAD}
+        cartName="Dây đai thép (giao Hà Nội)"
+        images={galleryImages}
+        breadcrumbs={[
+          { label: "Trang chủ", href: "/" },
+          { label: "Dây đai thép", href: "/day-dai-thep" },
+          { label: "Hà Nội" },
+        ]}
+        faqs={faqs}
+      >
+        <LocalRegionGuideBody region="hanoi" />
+      </HybridProductGuide>
     </>
   );
 }

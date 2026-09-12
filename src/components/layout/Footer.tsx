@@ -11,10 +11,13 @@ const resourceLinks = [
   { href: "/lien-he", label: "Liên hệ" },
   { href: "/bao-gia-day-dai-thep", label: "Báo giá dây đai thép" },
   { href: "/khoa-dai-thep", label: "Khóa đai thép" },
+  { href: "/bo-sat", label: "Bọ sắt, bọ kẹp đai" },
+  { href: "/siet-day-thep", label: "Siết dây thép" },
   { href: "/day-dai-thep-16mm-19mm-32mm", label: "Dây đai 16-19-32mm" },
   { href: "/day-dai-thep-ha-noi", label: "Dây đai thép Hà Nội" },
   { href: "/day-dai-thep-mien-bac", label: "Dây đai thép miền Bắc" },
   { href: "/day-dai-sat", label: "Dây đai sắt" },
+  { href: "/day-dai-sat-gia-re", label: "Dây đai sắt giá rẻ" },
   { href: "/dai-thep-cong-nghiep", label: "Đai thép công nghiệp" },
   { href: "/nha-cung-cap-day-dai-thep", label: "Nhà cung cấp dây đai thép" },
 ] as const;

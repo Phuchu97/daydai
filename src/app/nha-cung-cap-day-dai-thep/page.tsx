@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { QuickQuoteForm } from "@/components/seo/QuickQuoteForm";
+import { SeoPageGallery } from "@/components/seo/SeoPageGallery";
 import {
   STEEL_STRAPPING_PRICE_PER_KG,
   STEEL_STRAPPING_TOOLS_SALE_PRICE,
@@ -90,6 +91,7 @@ export default function SupplierPage() {
         {
           url: `${siteConfig.url}/san-pham/day-dai-thep-chiu-luc-cao`,
           unitText: "kg",
+          image: `${siteConfig.url}/images/day-dai-thep-dau.jpg`,
         },
       ),
       buildOfferCatalogItem(
@@ -98,6 +100,7 @@ export default function SupplierPage() {
         {
           url: `${siteConfig.url}/san-pham/bo-dung-cu-dong-dai-thep`,
           unitText: "bộ",
+          image: `${siteConfig.url}/images/dung-cu-dong-dai-3.jpg`,
         },
       ),
     ],
@@ -139,6 +142,25 @@ export default function SupplierPage() {
             ro vận hành trong kho.
           </p>
 
+          <SeoPageGallery
+            variant="editorial"
+            hero={{
+              src: "/images/nha-may-dong-dai.webp",
+              alt: "Nhà cung cấp dây đai thép phục vụ nhà máy và logistics",
+              caption: "Cung ứng B2B - quy cách ổn định, giao theo tiến độ kho",
+            }}
+            gallery={[
+              {
+                src: "/images/xuat-hang-1.jpg",
+                alt: "Xuất kho dây đai thép số lượng lớn",
+              },
+              {
+                src: "/images/kho-dung-cu-2.jpeg",
+                alt: "Kho vật tư đóng đai thép của nhà cung cấp",
+              },
+            ]}
+          />
+
           <QuickQuoteForm
             sourcePage="/nha-cung-cap-day-dai-thep"
             className="mt-8"
@@ -162,6 +184,11 @@ export default function SupplierPage() {
                 Trang bạn nên xem thêm
               </h2>
               <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+                <li>
+                  <Link href="/day-dai-thep" className="font-medium text-primary">
+                    Tổng quan dây đai thép
+                  </Link>
+                </li>
                 <li>
                   <Link href="/bao-gia-day-dai-thep" className="font-medium text-primary">
                     Báo giá dây đai thép

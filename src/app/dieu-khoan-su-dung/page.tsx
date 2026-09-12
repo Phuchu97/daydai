@@ -1,5 +1,17 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
+import { siteConfig } from "@/config/site";
+
+export const metadata: Metadata = {
+  title: "Điều khoản sử dụng",
+  description:
+    "Điều khoản sử dụng website daydaivn.com — Dây Đai Thép Việt Nam.",
+  alternates: {
+    canonical: `${siteConfig.url}/dieu-khoan-su-dung`,
+  },
+  robots: { index: true, follow: true },
+};
 
 export default function TermsOfUsePage() {
   return (

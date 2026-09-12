@@ -1,5 +1,17 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
+import { siteConfig } from "@/config/site";
+
+export const metadata: Metadata = {
+  title: "Chính sách bảo mật",
+  description:
+    "Chính sách bảo mật thông tin khách hàng của Dây Đai Thép Việt Nam (daydaivn.com).",
+  alternates: {
+    canonical: `${siteConfig.url}/chinh-sach-bao-mat`,
+  },
+  robots: { index: true, follow: true },
+};
 
 export default function PrivacyPolicyPage() {
   return (
@@ -26,7 +38,7 @@ export default function PrivacyPolicyPage() {
           </p>
           <p>
             Bạn có thể yêu cầu cập nhật hoặc xóa thông tin bằng cách gọi trực tiếp
-            số hotline trên website.
+            số hotline {siteConfig.company.phone} trên website.
           </p>
         </div>
       </article>

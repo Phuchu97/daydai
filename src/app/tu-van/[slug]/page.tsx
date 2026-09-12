@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { ArticleGuidePage } from "@/components/seo/ArticleGuidePage";
 import { siteConfig } from "@/config/site";
 import { articles, getArticleBySlug } from "@/data/articles";
 import { catalogProducts } from "@/data/products";
-import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
-import { BreadcrumbNav } from "@/components/seo/BreadcrumbNav";
-import { formatSeoDate, getArticleOgImageUrl } from "@/lib/seo";
+import { getArticleOgImageUrl } from "@/lib/seo";
 
 type Params = {
   slug: string;
@@ -26,20 +24,18 @@ export async function generateMetadata({
   if (!article) return {};
 
   const canonical = `${siteConfig.url}/tu-van/${article.slug}`;
-  const seoTitle = `${article.title} | Kinh nghiệm thực tế cho doanh nghiệp`;
-  const seoDescription = `${article.description} Cập nhật kinh nghiệm triển khai tại kho và nhà máy.`;
   const ogImageUrl = getArticleOgImageUrl(article);
   return {
-    title: seoTitle,
-    description: seoDescription,
+    title: article.title,
+    description: article.description,
     keywords: [...article.keywords, "tư vấn dây đai thép", "đóng gói công nghiệp"],
     alternates: {
       canonical,
     },
     openGraph: {
       type: "article",
-      title: seoTitle,
-      description: seoDescription,
+      title: article.title,
+      description: article.description,
       url: canonical,
       siteName: siteConfig.name,
       locale: "vi_VN",
@@ -56,8 +52,8 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: seoTitle,
-      description: seoDescription,
+      title: article.title,
+      description: article.description,
       images: [ogImageUrl],
     },
   };
@@ -78,26 +74,23 @@ export default async function ArticleDetailPage({
   );
   const keywordText = `${article.title} ${article.keywords.join(" ")}`.toLowerCase();
   const commercialLinks = [
-    { href: "/bao-gia-day-dai-thep", label: "Xem báo giá dây đai thép mới nhất" },
-    {
-      href: "/day-dai-thep-16mm-19mm-32mm",
-      label: "So sánh dây đai thép 16mm, 19mm, 32mm",
-    },
-    { href: "/khoa-dai-thep", label: "Chọn khóa đai thép tương thích" },
-    {
-      href: "/bo-dung-cu-dong-dai-thep",
-      label: "Tư vấn bộ dụng cụ đóng đai thép",
-    },
+    { href: "/day-dai-thep", label: "Mua dây đai thép" },
+    { href: "/bao-gia-day-dai-thep", label: "Bảng giá dây đai thép" },
+    { href: "/day-dai-thep-16mm-19mm-32mm", label: "So sánh 16mm · 19mm · 32mm" },
+    { href: "/khoa-dai-thep", label: "Khóa đai thép / bọ sắt" },
+    { href: "/bo-dung-cu-dong-dai-thep", label: "Bộ dụng cụ đóng đai thép" },
+    { href: "/tu-van", label: "Hub tư vấn" },
   ];
   if (keywordText.includes("hà nội") || keywordText.includes("miền bắc")) {
     commercialLinks.push(
-      { href: "/day-dai-thep-ha-noi", label: "Dây đai thép khu vực Hà Nội" },
-      { href: "/day-dai-thep-mien-bac", label: "Giải pháp dây đai thép miền Bắc" },
+      { href: "/day-dai-thep-ha-noi", label: "Dây đai thép Hà Nội" },
+      { href: "/day-dai-thep-mien-bac", label: "Dây đai thép miền Bắc" },
     );
   }
   if (keywordText.includes("dây đai sắt")) {
     commercialLinks.push({ href: "/day-dai-sat", label: "Trang dây đai sắt" });
   }
+
   const ogImageUrl = getArticleOgImageUrl(article);
   const articleJsonLd = {
     "@context": "https://schema.org",
@@ -145,6 +138,17 @@ export default async function ArticleDetailPage({
       },
     ],
   };
+  const faqJsonLd = article.faqs?.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: article.faqs.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: { "@type": "Answer", text: item.answer },
+        })),
+      }
+    : null;
 
   return (
     <>
@@ -156,88 +160,17 @@ export default async function ArticleDetailPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
-      <MarketingPageLayout>
-        <article className="max-w-3xl space-y-6 sm:space-y-8">
-          <BreadcrumbNav
-            items={[
-              { label: "Trang chủ", href: "/" },
-              { label: "Tư vấn", href: "/tu-van" },
-              { label: article.title },
-            ]}
-          />
-
-          <h1 className="font-display text-3xl font-bold tracking-tight text-foreground">
-            {article.title}
-          </h1>
-          <p className="mt-3 text-sm text-muted-foreground">
-            {article.description}
-          </p>
-          <p className="mt-3 text-xs text-muted-foreground">
-            Xuất bản:{" "}
-            <time dateTime={article.publishedAt}>
-              {formatSeoDate(article.publishedAt)}
-            </time>
-            {" · "}
-            Cập nhật:{" "}
-            <time dateTime={article.updatedAt}>
-              {formatSeoDate(article.updatedAt)}
-            </time>
-          </p>
-
-          <div className="mt-8 space-y-8">
-            {article.sections.map((section) => (
-              <section key={section.heading}>
-                <h2 className="text-xl font-semibold text-foreground">
-                  {section.heading}
-                </h2>
-                <div className="mt-3 space-y-3">
-                  {section.paragraphs.map((paragraph) => (
-                    <p key={paragraph} className="text-sm text-muted-foreground">
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-              </section>
-            ))}
-          </div>
-
-          {relatedProducts.length > 0 && (
-            <section className="mt-10 rounded-2xl border border-border bg-muted/30 p-5">
-              <h2 className="text-lg font-semibold text-foreground">
-                Sản phẩm liên quan
-              </h2>
-              <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-                {relatedProducts.map((product) => (
-                  <li key={product.id}>
-                    <Link
-                      href={product.slug}
-                      className="font-medium text-primary hover:underline"
-                    >
-                      {product.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
-
-          <section className="mt-6 rounded-2xl border border-border bg-muted/25 p-5">
-            <h2 className="text-lg font-semibold text-foreground">
-              Tài nguyên mua hàng liên quan
-            </h2>
-            <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-              {commercialLinks.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="font-medium text-primary hover:underline">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        </article>
-      </MarketingPageLayout>
+      {faqJsonLd ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      ) : null}
+      <ArticleGuidePage
+        article={article}
+        relatedProducts={relatedProducts}
+        commercialLinks={commercialLinks}
+      />
     </>
   );
 }
-

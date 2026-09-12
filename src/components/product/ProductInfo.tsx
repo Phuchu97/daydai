@@ -21,9 +21,15 @@ import { getProductDiscountPercent } from "@/lib/product-pricing";
 
 type Props = {
   product: CatalogProduct;
+  /** H1 riêng cho trang hybrid (vd. dây đai sắt). Mặc định dùng tên catalog. */
+  heading?: string;
+  /** Mô tả ngay dưới social proof. Mặc định dùng shortDescription của product. */
+  lead?: string;
+  /** Tên đưa vào giỏ hàng. Mặc định dùng product.name. */
+  cartName?: string;
 };
 
-export function ProductInfo({ product }: Props) {
+export function ProductInfo({ product, heading, lead, cartName }: Props) {
   const [width, setWidth] = useState("19mm");
   const [thickness, setThickness] = useState("0.8mm");
   const [weightKg, setWeightKg] = useState(25);
@@ -61,7 +67,7 @@ export function ProductInfo({ product }: Props) {
     addToCart(
       {
         id: product.id,
-        name: product.name,
+        name: cartName ?? product.name,
         price,
         image: product.images[0]?.src ?? "/images/day-dai-2.jpg",
         variant,
@@ -84,15 +90,15 @@ export function ProductInfo({ product }: Props) {
           id="product-title"
           className="text-balance font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
         >
-          {product.name}
+          {heading ?? product.name}
         </h1>
         <ProductSocialProof
           reviewStats={reviewStats}
           soldCount={product.soldCount}
         />
-        {isStrapping && product.shortDescription ? (
+        {(lead ?? (isStrapping ? product.shortDescription : null)) ? (
           <p className="text-sm leading-relaxed text-muted-foreground">
-            {product.shortDescription}
+            {lead ?? product.shortDescription}
           </p>
         ) : null}
       </div>
