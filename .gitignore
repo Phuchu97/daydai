@@ -23,8 +23,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Local env files
-.env*.local
+# Local env files — KHÔNG commit bí mật
+.env
+.env.*
+!.env.example
 
 # Vercel
 .vercel
