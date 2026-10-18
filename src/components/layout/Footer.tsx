@@ -37,6 +37,17 @@ export function Footer() {
             <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
               {siteConfig.description}
             </p>
+            <p className="mt-3 text-sm text-muted-foreground">
+              Kho:{" "}
+              <a
+                href={siteConfig.company.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-foreground hover:text-primary"
+              >
+                {siteConfig.company.address}
+              </a>
+            </p>
             <a
               href={`tel:${siteConfig.company.zaloPhone}`}
               className="btn-lift mt-4 inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-[0_12px_24px_-16px_rgba(22,67,126,0.85)] lg:hidden"

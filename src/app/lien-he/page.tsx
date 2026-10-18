@@ -3,6 +3,7 @@ import Link from "next/link";
 import { QuickQuoteForm } from "@/components/seo/QuickQuoteForm";
 import { BreadcrumbNav } from "@/components/seo/BreadcrumbNav";
 import { siteConfig } from "@/config/site";
+import { postalAddressJsonLd } from "@/lib/local-business-schema";
 import { PhoneIcon, ZaloIcon } from "@/components/contact/ContactIcons";
 import { CTA_BELL, CTA_BELL_ZALO } from "@/lib/cta-attention";
 import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
@@ -51,12 +52,7 @@ export default function ContactPage() {
       "@id": `${siteConfig.url}/#organization`,
       name: siteConfig.company.legalName,
       telephone: siteConfig.company.phone,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: siteConfig.company.address,
-        addressLocality: "Hà Nội",
-        addressCountry: "VN",
-      },
+      address: postalAddressJsonLd,
       contactPoint: [
         {
           "@type": "ContactPoint",
@@ -156,7 +152,15 @@ export default function ContactPage() {
                 <div>
                   <dt className="font-medium text-foreground">Địa chỉ</dt>
                   <dd className="mt-1 text-muted-foreground">
-                    {siteConfig.company.address}
+                    Kho hàng: {siteConfig.company.address}
+                    <a
+                      href={siteConfig.company.mapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ml-2 font-medium text-primary hover:underline"
+                    >
+                      Chỉ đường
+                    </a>
                   </dd>
                 </div>
                 <div>
@@ -191,6 +195,22 @@ export default function ContactPage() {
               className="h-fit"
             />
           </div>
+
+          <section className="surface-card overflow-hidden">
+            <h2 className="px-6 pt-6 text-lg font-semibold text-foreground">
+              Kho dây đai thép tại {siteConfig.company.address}
+            </h2>
+            <p className="px-6 pt-2 text-sm text-muted-foreground">
+              {siteConfig.company.serviceArea}.
+            </p>
+            <iframe
+              title={`Bản đồ kho ${siteConfig.company.legalName} tại ${siteConfig.company.address}`}
+              src={`https://www.google.com/maps?q=${siteConfig.company.geo.latitude},${siteConfig.company.geo.longitude}&z=16&output=embed`}
+              className="mt-4 h-72 w-full border-0 sm:h-80"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </section>
         </article>
       </MarketingPageLayout>
     </>

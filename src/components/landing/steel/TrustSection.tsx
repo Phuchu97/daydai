@@ -1,12 +1,14 @@
 import Image from "next/image";
+import { siteConfig } from "@/config/site";
 import { Section } from "../Section";
+
+const { company } = siteConfig;
 
 const stats = [
   {
-    value: "5+",
-    label: "năm kinh nghiệm",
-    detail:
-      "Tư vấn, cung cấp và triển khai giải pháp đóng gói cho khách hàng công nghiệp.",
+    value: `${new Date().getFullYear() - company.foundingYear}+`,
+    label: `năm kinh nghiệm (từ ${company.foundingYear})`,
+    detail: `${company.materialSource}, cung cấp cho khách hàng công nghiệp.`,
   },
   {
     value: "300+",
@@ -55,6 +57,20 @@ export function TrustSection() {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="mt-8">
+        <h3 className="text-sm font-semibold text-foreground">Khách hàng tiêu biểu</h3>
+        <ul className="mt-3 flex flex-wrap gap-2.5">
+          {company.notableClients.map((client) => (
+            <li
+              key={client}
+              className="rounded-lg border border-border/60 bg-background px-3 py-1.5 text-sm font-medium text-foreground/90"
+            >
+              {client}
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">

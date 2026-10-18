@@ -36,6 +36,11 @@ export function AboutPageContent() {
             hàng logistics cần cố định chắc khi vận chuyển.
           </p>
           <p className="mt-4 max-w-[58ch] text-sm leading-7 text-muted-foreground sm:text-base">
+            Hoạt động từ {siteConfig.company.foundingYear}.{" "}
+            {siteConfig.company.materialSource}. Kho tại{" "}
+            {siteConfig.company.address}.
+          </p>
+          <p className="mt-4 max-w-[58ch] text-sm leading-7 text-muted-foreground sm:text-base">
             Với kho dây đai thép, khóa đai và dụng cụ siết sẵn sàng, chúng
             tôi giúp doanh nghiệp rút ngắn thời gian triển khai, giảm rủi ro
             tuột đai và tối ưu chi phí đóng gói theo từng quy mô vận hành.
@@ -201,6 +206,19 @@ export function AboutPageContent() {
               className="rounded-lg border border-border/60 bg-muted/35 px-3 py-1.5 text-sm font-medium text-foreground/90"
             >
               {industry}
+            </li>
+          ))}
+        </ul>
+        <h3 className="mt-6 text-sm font-semibold text-foreground">
+          Doanh nghiệp đã sử dụng dây đai thép của chúng tôi
+        </h3>
+        <ul className="mt-3 flex flex-wrap gap-2.5">
+          {siteConfig.company.notableClients.map((client) => (
+            <li
+              key={client}
+              className="rounded-lg border border-border/60 bg-background px-3 py-1.5 text-sm font-medium text-foreground/90"
+            >
+              {client}
             </li>
           ))}
         </ul>

@@ -4,14 +4,13 @@ import { DayDaiSatGuideBody } from "@/components/seo/DayDaiSatGuideBody";
 import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
 import { siteConfig } from "@/config/site";
 import { catalogProducts } from "@/data/products";
-import { getProductAggregateRating } from "@/data/reviews";
 import { buildProductSchemaOffer } from "@/lib/merchant-offer-schema";
 
 const PAGE_PATH = "/day-dai-sat";
 const PAGE_URL = `${siteConfig.url}${PAGE_PATH}`;
-const HEADING = "Dây đai sắt 16mm 19mm 32mm cho pallet hàng nặng";
+const HEADING = "Dây đai sắt 16mm 19mm 25mm 32mm cho pallet hàng nặng";
 const LEAD =
-  "Dây đai sắt (cùng loại dây đai thép đóng hàng) bản 16/19/32mm, tính giá theo kg. Chọn quy cách theo tải, khớp bọ sắt và kìm siết, giao Hà Nội cùng KCN miền Bắc.";
+  "Dây đai sắt (cùng loại dây đai thép đóng hàng) bản 16–32mm, tính giá theo kg. Chọn quy cách theo tải, khớp bọ sắt và kìm siết, giao Hà Nội cùng KCN miền Bắc.";
 
 const faqs = [
   {
@@ -45,9 +44,9 @@ const faqs = [
 ];
 
 export const metadata: Metadata = {
-  title: "Dây đai sắt 16/19/32mm, giá theo kg, giao Hà Nội",
+  title: "Dây đai sắt 16–32mm, giá theo kg, giao Hà Nội",
   description:
-    "Dây đai sắt đóng hàng (dây đai thép) 16mm, 19mm, 32mm. Giá theo kg, chọn dầu / mạ kẽm / sơn, khớp bọ sắt và kìm siết. Giao Hà Nội, miền Bắc và toàn quốc.",
+    "Dây đai sắt đóng hàng (dây đai thép) 16mm, 19mm, 25mm, 32mm. Giá theo kg, chọn dầu / mạ kẽm / sơn, khớp bọ sắt và kìm siết. Giao Hà Nội, miền Bắc và toàn quốc.",
   keywords: [
     "dây đai sắt",
     "đai sắt đóng hàng",
@@ -62,9 +61,9 @@ export const metadata: Metadata = {
     canonical: PAGE_URL,
   },
   openGraph: {
-    title: "Dây đai sắt 16/19/32mm, giá theo kg, giao Hà Nội",
+    title: "Dây đai sắt 16–32mm, giá theo kg, giao Hà Nội",
     description:
-      "Cùng loại dây đai thép đóng pallet. Chọn khổ 16/19/32mm theo tải, báo giá theo kg, giao Hà Nội và KCN miền Bắc.",
+      "Cùng loại dây đai thép đóng pallet. Chọn khổ 16–32mm theo tải, báo giá theo kg, giao Hà Nội và KCN miền Bắc.",
     url: PAGE_URL,
     locale: "vi_VN",
     type: "website",
@@ -105,7 +104,6 @@ const galleryImages = [
 ];
 
 export default function SteelBandPage() {
-  const aggregateRating = getProductAggregateRating(product.id);
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -119,7 +117,6 @@ export default function SteelBandPage() {
       name: siteConfig.name,
     },
     offers: buildProductSchemaOffer(product, PAGE_URL),
-    ...(aggregateRating ? { aggregateRating } : {}),
   };
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",

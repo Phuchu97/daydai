@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
 import { PRICE_PAGE_LAST_UPDATED } from "@/config/pricing";
 import { catalogProducts } from "@/data/products";
+import { hasCanonicalOverride } from "@/lib/product-canonical";
 import { articles } from "@/data/articles";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -87,6 +88,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.89,
     },
     {
+      url: `${siteConfig.url}/day-dai-thep-25mm`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.89,
+    },
+    {
       url: `${siteConfig.url}/day-dai-thep-32mm`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -115,6 +122,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.88,
+    },
+    {
+      url: `${siteConfig.url}/day-dai-thep-dong-hang`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
     },
     {
       url: `${siteConfig.url}/day-dai-thep-ha-noi`,
@@ -166,12 +179,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  const productRoutes: MetadataRoute.Sitemap = catalogProducts.map((product) => ({
-    url: `${siteConfig.url}${product.slug}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: 0.9,
-  }));
+  const productRoutes: MetadataRoute.Sitemap = catalogProducts
+    .filter((product) => !hasCanonicalOverride(product))
+    .map((product) => ({
+      url: `${siteConfig.url}${product.slug}`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    }));
 
   const consultingRoutes: MetadataRoute.Sitemap = [
     {

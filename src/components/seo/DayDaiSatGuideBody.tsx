@@ -9,7 +9,7 @@ import {
   SURFACE_GUIDES,
 } from "@/data/steel-strapping-guide";
 
-const sizeSpecs = SPEC_ROWS.filter((row) => [16, 19, 32].includes(row.widthMm));
+const sizeSpecs = SPEC_ROWS;
 
 export function DayDaiSatGuideBody() {
   return (

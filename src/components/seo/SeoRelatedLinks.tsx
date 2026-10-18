@@ -4,6 +4,7 @@ const DEFAULT_LINKS = [
   { href: "/day-dai-thep", label: "Tổng quan dây đai thép" },
   { href: "/bao-gia-day-dai-thep", label: "Bảng giá dây đai & khóa đai" },
   { href: "/day-dai-thep-16mm-19mm-32mm", label: "So sánh 16mm · 19mm · 32mm" },
+  { href: "/day-dai-thep-dong-hang", label: "Dây đai thép đóng hàng, đóng kiện" },
   { href: "/day-dai-thep-dong-pallet", label: "Dây đai thép đóng pallet" },
   { href: "/khoa-dai-thep", label: "Khóa đai thép (bọ sắt)" },
   { href: "/bo-sat", label: "Bọ sắt, bọ kẹp đai" },

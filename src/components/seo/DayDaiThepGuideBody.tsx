@@ -10,7 +10,7 @@ import {
   SURFACE_GUIDES,
 } from "@/data/steel-strapping-guide";
 
-const mainSizes = SPEC_ROWS.filter((row) => [16, 19, 32].includes(row.widthMm));
+const mainSizes = SPEC_ROWS;
 
 export function DayDaiThepGuideBody() {
   return (
@@ -151,6 +151,14 @@ export function DayDaiThepGuideBody() {
           >
             Đọc hướng dẫn chọn theo tải trọng chi tiết
           </Link>
+          <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+            <Link href="/day-dai-thep-dong-hang" className="text-primary hover:underline">
+              Dây đai thép đóng hàng theo loại kiện
+            </Link>
+            <Link href="/day-dai-thep-dong-pallet" className="text-primary hover:underline">
+              Dây đai thép đóng pallet
+            </Link>
+          </div>
         </div>
       </section>
 

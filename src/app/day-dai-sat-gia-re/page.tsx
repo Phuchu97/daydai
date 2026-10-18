@@ -3,14 +3,14 @@ import { HybridProductGuide } from "@/components/seo/HybridProductGuide";
 import { DayDaiSatGiaReGuideBody } from "@/components/seo/DayDaiSatGiaReGuideBody";
 import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
 import { siteConfig } from "@/config/site";
+import { STRAP_PRICE_FROM_LABEL, STRAP_PRICE_RANGE_LABEL } from "@/data/steel-strapping-guide";
 import { catalogProducts } from "@/data/products";
-import { getProductAggregateRating } from "@/data/reviews";
 import { buildProductSchemaOffer } from "@/lib/merchant-offer-schema";
 
 const PAGE_PATH = "/day-dai-sat-gia-re";
 const PAGE_URL = `${siteConfig.url}${PAGE_PATH}`;
-const HEADING = "Dây đai sắt giá rẻ — tối ưu chi phí theo kg, giao nhanh";
-const LEAD = `Dây đai sắt (dây đai thép đóng hàng) 16/19/32mm giá theo kg. Tham khảo từ ${STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg — chọn đúng quy cách, đặt lô để giảm chi phí kiện, giao Hà Nội & KCN miền Bắc.`;
+const HEADING = "Dây đai sắt giá rẻ, dây đai thép giá tốt theo kg";
+const LEAD = `Dây đai sắt (dây đai thép đóng hàng) 16–32mm giá từ ${STRAP_PRICE_FROM_LABEL} (dây dầu), tham khảo ${STRAP_PRICE_RANGE_LABEL} theo bề mặt. Chọn đúng quy cách, đặt lô để giảm chi phí kiện, giao Hà Nội & KCN miền Bắc.`;
 
 const faqs = [
   {
@@ -21,6 +21,15 @@ const faqs = [
   {
     question: "Giá dây đai sắt bao nhiêu một kg?",
     answer: `Giá website tham khảo ${STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg. Giá lô chốt theo dầu / mạ kẽm / sơn, độ dày, số kg và điểm giao. Cuộn phổ biến 30–50kg.`,
+  },
+  {
+    question: "Dây đai thép giá rẻ và dây đai sắt giá tốt có phải cùng một loại?",
+    answer: `Đúng. “Dây đai sắt” là cách gọi khác của dây đai thép đóng hàng. Mức giá tốt nhất thường ở dây dầu (từ ${STRAP_PRICE_FROM_LABEL}) cho kho khô; mạ kẽm và sơn tĩnh điện cao hơn nhưng chống ẩm tốt hơn.`,
+  },
+  {
+    question: "Mua dây đai sắt giá sỉ được không?",
+    answer:
+      "Được. Đơn theo lô hoặc đặt định kỳ hằng tháng được báo giá sỉ riêng theo số kg, quy cách và điểm giao.",
   },
   {
     question: "Làm sao mua dây đai sắt tiết kiệm nhất?",
@@ -53,20 +62,25 @@ const galleryImages = [
 ];
 
 export const metadata: Metadata = {
-  title: "Dây đai sắt giá rẻ | tối ưu chi phí theo kg, giao nhanh",
-  description: `Mua dây đai sắt giá rẻ 16mm, 19mm, 32mm. Giá từ ${STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg, chọn đúng quy cách, đặt lô, giao Hà Nội và KCN miền Bắc.`,
+  title: `Dây đai sắt giá rẻ từ ${STRAP_PRICE_FROM_LABEL} | dây đai thép giá tốt`,
+  description: `Dây đai sắt giá rẻ, dây đai thép giá tốt 16–32mm: từ ${STRAP_PRICE_FROM_LABEL}, tham khảo ${STRAP_PRICE_RANGE_LABEL}. Báo giá sỉ theo lô, giao Hà Nội và KCN miền Bắc.`,
   keywords: [
     "dây đai sắt giá rẻ",
     "mua dây đai sắt giá rẻ",
     "giá dây đai sắt",
     "dây đai sắt theo kg",
     "đai sắt đóng hàng giá rẻ",
+    "dây đai thép giá rẻ",
+    "dây đai sắt giá tốt",
+    "dây đai thép giá tốt",
+    "dây đai thép giá sỉ",
+    "day dai sat gia re",
   ],
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: "Dây đai sắt giá rẻ | tối ưu chi phí theo kg, giao nhanh",
+    title: `Dây đai sắt giá rẻ từ ${STRAP_PRICE_FROM_LABEL} | dây đai thép giá tốt`,
     description:
-      "Dây đai sắt 16/19/32mm giá theo kg — tối ưu chi phí kiện, khớp bọ và kìm, giao Hà Nội & miền Bắc.",
+      `Dây đai sắt 16–32mm giá từ ${STRAP_PRICE_FROM_LABEL} — tối ưu chi phí kiện, khớp bọ và kìm, giao Hà Nội & miền Bắc.`,
     url: PAGE_URL,
     locale: "vi_VN",
     type: "website",
@@ -83,19 +97,17 @@ export const metadata: Metadata = {
 
 export default function CheapIronStrappingPage() {
   const product = catalogProducts.find((item) => item.id === "steel-strapping")!;
-  const aggregateRating = getProductAggregateRating(product.id);
 
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: "Dây đai sắt giá rẻ",
-    alternateName: ["dây đai thép giá rẻ", "đai sắt đóng hàng giá rẻ"],
+    alternateName: ["dây đai thép giá rẻ", "dây đai sắt giá tốt", "đai sắt đóng hàng giá rẻ"],
     description: LEAD,
     image: galleryImages.map((img) => `${siteConfig.url}${img.src}`),
     sku: "steel-strapping-sat-gia-re",
     brand: { "@type": "Brand", name: siteConfig.name },
     offers: buildProductSchemaOffer(product, PAGE_URL),
-    ...(aggregateRating ? { aggregateRating } : {}),
   };
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",

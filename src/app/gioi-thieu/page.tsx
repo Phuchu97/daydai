@@ -3,6 +3,7 @@ import { AboutPageContent } from "@/components/about/AboutPageContent";
 import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
 import { aboutFaqs, aboutProductShowcase } from "@/data/about-content";
 import { siteConfig } from "@/config/site";
+import { postalAddressJsonLd } from "@/lib/local-business-schema";
 
 const pageDescription =
   "Giới thiệu Dây Đai Thép Việt Nam (daydaivn.com): nhà cung cấp dây đai thép mạ kẽm, khóa đai thép, bộ dụng cụ đóng dây đai thép và nhựa. Tư vấn quy cách, hàng sẵn kho, giao toàn quốc.";
@@ -59,11 +60,8 @@ export default function AboutPage() {
         "@type": "Country",
         name: "Việt Nam",
       },
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Hà Nội",
-        addressCountry: "VN",
-      },
+      foundingDate: String(siteConfig.company.foundingYear),
+      address: postalAddressJsonLd,
       knowsAbout: [
         "Dây đai thép công nghiệp",
         "Khóa đai thép",

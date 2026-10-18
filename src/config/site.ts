@@ -17,8 +17,25 @@ export const siteConfig = {
     legalName: "Dây Đai Thép Việt Nam",
     phone: "0339.689.386",
     zaloPhone: "0339689386",
-    address: "Hà Nội, Việt Nam",
+    address: "Khu đô thị Mậu Lương, phường Kiến Hưng, Hà Nội",
+    streetAddress: "Khu đô thị Mậu Lương",
+    ward: "Phường Kiến Hưng",
+    city: "Hà Nội",
+    geo: { latitude: 20.9552733, longitude: 105.7934296 },
+    mapsUrl:
+      "https://www.google.com/maps/search/?api=1&query=20.9552733%2C105.7934296",
     serviceArea: "Toàn quốc, ưu tiên Hà Nội và miền Bắc",
+    foundingYear: 2018,
+    materialSource:
+      "Nguyên liệu tôn thép Hòa Phát, gia công thành dây đai theo bản rộng và độ dày yêu cầu",
+    notableClients: [
+      "VNSteel",
+      "Ống thép Vinapipe Hải Phòng",
+      "Thép Việt Đức",
+      "Thép Việt Nhật",
+      "Xây dựng Ecoba",
+      "Xây dựng Coteccons",
+    ],
   },
   seo: {
     primaryKeywords: [

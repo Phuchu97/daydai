@@ -13,6 +13,10 @@
 ```bash
 VPS_PASSWORD='mật-khẩu-root' ./scripts/deploy-docker.sh
 ```
+```bash
+Đổi mật khẩu trên VPS, dùng lệnh: ß
+passwd
+```
 Lưu ý: mật khẩu root phải bọc trong dấu nháy đơn '...' như trên.
 
 ## Yêu cầu trên máy local

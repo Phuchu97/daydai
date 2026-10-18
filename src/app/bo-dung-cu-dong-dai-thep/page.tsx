@@ -3,7 +3,6 @@ import { HybridProductGuide } from "@/components/seo/HybridProductGuide";
 import { SteelToolsGuideBody } from "@/components/seo/SteelToolsGuideBody";
 import { siteConfig } from "@/config/site";
 import { catalogProducts } from "@/data/products";
-import { getProductAggregateRating } from "@/data/reviews";
 import { buildProductSchemaOffer } from "@/lib/merchant-offer-schema";
 
 const PAGE_PATH = "/bo-dung-cu-dong-dai-thep";
@@ -90,7 +89,6 @@ export const metadata: Metadata = {
 
 export default function SteelToolGuidePage() {
   const product = catalogProducts.find((item) => item.id === "steel-strapping-tools")!;
-  const aggregateRating = getProductAggregateRating(product.id);
 
   const productJsonLd = {
     "@context": "https://schema.org",
@@ -102,7 +100,6 @@ export default function SteelToolGuidePage() {
     sku: "steel-strapping-tools",
     brand: { "@type": "Brand", name: siteConfig.name },
     offers: buildProductSchemaOffer(product, PAGE_URL),
-    ...(aggregateRating ? { aggregateRating } : {}),
   };
   const howToJsonLd = {
     "@context": "https://schema.org",

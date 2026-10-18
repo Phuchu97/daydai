@@ -2,7 +2,6 @@ import { HybridProductGuide } from "@/components/seo/HybridProductGuide";
 import { SizeGuideBody } from "@/components/seo/SizeGuideBody";
 import { siteConfig } from "@/config/site";
 import { catalogProducts } from "@/data/products";
-import { getProductAggregateRating } from "@/data/reviews";
 import { buildProductSchemaOffer } from "@/lib/merchant-offer-schema";
 import type { FaqItem } from "@/components/product/FAQSection";
 import type { SizeGuide } from "@/data/steel-strapping-guide";
@@ -49,7 +48,6 @@ export function SizeLandingPage({ guide }: { guide: SizeGuide }) {
     ...guide.gallery.map((item) => ({ src: item.src, alt: item.alt })),
   ];
   const faqs = buildFaqs(guide);
-  const aggregateRating = getProductAggregateRating(product.id);
 
   const productJsonLd = {
     "@context": "https://schema.org",
@@ -60,7 +58,6 @@ export function SizeLandingPage({ guide }: { guide: SizeGuide }) {
     sku: `steel-strapping-${guide.widthMm}mm`,
     brand: { "@type": "Brand", name: siteConfig.name },
     offers: buildProductSchemaOffer(product, pageUrl),
-    ...(aggregateRating ? { aggregateRating } : {}),
   };
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",

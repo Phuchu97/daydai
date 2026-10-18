@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { HybridProductGuide } from "@/components/seo/HybridProductGuide";
 import { LocalRegionGuideBody } from "@/components/seo/LocalRegionGuideBody";
 import { siteConfig } from "@/config/site";
+import { localBusinessLocationJsonLd } from "@/lib/local-business-schema";
 import { catalogProducts } from "@/data/products";
-import { getProductAggregateRating } from "@/data/reviews";
 import { buildProductSchemaOffer } from "@/lib/merchant-offer-schema";
 
 const PAGE_PATH = "/day-dai-thep-ha-noi";
@@ -84,7 +84,6 @@ export const metadata: Metadata = {
 
 export default function HanoiLandingPage() {
   const product = catalogProducts.find((item) => item.id === "steel-strapping")!;
-  const aggregateRating = getProductAggregateRating(product.id);
 
   const localBusinessJsonLd = {
     "@context": "https://schema.org",
@@ -93,12 +92,7 @@ export default function HanoiLandingPage() {
     url: PAGE_URL,
     telephone: siteConfig.company.phone,
     image: `${siteConfig.url}/images/day-dai-thep-tai-kho-khach-hang.jpg`,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Hà Nội",
-      addressCountry: "VN",
-      streetAddress: siteConfig.company.address,
-    },
+    ...localBusinessLocationJsonLd,
     areaServed: ["Hà Nội", "Bắc Ninh", "Hưng Yên", "Hải Dương", "Vĩnh Phúc"],
     priceRange: "$$",
   };
@@ -111,7 +105,6 @@ export default function HanoiLandingPage() {
     sku: "steel-strapping-hanoi",
     brand: { "@type": "Brand", name: siteConfig.name },
     offers: buildProductSchemaOffer(product, PAGE_URL),
-    ...(aggregateRating ? { aggregateRating } : {}),
   };
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",

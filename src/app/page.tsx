@@ -1,5 +1,6 @@
 import { SiteShell } from "@/components/layout/SiteShell";
 import { siteConfig } from "@/config/site";
+import { localBusinessLocationJsonLd } from "@/lib/local-business-schema";
 import {
   SteelHero,
   TrustSection,
@@ -50,13 +51,7 @@ export default function HomePage() {
     image: `${baseUrl}${siteConfig.ogImage}`,
     logo: `${baseUrl}${siteConfig.logoIcon}`,
     telephone: siteConfig.company.phone,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: siteConfig.company.address,
-      addressLocality: "Hà Nội",
-      addressRegion: "Hà Nội",
-      addressCountry: "VN",
-    },
+    ...localBusinessLocationJsonLd,
     areaServed: siteConfig.company.serviceArea,
     sameAs: [`https://zalo.me/${siteConfig.company.zaloPhone}`],
     description: siteConfig.description,

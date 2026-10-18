@@ -28,12 +28,19 @@ import { buildOfferCatalogItem } from "@/lib/merchant-offer-schema";
 import { formatSeoDate } from "@/lib/seo";
 import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
 
+const [PRICE_YEAR, PRICE_MONTH] = PRICE_PAGE_LAST_UPDATED.split("-");
+const PRICE_TITLE = `Báo giá dây đai thép & khóa đai | cập nhật tháng ${Number(PRICE_MONTH)}/${PRICE_YEAR}`;
+
 export const metadata: Metadata = {
-  title: "Báo giá dây đai thép & khóa đai | cập nhật tháng 7/2026",
+  title: PRICE_TITLE,
   description: `Giá dây đai thép ${STRAP_PRICE_RANGE_LABEL} theo loại dầu/mạ kẽm/sơn 16–32mm. Bảng giá khóa đai ${SEAL_PRICE_RANGE_LABEL}, pairing dây–bọ, ước tính chi phí/pallet. Báo giá trong ngày.`,
   keywords: [
     "báo giá dây đai thép",
     "giá dây đai thép",
+    "dây đai thép giá bao nhiêu",
+    "giá đai thép",
+    "giá dây đai sắt",
+    "giá dây đai thép 1kg",
     "bảng giá dây đai thép",
     "báo giá khóa đai thép",
     "giá dây đai thép mạ kẽm",
@@ -45,7 +52,7 @@ export const metadata: Metadata = {
     canonical: `${siteConfig.url}/bao-gia-day-dai-thep`,
   },
   openGraph: {
-    title: "Báo giá dây đai thép & khóa đai | cập nhật tháng 7/2026",
+    title: PRICE_TITLE,
     description: `Giá tham khảo ${STRAP_PRICE_RANGE_LABEL}. Đầy đủ bảng theo loại bề mặt, khổ rộng, độ dày và khóa đai.`,
     url: `${siteConfig.url}/bao-gia-day-dai-thep`,
     locale: "vi_VN",
@@ -75,6 +82,14 @@ export default function PricePage() {
     {
       q: "Giá dây đai thép hiện nay bao nhiêu?",
       a: `Tham khảo khoảng ${STRAP_PRICE_RANGE_LABEL} tùy loại dầu/mạ kẽm/sơn và khổ 16–32mm. Giá website mạ kẽm đang ${STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg; lô lớn thường tốt hơn.`,
+    },
+    {
+      q: "Dây đai thép giá bao nhiêu 1kg?",
+      a: `Dây đai thép bán theo kg, tham khảo ${STRAP_PRICE_RANGE_LABEL}: dây dầu rẻ nhất, mạ kẽm và sơn tĩnh điện cao hơn. Giá website hiện ${STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg; đơn từ vài trăm kg trở lên được báo giá lô riêng.`,
+    },
+    {
+      q: "1 cuộn dây đai thép bao nhiêu kg, dài bao nhiêu mét?",
+      a: "Cuộn phổ biến 30–50kg. Số mét = khối lượng ÷ (bản rộng × độ dày × 7,85 / 1000). Ví dụ cuộn 40kg: bản 16 dày 0.6mm ≈ 530m, bản 19 dày 0.8mm ≈ 335m, bản 32 dày 0.9mm ≈ 175m.",
     },
     {
       q: "Giá khóa đai thép (bọ sắt) bao nhiêu?",
@@ -495,7 +510,7 @@ export default function PricePage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {SPEC_ROWS.filter((row) => [16, 19, 32].includes(row.widthMm)).map(
+                  {SPEC_ROWS.map(
                     (row) => (
                       <tr key={row.widthMm} className="border-t border-border/60">
                         <td className="px-3 py-2 font-medium text-foreground">

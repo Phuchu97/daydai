@@ -6,8 +6,8 @@ import { steelStrappingFaqs } from "@/data/steel-strapping-content";
 import { getProductFaqs } from "@/data/product-detail-content";
 import { ProductDetailPage } from "@/components/product/ProductDetailPage";
 import { siteConfig } from "@/config/site";
-import { getProductAggregateRating } from "@/data/reviews";
 import { buildProductSchemaOffer } from "@/lib/merchant-offer-schema";
+import { getProductCanonicalPath } from "@/lib/product-canonical";
 
 type Params = {
   slug: string;
@@ -100,6 +100,8 @@ export async function generateMetadata({
     "logistics",
   ];
 
+  const canonicalUrl = `${siteConfig.url}${getProductCanonicalPath(product)}`;
+
   return {
     title: {
       default: title,
@@ -108,12 +110,12 @@ export async function generateMetadata({
     description,
     keywords,
     alternates: {
-      canonical: `${siteConfig.url}/san-pham/${slug}`,
+      canonical: canonicalUrl,
     },
     openGraph: {
       title,
       description,
-      url: `${siteConfig.url}/san-pham/${slug}`,
+      url: canonicalUrl,
       siteName: siteConfig.name,
       locale: "vi_VN",
       type: "website",
@@ -146,7 +148,6 @@ export default async function ProductRoutePage({
 
   const productUrl = `${siteConfig.url}/san-pham/${slug}`;
   const faqs = getFaqForProduct(product);
-  const aggregateRating = getProductAggregateRating(product.id);
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -159,7 +160,6 @@ export default async function ProductRoutePage({
       name: siteConfig.name,
     },
     offers: buildProductSchemaOffer(product, productUrl),
-    ...(aggregateRating ? { aggregateRating } : {}),
   };
 
   const breadcrumbJsonLd = {

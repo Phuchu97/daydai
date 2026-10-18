@@ -3,7 +3,6 @@ import { HybridProductGuide } from "@/components/seo/HybridProductGuide";
 import { BoSatGuideBody } from "@/components/seo/BoSatGuideBody";
 import { siteConfig } from "@/config/site";
 import { catalogProducts } from "@/data/products";
-import { getProductAggregateRating } from "@/data/reviews";
 import { buildProductSchemaOffer } from "@/lib/merchant-offer-schema";
 
 const PAGE_PATH = "/bo-sat";
@@ -87,7 +86,6 @@ export const metadata: Metadata = {
 
 export default function BoSatPage() {
   const product = catalogProducts.find((item) => item.id === "steel-seals")!;
-  const aggregateRating = getProductAggregateRating(product.id);
 
   const productJsonLd = {
     "@context": "https://schema.org",
@@ -99,7 +97,6 @@ export default function BoSatPage() {
     sku: "steel-seals-bo-sat",
     brand: { "@type": "Brand", name: siteConfig.name },
     offers: buildProductSchemaOffer(product, PAGE_URL),
-    ...(aggregateRating ? { aggregateRating } : {}),
   };
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",

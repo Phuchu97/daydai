@@ -3,7 +3,6 @@ import { HybridProductGuide } from "@/components/seo/HybridProductGuide";
 import { SteelToolsGuideBody } from "@/components/seo/SteelToolsGuideBody";
 import { siteConfig } from "@/config/site";
 import { catalogProducts } from "@/data/products";
-import { getProductAggregateRating } from "@/data/reviews";
 import { buildProductSchemaOffer } from "@/lib/merchant-offer-schema";
 
 const PAGE_PATH = "/siet-day-thep";
@@ -89,7 +88,6 @@ export const metadata: Metadata = {
 
 export default function TensionSteelStrapPage() {
   const product = catalogProducts.find((item) => item.id === "steel-strapping-tools")!;
-  const aggregateRating = getProductAggregateRating(product.id);
 
   const productJsonLd = {
     "@context": "https://schema.org",
@@ -105,7 +103,6 @@ export default function TensionSteelStrapPage() {
     sku: "steel-strapping-tools-siet-day",
     brand: { "@type": "Brand", name: siteConfig.name },
     offers: buildProductSchemaOffer(product, PAGE_URL),
-    ...(aggregateRating ? { aggregateRating } : {}),
   };
   const howToJsonLd = {
     "@context": "https://schema.org",

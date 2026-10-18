@@ -2,7 +2,6 @@ import { HybridProductGuide } from "@/components/seo/HybridProductGuide";
 import { SurfaceGuideBody } from "@/components/seo/SurfaceGuideBody";
 import { siteConfig } from "@/config/site";
 import { catalogProducts } from "@/data/products";
-import { getProductAggregateRating } from "@/data/reviews";
 import { buildProductSchemaOffer } from "@/lib/merchant-offer-schema";
 import type { FaqItem } from "@/components/product/FAQSection";
 import {
@@ -42,7 +41,6 @@ export function SurfaceLandingPage({ guide }: { guide: SurfaceGuide }) {
     ...guide.gallery.map((item) => ({ src: item.src, alt: item.alt })),
   ];
   const faqs = buildFaqs(guide);
-  const aggregateRating = getProductAggregateRating(product.id);
 
   const productJsonLd = {
     "@context": "https://schema.org",
@@ -53,7 +51,6 @@ export function SurfaceLandingPage({ guide }: { guide: SurfaceGuide }) {
     sku: `steel-strapping-${guide.surface}`,
     brand: { "@type": "Brand", name: siteConfig.name },
     offers: buildProductSchemaOffer(product, pageUrl),
-    ...(aggregateRating ? { aggregateRating } : {}),
   };
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",

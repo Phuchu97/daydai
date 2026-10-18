@@ -8,6 +8,7 @@ import { ProductInfo } from "@/components/product/ProductInfo";
 import { UpsellSection } from "@/components/product/UpsellSection";
 import { ReviewsSection } from "@/components/product/ReviewsSection";
 import { FAQSection, type FaqItem } from "@/components/product/FAQSection";
+import { TrustFacts } from "@/components/marketing/TrustFacts";
 
 export type HybridBreadcrumbItem = {
   label: string;
@@ -81,6 +82,8 @@ export function HybridProductGuide({
       </section>
 
       {children}
+
+      <TrustFacts />
 
       <UpsellSection excludeProductId={product.id} />
       <ReviewsSection product={product} />

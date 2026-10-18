@@ -15,7 +15,7 @@ export function ProductsCatalogHero() {
         {siteConfig.name} · {siteConfig.domain}
       </p>
       <h1 className="mt-2 text-balance font-display text-xl font-semibold leading-tight tracking-[-0.02em] text-foreground sm:text-2xl md:text-3xl">
-        Dây đai thép & dụng cụ đóng đai — có sẵn, giao nhanh
+        Sản phẩm đóng đai: dây đai thép, khóa đai & dụng cụ
       </h1>
       <p className="mt-2 max-w-[52ch] text-sm leading-relaxed text-muted-foreground">
         Báo giá theo số lượng, tư vấn quy cách 16/19/32mm miễn phí cho nhà máy,

@@ -16,7 +16,7 @@ const commonPhotos = [
   "/images/day-dai-2.jpg",
   "/images/day-dai-4.jpg",
   "/images/dung-cu-dong-dai-3.jpg",
-  "/images/kho-dung-cu-dong-dai.png",
+  "/images/kho-dung-cu.jpeg",
 ];
 
 function r(
@@ -119,25 +119,9 @@ export const reviews: Review[] = [
   r("p24", "plastic-strapping-tools", 5, "dungcu_dai_nhua", "Dùng với đai PP 16mm", "Mình dùng đai PP 16mm, siết căng vừa phải là chắc. Kìm dài bấm bọ tiện.", "2025-08-22", commonPhotos[4]),
 ];
 
+// Không đưa review này vào JSON-LD (aggregateRating): chưa phải đánh giá đã xác minh.
 export function getReviewsForProduct(productId: CatalogProduct["id"]) {
   return reviews
     .filter((rv) => rv.productId === productId)
     .sort((a, b) => (a.date < b.date ? 1 : -1));
-}
-
-/** Matches on-page ReviewsSection for Product JSON-LD. */
-export function getProductAggregateRating(productId: CatalogProduct["id"]) {
-  const productReviews = getReviewsForProduct(productId);
-  if (productReviews.length === 0) return null;
-
-  const sum = productReviews.reduce((total, review) => total + review.rating, 0);
-  const average = sum / productReviews.length;
-
-  return {
-    "@type": "AggregateRating" as const,
-    ratingValue: average.toFixed(1),
-    reviewCount: String(productReviews.length),
-    bestRating: "5",
-    worstRating: "1",
-  };
 }

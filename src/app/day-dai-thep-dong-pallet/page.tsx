@@ -133,7 +133,12 @@ export default function PalletStrappingPage() {
             <p className="mt-3 max-w-[70ch] text-sm leading-7 text-muted-foreground sm:text-base">
               Đóng pallet bằng dây đai thép giúp kiện hàng giữ ổn định khi nâng
               hạ forklift và vận chuyển đường dài. Trang này hướng dẫn chọn bản
-              dây theo tải, số vòng đai và checklist trước khi xuất kho.
+              dây theo tải, số vòng đai và checklist trước khi xuất kho. Nếu
+              cần đóng bó thép, cuộn tôn hay kiện máy móc, xem{" "}
+              <Link href="/day-dai-thep-dong-hang" className="text-primary hover:underline">
+                dây đai thép đóng hàng theo từng loại kiện
+              </Link>
+              .
             </p>
           </header>
 

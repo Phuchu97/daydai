@@ -267,13 +267,13 @@ export const priorityArticles: Article[] = [
       },
       {
         heading: "Bảng thông số so sánh",
-        paragraphs: ["Số liệu tham khảo từ catalog kỹ thuật — test mẫu vẫn cần thiết."],
+        paragraphs: ["Số liệu tham khảo từ catalog kỹ thuật; m/kg tính theo khối lượng riêng thép 7,85 g/cm³ — test mẫu vẫn cần thiết."],
         table: {
           headers: ["Khổ", "Độ dày", "Chịu lực (N)", "m/kg", "Tải tham khảo/đai"],
           rows: [
-            ["16mm", "0.5 – 0.8", "6.500 – 9.000", "14 – 18", "400 – 900kg"],
-            ["19mm", "0.6 – 0.9", "9.000 – 14.000", "10 – 13", "800 – 1.400kg"],
-            ["32mm", "0.8 – 1.2", "18.000 – 25.000+", "5 – 8", "1.300kg+"],
+            ["16mm", "0.5 – 0.8", "6.500 – 9.000", "10 – 16", "400 – 900kg"],
+            ["19mm", "0.6 – 0.9", "9.000 – 14.000", "7,4 – 11", "800 – 1.400kg"],
+            ["32mm", "0.8 – 1.2", "18.000 – 25.000+", "3,3 – 5", "1.300kg+"],
           ],
         },
       },

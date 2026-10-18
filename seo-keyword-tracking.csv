@@ -1,5 +1,5 @@
 keyword,intent,target_url,priority,current_position,impressions_28d,ctr,notes,next_action
-dây đai thép,commercial,/san-pham,P1,,,,Main head term,Theo dõi hằng tuần và tối ưu title homepage/san-pham
+dây đai thép,commercial,/day-dai-thep,P1,,,,Trang chính /day-dai-thep (chốt 2026-10-18); /san-pham/day-dai-thep-chiu-luc-cao canonical về đây; /san-pham đổi sang 'sản phẩm đóng đai',Deploy + request indexing; theo dõi vị trí
 day dai thep,commercial,/san-pham,P1,,,,Non-accent head term,Tối ưu thêm biến thể không dấu trong nội dung
 đai thép,commercial,/dai-thep-cong-nghiep,P1,,,,Synonym head term,Đẩy internal link từ bài tư vấn
 dây đai sắt,commercial,/day-dai-sat,P1,,,,Strong synonym,Theo dõi cannibalization với /san-pham
@@ -32,3 +32,39 @@ nhà cung cấp dây đai thép miền bắc,local-commercial,/day-dai-thep-mien
 nha cung cap day dai thep,commercial,/nha-cung-cap-day-dai-thep,P1,,,,Non-accent supplier term,Theo dõi cannibalization với local pages
 công ty dây đai thép,commercial,/nha-cung-cap-day-dai-thep,P1,,,,Supplier-intent,Tăng bằng chứng năng lực/case study
 mua dây đai thép số lượng lớn,transactional,/nha-cung-cap-day-dai-thep,P2,,,,Bulk-purchase intent,Tối ưu form và CTA doanh nghiệp
+dây đai thép đóng hàng,commercial,/day-dai-thep-dong-hang,P1,,,,"Google autocomplete #1 cho ""dây đai thép"" (2026-10)",Theo dõi index + CTR sau khi publish
+dây đai thép buộc hàng,commercial,/day-dai-thep-dong-hang,P1,,,,Autocomplete; trước đây chưa có trên site,Đưa vào H2/FAQ nếu chưa lên top 10
+dây đai thép đóng kiện,commercial,/day-dai-thep-dong-hang,P1,,,,Cụm đóng kiện/kiện hàng/đóng gói,Theo dõi cannibalization với /day-dai-thep-dong-pallet
+dây đai thép kiện hàng,commercial,/day-dai-thep-dong-hang,P2,,,,Biến thể cụm đóng hàng,
+dây đai sắt đóng hàng,commercial,/day-dai-thep-dong-hang,P2,,,,"Biến thể ""sắt""",
+dây đai thép giá bao nhiêu,transactional,/bao-gia-day-dai-thep,P1,,,,Dạng câu hỏi giá,"Đã thêm FAQ ""giá bao nhiêu 1kg"""
+cuộn dây đai thép,transactional,/bao-gia-day-dai-thep,P2,,,,Hỏi kg/mét mỗi cuộn,"Đã thêm FAQ ""1 cuộn bao nhiêu kg/mét"""
+dây đai thép 25mm,transactional,/day-dai-thep-25mm,P2,,,,Đã tạo trang 2026-10-17,Theo dõi index
+dây đai thép mạ kẽm 19mm,transactional,/day-dai-thep-19mm,P2,,,,Tổ hợp bề mặt + size,Thêm cụm vào trang 19mm và mạ kẽm
+dây đai thép đen,commercial,/day-dai-thep-dau,P2,,,,Trang dầu đã nhắm 'đai thép đen',Theo dõi; tách trang riêng chỉ khi Search Console cho thấy intent khác (sơn đen)
+dây đai sắt 19mm,transactional,/day-dai-thep-19mm,P2,,,,"Biến thể ""sắt"" theo size","Thêm ""dây đai sắt 19mm"" vào nội dung"
+dây đai thép dầu trung quốc,informational,(bài viết mới),P3,,,,So sánh xuất xứ,Viết bài so sánh hàng TQ/VN/Hàn
+dây đai thép là gì,informational,(bài viết mới),P2,,,,Top funnel,"Viết bài ""là gì / dùng để làm gì"""
+dây đai thép dùng để làm gì,informational,(bài viết mới),P2,,,,Top funnel,"Gộp chung bài ""là gì"""
+dây đai thép tiếng anh là gì,informational,(bài viết mới),P3,,,,Steel strapping; khách XNK,"Gộp bài ""tiếng Anh + mã HS"""
+dây đai thép hs code,informational,(bài viết mới),P2,,,,Khách nhập khẩu B2B,"Gộp bài ""tiếng Anh + mã HS"" (xác minh mã HS với hải quan trước khi đăng)"
+kéo cắt dây đai thép,commercial,(chưa có trang),P3,,,,Người dùng xác nhận có bán (2026-10-17),"Chờ model, giá, ảnh để tạo trang sản phẩm"
+máy đóng đai thép khí nén,commercial,(chưa có trang),P3,,,,Người dùng xác nhận có bán (2026-10-17),"Chờ model, giá, ảnh để tạo trang sản phẩm"
+kìm bấm bọ dây đai thép,commercial,/bo-dung-cu-dong-dai-thep,P2,,,,Phụ kiện,Thêm cụm vào trang dụng cụ
+xe đẩy dây đai thép,commercial,(chưa có trang),P3,,,,Giá ra dây,Chỉ làm nếu có bán
+dây đai thép dầu,commercial,/day-dai-thep-dau,P1,,,,Autocomplete top 6; đã có trang,Theo dõi ranking
+dây đai thép mạ kẽm,commercial,/day-dai-thep-ma-kem,P1,,,,Autocomplete top 6; đã có trang,Theo dõi ranking
+dây đai thép sơn tĩnh điện,commercial,/day-dai-thep-son-tinh-dien,P2,,,,Đã có trang,Theo dõi ranking
+dây đai thép đóng pallet,commercial,/day-dai-thep-dong-pallet,P2,,,,Use-case pallet; tách khỏi cụm đóng hàng,Giữ intent hẹp (pallet) để không cannibalize /day-dai-thep-dong-hang
+dây đai sắt giá rẻ,transactional,/day-dai-sat-gia-re,P2,,,,Đã có trang,Theo dõi ranking
+siết dây thép,commercial,/siet-day-thep,P2,,,,Đã có trang,Theo dõi ranking
+bọ sắt,commercial,/bo-sat,P1,,,,Đã có trang,Theo dõi cannibalization với /khoa-dai-thep
+đai thép 19mm,transactional,/day-dai-thep-19mm,P3,,,,"Biến thể không có ""dây""",Thêm cụm vào nội dung trang 19mm
+dây đai thép inox,commercial,(chưa có trang),P2,,,,Autocomplete: dây đai thép inox / inox 304; người dùng xác nhận có bán,"Chờ mác inox, quy cách, giá để tạo trang"
+dây đai thép giá rẻ,transactional,/day-dai-sat-gia-re,P2,,,,Autocomplete không gợi ý (volume thấp); đối thủ dùng trong title,Đã đưa vào title/H1/FAQ 2026-10-18
+dây đai sắt giá tốt,transactional,/day-dai-sat-gia-re,P2,,,,Đối thủ captheptuananh dùng 'Giá Tốt' trong title,Đã đưa vào H1/FAQ 2026-10-18
+dây đai thép giá tốt,transactional,/day-dai-sat-gia-re,P3,,,,Biến thể giá,Đã đưa vào title
+giá dây đai sắt,transactional,/bao-gia-day-dai-thep,P2,,,,Biến thể 'sắt' của giá dây đai thép,Theo dõi cannibalization với /day-dai-sat-gia-re
+giá đai thép,transactional,/bao-gia-day-dai-thep,P2,,,,Autocomplete x2 (2026-10-18),Đã thêm keyword trang báo giá
+dây đai sắt 32mm,transactional,/day-dai-thep-32mm,P3,,,,Autocomplete,Thêm cụm vào nội dung trang 32mm
+dây đai sắt 16mm,transactional,/day-dai-thep-16mm,P3,,,,Autocomplete,Thêm cụm vào nội dung trang 16mm

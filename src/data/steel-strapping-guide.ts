@@ -93,6 +93,8 @@ export const STRAP_PRICE_ROWS: StrapPriceRow[] = [
 
 /** Market range used in intro copy for “giá dây đai thép bao nhiêu”. */
 export const STRAP_PRICE_RANGE_LABEL = "19.000 - 25.500đ/kg";
+/** Mức giá thấp nhất trong STRAP_PRICE_ROWS (dây dầu) — dùng cho trang “giá rẻ”. */
+export const STRAP_PRICE_FROM_LABEL = "19.000đ/kg";
 export const SEAL_PRICE_RANGE_LABEL = "1.800 - 4.100đ/cái";
 
 export const PRICE_FACTORS = [
@@ -215,7 +217,7 @@ export const SPEC_ROWS: SpecRow[] = [
     widthMm: 16,
     thicknessMm: "0.5 - 0.8",
     breakLoadN: "6.500 - 9.000",
-    metersPerKg: "14 - 18",
+    metersPerKg: "10 - 16",
     loadHint: "400 - 900kg/đai",
     bestFor: "Pallet vừa, kiện ổn định hình khối",
     href: "/day-dai-thep-16mm",
@@ -224,7 +226,7 @@ export const SPEC_ROWS: SpecRow[] = [
     widthMm: 19,
     thicknessMm: "0.6 - 0.9",
     breakLoadN: "9.000 - 14.000",
-    metersPerKg: "10 - 13",
+    metersPerKg: "7.4 - 11",
     loadHint: "800 - 1.400kg/đai",
     bestFor: "Pallet thép, VLXD, tuyến rung lắc",
     href: "/day-dai-thep-19mm",
@@ -233,16 +235,16 @@ export const SPEC_ROWS: SpecRow[] = [
     widthMm: 25,
     thicknessMm: "0.7 - 1.0",
     breakLoadN: "14.000 - 18.000",
-    metersPerKg: "7 - 10",
+    metersPerKg: "5 - 7.3",
     loadHint: "1.100 - 1.800kg/đai",
     bestFor: "Kiện nặng, xuất khẩu đường dài",
-    href: "/day-dai-thep-16mm-19mm-32mm",
+    href: "/day-dai-thep-25mm",
   },
   {
     widthMm: 32,
     thicknessMm: "0.8 - 1.2",
     breakLoadN: "18.000 - 25.000+",
-    metersPerKg: "5 - 8",
+    metersPerKg: "3.3 - 5",
     loadHint: "1.300kg+/đai",
     bestFor: "Cuộn thép, cấu kiện siêu nặng",
     href: "/day-dai-thep-32mm",
@@ -481,7 +483,7 @@ export const SIZE_GUIDES: SizeGuide[] = [
     h1: "Dây đai thép 16mm: khi nào nên dùng và cách chọn độ dày",
     title: "Dây đai thép 16mm | giá tốt cho pallet vừa",
     description:
-      "Dây đai thép 16mm (0.5–0.8mm): tải tham khảo 400–900kg/đai, khoảng 14–18m/kg. Tư vấn khi nào dùng 16mm và khi nào nâng lên 19mm.",
+      "Dây đai thép 16mm (0.5–0.8mm): tải tham khảo 400–900kg/đai, khoảng 10–16m/kg. Tư vấn khi nào dùng 16mm và khi nào nâng lên 19mm.",
     keywords: [
       "dây đai thép 16mm",
       "đai thép 16mm",
@@ -492,7 +494,7 @@ export const SIZE_GUIDES: SizeGuide[] = [
       "Dây đai thép 16mm là quy cách phổ biến cho pallet vừa và kiện ổn định hình khối. Chi phí thấp hơn 19mm/32mm nhưng vẫn đủ an toàn nếu số điểm đai và lực siết đúng chuẩn.",
     thicknessMm: "0.5 - 0.8",
     breakLoadN: "6.500 - 9.000",
-    metersPerKg: "14 - 18",
+    metersPerKg: "10 - 16",
     loadHint: "400 - 900kg/đai (tham khảo)",
     useCases: [
       "Pallet hàng tiêu dùng / linh kiện trên pallet gỗ",
@@ -547,7 +549,7 @@ export const SIZE_GUIDES: SizeGuide[] = [
       "Dây đai thép 19mm là quy cách “vàng” cho nhiều nhà máy: chịu lực tốt hơn 16mm rõ rệt mà chưa đội chi phí như 32mm. Phù hợp pallet thép, vật liệu xây dựng và tuyến vận chuyển có rung lắc.",
     thicknessMm: "0.6 - 0.9",
     breakLoadN: "9.000 - 14.000",
-    metersPerKg: "10 - 13",
+    metersPerKg: "7.4 - 11",
     loadHint: "800 - 1.400kg/đai (tham khảo)",
     useCases: [
       "Pallet thép, ống, thanh profile",
@@ -585,6 +587,62 @@ export const SIZE_GUIDES: SizeGuide[] = [
     ],
   },
   {
+    slug: "day-dai-thep-25mm",
+    widthMm: 25,
+    name: "Dây đai thép 25mm",
+    h1: "Dây đai thép 25mm cho kiện nặng và hàng xuất khẩu",
+    title: "Dây đai thép 25mm | kiện nặng, xuất khẩu đường dài",
+    description:
+      "Dây đai thép 25mm (0.7–1.0mm): tải tham khảo 1.100–1.800kg/đai, khoảng 5–7,3m/kg. Bước đệm giữa 19mm và 32mm cho kiện nặng, container tuyến dài.",
+    keywords: [
+      "dây đai thép 25mm",
+      "đai thép 25mm",
+      "dây đai sắt 25mm",
+      "giá dây đai thép 25mm",
+      "day dai thep 25mm",
+    ],
+    intro:
+      "Dây đai thép 25mm nằm giữa 19mm và 32mm: chịu lực cao hơn rõ so với 19mm nhưng nhẹ và rẻ hơn 32mm trên mỗi vòng đai. Phù hợp kiện máy móc, thùng gỗ nặng và hàng xuất khẩu cần biên an toàn cao mà chưa tới mức cuộn thép.",
+    thicknessMm: "0.7 - 1.0",
+    breakLoadN: "14.000 - 18.000",
+    metersPerKg: "5 - 7.3",
+    loadHint: "1.100 - 1.800kg/đai (tham khảo)",
+    useCases: [
+      "Kiện máy móc, thiết bị đóng thùng gỗ",
+      "Pallet kim loại nặng, bó thép hình",
+      "Hàng xuất khẩu container, tuyến dài nhiều lần nâng hạ",
+    ],
+    whenToChoose: [
+      "Kiện khoảng 1.100–1.800kg mỗi điểm đai, 19mm phải siết quá nhiều vòng",
+      "Khách hàng hoặc tuyến xuất khẩu yêu cầu hệ số an toàn cao",
+      "Muốn giảm chi phí so với 32mm khi chưa cần tới tải siêu nặng",
+    ],
+    whenToUpgrade:
+      "Chuyển 32mm cho cuộn thép, cấu kiện siêu nặng; hạ xuống 19mm nếu test thực tế cho thấy 19mm đủ an toàn để tiết kiệm chi phí. Dây 25mm cần bọ 25.6mm và dụng cụ siết/bấm đúng bản 25.",
+    heroImage: {
+      src: "/images/day-dai-3.jpg",
+      alt: "Cuộn dây đai thép bản rộng tại kho",
+      caption: "Dây đai thép 25mm — cho kiện nặng và xuất khẩu",
+    },
+    gallery: [
+      {
+        src: "/images/day-dai-4.jpg",
+        alt: "Dây đai thép cuộn sẵn sàng giao cho doanh nghiệp",
+        caption: "Giao theo lô cho nhà máy",
+      },
+      {
+        src: "/images/bo-thep-kin-2.jpg",
+        alt: "Khóa đai thép bọ kín dùng cho dây bản rộng",
+        caption: "Đi kèm bọ kín đúng bản dây",
+      },
+      {
+        src: "/images/xuat-hang-2.jpg",
+        alt: "Xuất hàng cuộn dây đai thép",
+        caption: "Đóng gói bảo vệ trước khi giao",
+      },
+    ],
+  },
+  {
     slug: "day-dai-thep-32mm",
     widthMm: 32,
     name: "Dây đai thép 32mm",
@@ -602,7 +660,7 @@ export const SIZE_GUIDES: SizeGuide[] = [
       "Dây đai thép 32mm dành cho kiện siêu nặng, cuộn thép và cấu kiện cần biên an toàn cao. Cần đồng bộ khóa đai và dụng cụ 32mm — không dùng bọ/kìm lệch quy cách.",
     thicknessMm: "0.8 - 1.2",
     breakLoadN: "18.000 - 25.000+",
-    metersPerKg: "5 - 8",
+    metersPerKg: "3.3 - 5",
     loadHint: "1.300kg+/đai (tham khảo)",
     useCases: [
       "Cuộn thép, dầm, cấu kiện kim loại lớn",

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Outfit } from "next/font/google";
 import { siteConfig } from "@/config/site";
+import { postalAddressJsonLd } from "@/lib/local-business-schema";
 import "./globals.css";
 import { ToastContainer } from "@/components/ui/toast/ToastContainer";
 import { AttributionTracker } from "@/components/analytics/AttributionTracker";
@@ -103,12 +104,8 @@ export default function RootLayout({
     url: siteConfig.url,
     logo: `${siteConfig.url}${siteConfig.logoIcon}`,
     telephone: siteConfig.company.phone,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Hà Nội",
-      addressCountry: "VN",
-      streetAddress: siteConfig.company.address,
-    },
+    foundingDate: String(siteConfig.company.foundingYear),
+    address: postalAddressJsonLd,
     areaServed: "VN",
     contactPoint: [
       {

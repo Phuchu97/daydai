@@ -4,14 +4,13 @@ import { DayDaiThepGuideBody } from "@/components/seo/DayDaiThepGuideBody";
 import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
 import { siteConfig } from "@/config/site";
 import { catalogProducts } from "@/data/products";
-import { getProductAggregateRating } from "@/data/reviews";
 import { buildProductSchemaOffer } from "@/lib/merchant-offer-schema";
 
 const PAGE_PATH = "/day-dai-thep";
 const PAGE_URL = `${siteConfig.url}${PAGE_PATH}`;
-const HEADING = "Dây đai thép 16mm 19mm 32mm cho pallet hàng nặng";
+const HEADING = "Dây đai thép 16mm 19mm 25mm 32mm cho pallet hàng nặng";
 const LEAD =
-  "Dây đai thép (dây đai sắt) bản 16/19/32mm, dầu / mạ kẽm / sơn tĩnh điện. Giá theo kg, khớp bọ sắt và kìm siết, giao Hà Nội cùng KCN miền Bắc.";
+  "Dây đai thép (dây đai sắt) bản 16–32mm, dầu / mạ kẽm / sơn tĩnh điện. Giá theo kg, khớp bọ sắt và kìm siết, giao Hà Nội cùng KCN miền Bắc.";
 
 const faqs = [
   {
@@ -30,6 +29,10 @@ const faqs = [
       "Pallet dưới ~500kg thường dùng 16mm. Kiện 500-1.200kg ưu tiên 19mm. Cuộn thép hoặc kiện trên 1.200kg dùng 32mm, kèm bọ và kìm đúng khổ.",
   },
   {
+    question: "Dây đai thép xuất xứ từ đâu?",
+    answer: `${siteConfig.company.materialSource}. ${siteConfig.name} cung ứng dây đai thép từ ${siteConfig.company.foundingYear}.`,
+  },
+  {
     question: "Giá dây đai thép bao nhiêu một kg?",
     answer: `Giá website tham khảo ${STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg. Giá lô chốt theo loại bề mặt, độ dày, số kg và điểm giao.`,
   },
@@ -40,9 +43,9 @@ const faqs = [
 ];
 
 export const metadata: Metadata = {
-  title: "Dây đai thép 16/19/32mm | giá theo kg, giao Hà Nội",
+  title: "Dây đai thép 16–32mm | giá theo kg, giao Hà Nội",
   description:
-    "Mua dây đai thép 16mm, 19mm, 32mm — dầu / mạ kẽm / sơn tĩnh điện. Giá theo kg, bảng quy cách, chọn theo tải, khớp khóa đai. Giao Hà Nội, miền Bắc.",
+    "Mua dây đai thép 16mm, 19mm, 25mm, 32mm — dầu / mạ kẽm / sơn tĩnh điện. Giá theo kg, bảng quy cách, chọn theo tải, khớp khóa đai. Giao Hà Nội, miền Bắc.",
   keywords: [
     "dây đai thép",
     "mua dây đai thép",
@@ -55,9 +58,9 @@ export const metadata: Metadata = {
     canonical: PAGE_URL,
   },
   openGraph: {
-    title: "Dây đai thép 16/19/32mm | giá theo kg, giao Hà Nội",
+    title: "Dây đai thép 16–32mm | giá theo kg, giao Hà Nội",
     description:
-      "Dây đai thép chịu lực cao cho pallet hàng nặng. Chọn khổ 16/19/32mm, báo giá theo kg, giao Hà Nội và KCN miền Bắc.",
+      "Dây đai thép chịu lực cao cho pallet hàng nặng. Chọn khổ 16–32mm, báo giá theo kg, giao Hà Nội và KCN miền Bắc.",
     url: PAGE_URL,
     locale: "vi_VN",
     type: "website",
@@ -98,7 +101,6 @@ const galleryImages = [
 ];
 
 export default function SteelStrappingPillarPage() {
-  const aggregateRating = getProductAggregateRating(product.id);
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -109,7 +111,6 @@ export default function SteelStrappingPillarPage() {
     sku: "steel-strapping",
     brand: { "@type": "Brand", name: siteConfig.name },
     offers: buildProductSchemaOffer(product, PAGE_URL),
-    ...(aggregateRating ? { aggregateRating } : {}),
   };
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
