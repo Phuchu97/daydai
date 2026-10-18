@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
 import { siteConfig } from "@/config/site";
 import {
   INDUSTRY_CASES,
@@ -9,6 +8,8 @@ import {
   SPEC_ROWS,
   SURFACE_GUIDES,
 } from "@/data/steel-strapping-guide";
+import { SteelStrappingPriceTiers } from "@/components/seo/SteelStrappingPriceTiers";
+import { STRAP_PRICE_RANGE_LABEL } from "@/data/steel-strapping-guide";
 
 const mainSizes = SPEC_ROWS;
 
@@ -238,13 +239,14 @@ export function DayDaiThepGuideBody() {
             Giá dây đai thép và cách chốt lô
           </h2>
           <p className="mt-3 text-sm leading-7 text-muted-foreground">
-            Giá website từ{" "}
+            Giá 
             <strong className="font-semibold text-foreground">
-              {STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg
-            </strong>
-            . Đơn giá lô thay đổi theo loại dầu / mạ kẽm / sơn, độ dày, số kg và
-            điểm giao. {siteConfig.name} giao Hà Nội, KCN miền Bắc và toàn quốc.
+              {STRAP_PRICE_RANGE_LABEL}
+            </strong> 
+            tùy số lượng, cùng giá cho dầu / mạ kẽm / sơn tĩnh điện và mọi bản
+            rộng. {siteConfig.name} giao Hà Nội, KCN miền Bắc và toàn quốc.
           </p>
+          <SteelStrappingPriceTiers />
           <Link
             href="/bao-gia-day-dai-thep"
             className="mt-4 inline-flex rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"

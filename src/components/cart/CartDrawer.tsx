@@ -12,6 +12,7 @@ import {
   normalizeVietnamesePhone,
   VIETNAM_PHONE_ERROR,
 } from "@/lib/phone";
+import { withTieredPrices } from "@/lib/cart-pricing";
 
 type Props = {
   open: boolean;
@@ -58,7 +59,7 @@ export function CartDrawer({ open, onClose }: Props) {
 
     try {
       setSubmitting(true);
-      const orderItems = [...items];
+      const orderItems = withTieredPrices(items);
       const attribution = getStoredAttribution();
       const total = orderItems.reduce(
         (sum, item) => sum + item.price * item.quantity,

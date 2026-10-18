@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
 import { siteConfig } from "@/config/site";
 import {
   LOAD_GUIDE_ROWS,
@@ -8,6 +7,8 @@ import {
   SPEC_ROWS,
   SURFACE_GUIDES,
 } from "@/data/steel-strapping-guide";
+import { SteelStrappingPriceTiers } from "@/components/seo/SteelStrappingPriceTiers";
+import { STRAP_PRICE_RANGE_LABEL } from "@/data/steel-strapping-guide";
 
 const sizeSpecs = SPEC_ROWS;
 
@@ -241,15 +242,14 @@ export function DayDaiSatGuideBody() {
               Giá dây đai sắt tính theo kg
             </h2>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">
-              Website đang niêm yết{" "}
+              Giá 
               <strong className="font-semibold text-foreground">
-                {STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg
-              </strong>{" "}
-              cho dây đai sắt / dây đai thép theo quy cách phổ biến. Đơn giá lô
-              thay đổi theo loại dầu, mạ kẽm, sơn tĩnh điện, độ dày và điểm giao.
-              Cuộn thường 30-50kg. Đơn Hà Nội và KCN miền Bắc ưu tiên xuất trong
-              24-48 giờ khi hàng sẵn kho.
+                {STRAP_PRICE_RANGE_LABEL}
+              </strong> 
+              tùy số lượng, cùng giá cho dầu / mạ kẽm / sơn tĩnh điện và mọi bản
+              rộng. {siteConfig.name} giao Hà Nội, KCN miền Bắc và toàn quốc.
             </p>
+            <SteelStrappingPriceTiers />
           </div>
           <div className="mt-8 flex flex-col gap-3 rounded-[1.5rem] border border-border bg-muted/25 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
             <p className="text-sm leading-6 text-muted-foreground">
@@ -286,7 +286,7 @@ export function DayDaiSatGuideBody() {
               </p>
               <p>
                 Lỗi thứ ba là dùng dây dầu để pallet ngoài trời vài tuần rồi
-                trách dây gỉ. Dây dầu tối ưu giá trong kho khô. Muốn chống ẩm,
+                trách dây gỉ. Dây dầu phù hợp kho khô. Muốn chống ẩm,
                 phải ghi rõ mạ kẽm hoặc sơn tĩnh điện trên đơn.
               </p>
             </div>

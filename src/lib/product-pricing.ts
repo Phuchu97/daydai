@@ -1,13 +1,8 @@
 import type { CatalogProduct } from "@/data/products";
-import { STEEL_STRAPPING_DISCOUNT_PERCENT } from "@/config/pricing";
 
 export function getProductDiscountPercent(
   product: CatalogProduct,
 ): number | null {
-  if (product.pricePerKg) {
-    return STEEL_STRAPPING_DISCOUNT_PERCENT;
-  }
-
   if (
     product.basePrice &&
     product.salePrice &&

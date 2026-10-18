@@ -5,7 +5,8 @@ import { catalogProducts } from "@/data/products";
 import { buildProductSchemaOffer } from "@/lib/merchant-offer-schema";
 import type { FaqItem } from "@/components/product/FAQSection";
 import type { SizeGuide } from "@/data/steel-strapping-guide";
-import { PAIRING_ROWS, STRAP_PRICE_ROWS } from "@/data/steel-strapping-guide";
+import { PAIRING_ROWS } from "@/data/steel-strapping-guide";
+import { STEEL_STRAPPING_TIER_SUMMARY } from "@/config/pricing";
 
 const product = catalogProducts.find((item) => item.id === "steel-strapping")!;
 
@@ -26,9 +27,7 @@ function buildFaqs(guide: SizeGuide): FaqItem[] {
     },
     {
       question: `Giá dây đai thép ${guide.widthMm}mm bao nhiêu?`,
-      answer: `Giá tham khảo theo loại bề mặt: ${STRAP_PRICE_ROWS.filter((row) => row.widthMm === guide.widthMm)
-        .map((row) => `${row.surfaceLabel} ${row.priceLabel}`)
-        .join("; ")}. Chốt lô theo số kg và điểm giao.`,
+      answer: `Giá theo tổng số kg mỗi đơn, cùng giá cho dầu / mạ kẽm / sơn: ${STEEL_STRAPPING_TIER_SUMMARY}. Đơn dự án số lượng rất lớn liên hệ báo giá riêng.`,
     },
     ...(pairing
       ? [

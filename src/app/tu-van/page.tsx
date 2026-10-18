@@ -58,7 +58,7 @@ export default function ConsultingIndexPage() {
     },
     {
       q: "Dây dầu, mạ kẽm hay sơn tĩnh điện khác nhau thế nào?",
-      a: "Dầu tối ưu giá cho kho khô; mạ kẽm chống ẩm tốt hơn, phổ biến xuất khẩu; sơn tĩnh điện chống ăn mòn và thẩm mỹ cao hơn, giá cao hơn.",
+      a: "Ba loại cùng bảng giá theo số lượng. Dầu phù hợp kho khô; mạ kẽm chống ẩm tốt hơn, phổ biến xuất khẩu; sơn tĩnh điện chống ăn mòn và thẩm mỹ cao hơn.",
     },
     {
       q: "PET có thay được dây đai thép không?",

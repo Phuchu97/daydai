@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useCartStore } from "@/store/cartStore";
 
-import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
+import { STEEL_STRAPPING_PRICE_PER_KG, STEEL_STRAPPING_PRICE_RANGE_LABEL } from "@/config/pricing";
 
 export function StickyAddToCartBar() {
   const [visible, setVisible] = useState(false);
@@ -27,6 +27,7 @@ export function StickyAddToCartBar() {
         id: "steel-strapping",
         name: "Dây đai thép",
         price: STEEL_STRAPPING_PRICE_PER_KG,
+        weightKg: 1,
         image: "/images/day-dai-2.jpg",
         variant: "Thêm nhanh 1kg (chọn lại kg trong phần tùy chọn)",
       },
@@ -52,7 +53,7 @@ export function StickyAddToCartBar() {
               Dây đai thép
             </p>
             <p className="mt-0.5 font-semibold text-secondary">
-              {STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg
+              {STEEL_STRAPPING_PRICE_RANGE_LABEL}
             </p>
           </div>
         </div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PhoneCtaButton } from "@/components/contact/PhoneCtaButton";
 import { QuickQuoteForm } from "@/components/seo/QuickQuoteForm";
+import { SteelStrappingPriceTiers } from "@/components/seo/SteelStrappingPriceTiers";
 import { BreadcrumbNav } from "@/components/seo/BreadcrumbNav";
 import { SeoPageGallery } from "@/components/seo/SeoPageGallery";
 import { SeoRelatedLinks } from "@/components/seo/SeoRelatedLinks";
@@ -9,6 +10,8 @@ import {
   PRICE_PAGE_LAST_UPDATED,
   STEEL_SEAL_REFERENCE_PRICE_UNIT,
   STEEL_STRAPPING_PRICE_PER_KG,
+  STEEL_STRAPPING_PROJECT_PRICE_PER_KG,
+  STEEL_STRAPPING_TIER_SUMMARY,
   STEEL_STRAPPING_TOOLS_SALE_PRICE,
 } from "@/config/pricing";
 import { siteConfig } from "@/config/site";
@@ -33,7 +36,7 @@ const PRICE_TITLE = `Báo giá dây đai thép & khóa đai | cập nhật thán
 
 export const metadata: Metadata = {
   title: PRICE_TITLE,
-  description: `Giá dây đai thép ${STRAP_PRICE_RANGE_LABEL} theo loại dầu/mạ kẽm/sơn 16–32mm. Bảng giá khóa đai ${SEAL_PRICE_RANGE_LABEL}, pairing dây–bọ, ước tính chi phí/pallet. Báo giá trong ngày.`,
+  description: `Giá dây đai thép ${STRAP_PRICE_RANGE_LABEL} theo số lượng: dưới 1 tấn ${STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg, đơn càng lớn càng rẻ. Bảng giá khóa đai ${SEAL_PRICE_RANGE_LABEL}. Báo giá trong ngày.`,
   keywords: [
     "báo giá dây đai thép",
     "giá dây đai thép",
@@ -53,7 +56,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: PRICE_TITLE,
-    description: `Giá tham khảo ${STRAP_PRICE_RANGE_LABEL}. Đầy đủ bảng theo loại bề mặt, khổ rộng, độ dày và khóa đai.`,
+    description: `Giá dây đai thép ${STRAP_PRICE_RANGE_LABEL} theo số lượng (mốc 1 – 2 – 5 – 10 tấn) và bảng giá khóa đai.`,
     url: `${siteConfig.url}/bao-gia-day-dai-thep`,
     locale: "vi_VN",
     type: "article",
@@ -81,11 +84,11 @@ export default function PricePage() {
   const faq = [
     {
       q: "Giá dây đai thép hiện nay bao nhiêu?",
-      a: `Tham khảo khoảng ${STRAP_PRICE_RANGE_LABEL} tùy loại dầu/mạ kẽm/sơn và khổ 16–32mm. Giá website mạ kẽm đang ${STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg; lô lớn thường tốt hơn.`,
+      a: `Từ ${STRAP_PRICE_RANGE_LABEL} tùy số lượng, áp dụng chung cho dầu, mạ kẽm, sơn tĩnh điện và mọi khổ 16–32mm: ${STEEL_STRAPPING_TIER_SUMMARY}. Đơn dự án số lượng rất lớn báo giá riêng từ ${STEEL_STRAPPING_PROJECT_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg.`,
     },
     {
       q: "Dây đai thép giá bao nhiêu 1kg?",
-      a: `Dây đai thép bán theo kg, tham khảo ${STRAP_PRICE_RANGE_LABEL}: dây dầu rẻ nhất, mạ kẽm và sơn tĩnh điện cao hơn. Giá website hiện ${STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg; đơn từ vài trăm kg trở lên được báo giá lô riêng.`,
+      a: `Mua lẻ dưới 1 tấn: ${STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg. Giá giảm theo tổng số kg mỗi đơn: ${STEEL_STRAPPING_TIER_SUMMARY}; đơn dự án từ ${STEEL_STRAPPING_PROJECT_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg.`,
     },
     {
       q: "1 cuộn dây đai thép bao nhiêu kg, dài bao nhiêu mét?",
@@ -97,11 +100,11 @@ export default function PricePage() {
     },
     {
       q: "Giá thay đổi theo yếu tố nào?",
-      a: "Mác thép đầu vào, loại bề mặt, độ dày, khối lượng đặt hàng, địa điểm giao và chất lượng phôi (đồng đều kích thước).",
+      a: "Đơn giá dây đai thép phụ thuộc tổng số kg mỗi đơn (mốc 1 – 2 – 5 – 10 tấn và đơn dự án). Loại bề mặt và khổ rộng không làm đổi đơn giá/kg; phí giao tùy địa điểm.",
     },
     {
       q: "Mua số lượng lớn có chiết khấu không?",
-      a: "Có. Đơn theo pallet hoặc theo tháng được ưu tiên đơn giá và lịch giao. Gửi nhu cầu tháng để nhận báo giá lô.",
+      a: `Có, theo bảng giá số lượng: ${STEEL_STRAPPING_TIER_SUMMARY}. Đơn dự án số lượng rất lớn liên hệ để nhận giá từ ${STEEL_STRAPPING_PROJECT_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg.`,
     },
     {
       q: "Bao lâu nhận được báo giá chính thức?",
@@ -146,7 +149,7 @@ export default function PricePage() {
           `${row.surfaceLabel} ${row.widthMm}mm`,
           STEEL_STRAPPING_PRICE_PER_KG,
           {
-            url: `${siteConfig.url}/san-pham/day-dai-thep-chiu-luc-cao`,
+            url: `${siteConfig.url}/day-dai-thep`,
             unitText: "kg",
             image: `${siteConfig.url}/images/day-dai-thep-dau.jpg`,
           },
@@ -230,7 +233,7 @@ export default function PricePage() {
             hero={{
               src: "/images/day-dai-thep-chat-luong-cao.jpg",
               alt: "Cuộn dây đai thép sẵn kho để báo giá theo quy cách",
-              caption: "Dây đai thép sẵn kho - báo giá theo loại bề mặt và khổ rộng",
+              caption: "Dây đai thép sẵn kho - giá theo số lượng mỗi đơn",
             }}
             gallery={[
               {
@@ -261,22 +264,22 @@ export default function PricePage() {
 
           <section className="surface-card border-primary/20 bg-primary/[0.04] p-5 sm:p-6">
             <p className="text-sm font-semibold text-primary">
-              Giá bán website (dây đai thép mạ kẽm)
+              Giá dây đai thép theo số lượng
             </p>
             <p className="mt-2 text-2xl font-semibold tabular-nums text-foreground">
-              {STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg
+              {STRAP_PRICE_RANGE_LABEL}
             </p>
             <p className="mt-2 text-sm leading-7 text-muted-foreground">
-              Đồng bộ trang sản phẩm và giỏ hàng. Báo giá theo lô (pallet/tháng)
-              thường tốt hơn — gửi form bên dưới để nhận đơn giá chính thức trong
-              ngày.
+              Dưới 1 tấn {STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg, đơn
+              càng lớn giá càng tốt. Giỏ hàng tự áp mốc giá theo tổng số kg — gửi
+              form bên dưới để nhận báo giá dự án trong ngày.
             </p>
             <div className="mt-3 flex flex-wrap gap-3 text-sm">
               <Link
-                href="/san-pham/day-dai-thep-chiu-luc-cao"
+                href="/day-dai-thep"
                 className="font-semibold text-primary hover:underline"
               >
-                Xem sản phẩm dây đai thép
+                Đặt mua dây đai thép
               </Link>
               <Link
                 href="/day-dai-thep"
@@ -291,11 +294,17 @@ export default function PricePage() {
 
           <section id="bang-gia-day" className="surface-card scroll-mt-24 p-6">
             <h2 className="text-xl font-semibold text-foreground">
-              Bảng giá dây đai thép theo loại, khổ rộng và độ dày
+              Bảng giá dây đai thép theo số lượng
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Đầy đủ hơn các trang chỉ liệt kê giá/kg: có độ dày và gợi ý ứng
-              dụng. Cập nhật {priceUpdatedLabel}. Chi tiết từng dòng:{" "}
+              Cập nhật {priceUpdatedLabel}.
+            </p>
+            <SteelStrappingPriceTiers />
+            <h3 className="mt-6 text-base font-semibold text-foreground">
+              Quy cách theo loại bề mặt và khổ rộng
+            </h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Cùng một bảng giá, chọn theo môi trường kho. Chi tiết từng dòng:{" "}
               <Link href="/day-dai-thep-dau" className="text-primary hover:underline">
                 đai dầu
               </Link>
@@ -319,7 +328,6 @@ export default function PricePage() {
                     <th className="px-3 py-2">Chủng loại</th>
                     <th className="px-3 py-2">Khổ</th>
                     <th className="px-3 py-2">Độ dày</th>
-                    <th className="px-3 py-2">Đơn giá tham khảo</th>
                     <th className="px-3 py-2">Phù hợp</th>
                   </tr>
                 </thead>
@@ -334,9 +342,6 @@ export default function PricePage() {
                         {row.widthMm}mm
                       </td>
                       <td className="px-3 py-2">{row.thicknessMm}mm</td>
-                      <td className="px-3 py-2 font-medium text-foreground">
-                        {row.priceLabel}
-                      </td>
                       <td className="px-3 py-2 text-muted-foreground">
                         {row.bestFor}
                       </td>

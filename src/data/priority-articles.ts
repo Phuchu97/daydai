@@ -1,3 +1,4 @@
+import { STEEL_STRAPPING_TIER_SUMMARY } from "@/config/pricing";
 import type { Article } from "./articles";
 
 /** P2 priority articles — expanded 800–1200 từ, bảng số, FAQ. */
@@ -334,7 +335,7 @@ export const priorityArticles: Article[] = [
       {
         heading: "Yếu tố 1: Loại bề mặt (dầu / mạ kẽm / sơn)",
         paragraphs: [
-          "Dây dầu (đai đen phủ dầu) thường rẻ nhất, phù hợp kho khô nội địa. Mạ kẽm cao hơn do quy trình mạ. Sơn tĩnh điện thường cao nhất trong ba dòng phổ biến.",
+          `Tại Dây Đai Thép Việt Nam, dây dầu, mạ kẽm và sơn tĩnh điện cùng bảng giá theo số lượng (${STEEL_STRAPPING_TIER_SUMMARY}). Vì vậy chọn bề mặt theo môi trường: dầu cho kho khô nội địa, mạ kẽm hoặc sơn tĩnh điện khi ẩm, ngoài trời hoặc xuất khẩu.`,
           "Chọn sai loại (dầu để ngoài trời) dẫn tới gỉ, đổi lô sớm — tổng chi phí cao hơn mua đúng mạ kẽm ngay từ đầu.",
           "Xem bảng giá chi tiết tại /bao-gia-day-dai-thep và trang từng loại bề mặt.",
         ],

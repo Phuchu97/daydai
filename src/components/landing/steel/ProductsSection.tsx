@@ -4,7 +4,7 @@ import type { CatalogProduct } from "@/data/products";
 import { Section } from "../Section";
 import { getProductById } from "@/data/products";
 import { siteConfig } from "@/config/site";
-import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
+import { STEEL_STRAPPING_PRICE_PER_KG, STEEL_STRAPPING_PRICE_RANGE_LABEL } from "@/config/pricing";
 import { ContactCtaLabel } from "@/components/contact/ContactCtaLabel";
 import { PhoneIcon } from "@/components/contact/ContactIcons";
 import { cn } from "@/lib/utils";
@@ -26,10 +26,10 @@ const featuredProducts: FeaturedProductConfig[] = [
     priceNode: () => (
       <p>
         <span className="text-xs font-semibold text-secondary sm:text-sm">
-          {STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg
+          {STEEL_STRAPPING_PRICE_RANGE_LABEL}
         </span>
         <span className="mt-0.5 block text-[10px] font-normal text-muted-foreground sm:text-[11px]">
-          Báo giá cuộn theo số lượng
+          Dưới 1 tấn {STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg, đơn lớn rẻ hơn
         </span>
       </p>
     ),

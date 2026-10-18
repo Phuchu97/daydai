@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
+import { STEEL_STRAPPING_TIER_SUMMARY } from "@/config/pricing";
 import { siteConfig } from "@/config/site";
 
 export type LocalRegion = "hanoi" | "mien-bac";
@@ -130,7 +130,7 @@ export function LocalRegionGuideBody({ region }: { region: LocalRegion }) {
               },
               {
                 title: "Báo giá lô",
-                body: `Giá tham khảo từ ${STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg — chốt theo số kg/tháng.`,
+                body: `Giá theo số lượng: ${STEEL_STRAPPING_TIER_SUMMARY}.`,
               },
             ].map((item) => (
               <div

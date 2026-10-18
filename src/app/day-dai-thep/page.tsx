@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { HybridProductGuide } from "@/components/seo/HybridProductGuide";
 import { DayDaiThepGuideBody } from "@/components/seo/DayDaiThepGuideBody";
-import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
+import { STEEL_STRAPPING_TIER_SUMMARY } from "@/config/pricing";
 import { siteConfig } from "@/config/site";
 import { catalogProducts } from "@/data/products";
 import { buildProductSchemaOffer } from "@/lib/merchant-offer-schema";
@@ -21,7 +21,7 @@ const faqs = [
   {
     question: "Nên chọn dây dầu, mạ kẽm hay sơn tĩnh điện?",
     answer:
-      "Kho khô nội địa ưu tiên dầu để tối ưu giá. Ẩm / xuất khẩu / lưu kho dài ngày ưu tiên mạ kẽm hoặc sơn tĩnh điện.",
+      "Cùng bảng giá theo số lượng, nên chọn theo môi trường: kho khô nội địa dùng dầu; ẩm / xuất khẩu / lưu kho dài ngày ưu tiên mạ kẽm hoặc sơn tĩnh điện.",
   },
   {
     question: "Nên lấy dây đai thép 16mm, 19mm hay 32mm?",
@@ -34,7 +34,7 @@ const faqs = [
   },
   {
     question: "Giá dây đai thép bao nhiêu một kg?",
-    answer: `Giá website tham khảo ${STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg. Giá lô chốt theo loại bề mặt, độ dày, số kg và điểm giao.`,
+    answer: `Giá theo tổng số kg mỗi đơn, áp dụng mọi bản rộng và bề mặt: ${STEEL_STRAPPING_TIER_SUMMARY}. Đơn dự án số lượng rất lớn liên hệ báo giá riêng.`,
   },
   {
     question: "Có giao dây đai thép tại Hà Nội không?",

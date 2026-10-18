@@ -14,6 +14,7 @@ import {
   normalizeVietnamesePhone,
   VIETNAM_PHONE_ERROR,
 } from "@/lib/phone";
+import { withTieredPrices } from "@/lib/cart-pricing";
 
 export async function POST(request: Request) {
   try {
@@ -22,7 +23,7 @@ export async function POST(request: Request) {
       name,
       phone,
       address,
-      items,
+      items: rawItems,
       attribution,
     } = body as {
       name?: string;
@@ -36,6 +37,7 @@ export async function POST(request: Request) {
         image: string;
         variant?: string;
         quantity: number;
+        weightKg?: number;
       }>;
     };
 
@@ -62,12 +64,15 @@ export async function POST(request: Request) {
 
     const normalizedPhone = normalizeVietnamesePhone(trimmedPhone);
 
-    if (!items || items.length === 0) {
+    if (!rawItems || rawItems.length === 0) {
       return NextResponse.json(
         { success: false, message: "Giỏ hàng đang trống." },
         { status: 400 },
       );
     }
+
+    // Tính lại đơn giá dây đai thép theo mốc số lượng — không tin giá client gửi.
+    const items = withTieredPrices(rawItems);
 
     if (!isNotificationConfigured()) {
       return NextResponse.json(

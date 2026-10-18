@@ -99,7 +99,7 @@ export default function SteelStrappingCargoPage() {
   const faq = [
     {
       q: "Dây đai thép đóng hàng nên dùng loại nào?",
-      a: "Hàng vừa và pallet ổn định dùng bản 16mm; pallet thép, vật liệu xây dựng, bó thép hộp dùng 19mm; kiện nặng xuất khẩu dùng 25mm; cuộn thép và cấu kiện siêu nặng dùng 32mm. Kho khô chọn dây dầu để tối ưu giá, hàng đi xa hoặc môi trường ẩm chọn mạ kẽm hay sơn tĩnh điện.",
+      a: "Hàng vừa và pallet ổn định dùng bản 16mm; pallet thép, vật liệu xây dựng, bó thép hộp dùng 19mm; kiện nặng xuất khẩu dùng 25mm; cuộn thép và cấu kiện siêu nặng dùng 32mm. Kho khô dùng dây dầu, hàng đi xa hoặc môi trường ẩm chọn mạ kẽm hay sơn tĩnh điện.",
     },
     {
       q: "Buộc hàng bằng dây đai thép có cần dụng cụ chuyên dụng không?",

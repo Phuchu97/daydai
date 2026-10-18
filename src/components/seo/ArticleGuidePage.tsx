@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { ProductSocialProof } from "@/components/product/ProductSocialProof";
-import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
+import { STEEL_STRAPPING_PRICE_RANGE_LABEL } from "@/config/pricing";
 import { siteConfig } from "@/config/site";
 import type { Article } from "@/data/articles";
 import type { CatalogProduct } from "@/data/products";
@@ -218,7 +218,7 @@ export function ArticleGuidePage({
                       }
                     : null;
                 const priceLabel = product.pricePerKg
-                  ? `${STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg`
+                  ? STEEL_STRAPPING_PRICE_RANGE_LABEL
                   : product.salePrice
                     ? `${product.salePrice.toLocaleString("vi-VN")}đ`
                     : product.priceLabel ?? "Liên hệ";

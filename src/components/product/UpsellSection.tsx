@@ -7,7 +7,7 @@ import { useCartStore } from "@/store/cartStore";
 import { catalogProducts } from "@/data/products";
 import { cn } from "@/lib/utils";
 
-import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
+import { STEEL_STRAPPING_PRICE_PER_KG, STEEL_STRAPPING_PRICE_RANGE_LABEL } from "@/config/pricing";
 import { ContactCtaLabel } from "@/components/contact/ContactCtaLabel";
 import { PhoneIcon } from "@/components/contact/ContactIcons";
 const PHONE_TEL = `tel:${siteConfig.company.zaloPhone}`;
@@ -31,7 +31,7 @@ function UpsellPrice({ productId, priceLabel, salePrice, basePrice }: {
   if (productId === "steel-strapping") {
     return (
       <p className="text-[11px] font-semibold text-secondary sm:text-sm">
-        {STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg
+        {STEEL_STRAPPING_PRICE_RANGE_LABEL}
       </p>
     );
   }
@@ -129,6 +129,7 @@ export function UpsellSection({ excludeProductId }: Props) {
                               ? STEEL_STRAPPING_PRICE_PER_KG
                               : (item.salePrice ?? item.basePrice ?? 0),
                             image: item.images[0]?.src,
+                            weightKg: isStrapping ? 1 : undefined,
                             variant: isStrapping
                               ? "Thêm nhanh 1kg (chọn lại kg trong trang chi tiết)"
                               : undefined,

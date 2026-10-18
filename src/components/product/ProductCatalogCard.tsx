@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CatalogProduct } from "@/data/products";
 import { siteConfig } from "@/config/site";
-import { STEEL_STRAPPING_DISCOUNT_PERCENT } from "@/config/pricing";
+import { STEEL_STRAPPING_PRICE_RANGE_LABEL } from "@/config/pricing";
 import { getProductDiscountPercent } from "@/lib/product-pricing";
 import { cn } from "@/lib/utils";
 import { ProductDiscountBadge } from "@/components/product/ProductDiscountBadge";
@@ -23,16 +23,10 @@ function formatPriceCompact(product: CatalogProduct) {
     );
   }
   if (product.pricePerKg) {
-    const listPerKg = Math.round(
-      product.pricePerKg / (1 - STEEL_STRAPPING_DISCOUNT_PERCENT / 100),
-    );
     return (
       <p className="tabular-nums leading-tight">
-        <span className="text-[10px] text-muted-foreground line-through sm:text-xs">
-          {listPerKg.toLocaleString("vi-VN")}đ
-        </span>{" "}
         <span className="text-sm font-bold text-primary sm:text-base">
-          {product.pricePerKg.toLocaleString("vi-VN")}đ/kg
+          {STEEL_STRAPPING_PRICE_RANGE_LABEL}
         </span>
       </p>
     );

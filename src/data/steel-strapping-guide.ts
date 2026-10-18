@@ -1,3 +1,9 @@
+import {
+  STEEL_STRAPPING_PRICE_RANGE_LABEL,
+  STEEL_STRAPPING_PROJECT_PRICE_PER_KG,
+  STEEL_STRAPPING_TIER_SUMMARY,
+} from "@/config/pricing";
+
 /**
  * Shared SEO / technical content for steel strapping landing pages.
  * Keep numbers consistent across báo giá, pillar, size & surface pages.
@@ -76,42 +82,44 @@ export type SizeGuide = {
   gallery: { src: string; alt: string; caption?: string }[];
 };
 
+/** Mọi bản rộng / bề mặt cùng bảng giá theo số lượng (STEEL_STRAPPING_PRICE_TIERS). */
+const STRAP_TIER_PRICE_LABEL = `${STEEL_STRAPPING_PRICE_RANGE_LABEL} theo số lượng`;
+
 export const STRAP_PRICE_ROWS: StrapPriceRow[] = [
-  { surface: "dau", surfaceLabel: "Dây đai thép dầu", widthMm: 16, thicknessMm: "0.5 - 0.8", priceLabel: "19.000 - 20.500đ/kg", bestFor: "Kho nội địa khô, tối ưu chi phí" },
-  { surface: "dau", surfaceLabel: "Dây đai thép dầu", widthMm: 19, thicknessMm: "0.6 - 0.9", priceLabel: "19.500 - 21.500đ/kg", bestFor: "VLXD, pallet nặng trong nhà" },
-  { surface: "dau", surfaceLabel: "Dây đai thép dầu", widthMm: 25, thicknessMm: "0.7 - 1.0", priceLabel: "19.000 - 21.000đ/kg", bestFor: "Kiện nặng tuyến nội địa" },
-  { surface: "dau", surfaceLabel: "Dây đai thép dầu", widthMm: 32, thicknessMm: "0.8 - 1.2", priceLabel: "19.000 - 21.000đ/kg", bestFor: "Cuộn thép, cấu kiện siêu nặng" },
-  { surface: "ma-kem", surfaceLabel: "Dây đai thép mạ kẽm", widthMm: 16, thicknessMm: "0.5 - 0.8", priceLabel: "22.000 - 24.000đ/kg", bestFor: "Pallet vừa, chống ẩm tốt hơn dầu" },
-  { surface: "ma-kem", surfaceLabel: "Dây đai thép mạ kẽm", widthMm: 19, thicknessMm: "0.6 - 0.9", priceLabel: "22.500 - 24.500đ/kg", bestFor: "Xuất khẩu / kho ẩm phổ biến nhất" },
-  { surface: "ma-kem", surfaceLabel: "Dây đai thép mạ kẽm", widthMm: 25, thicknessMm: "0.7 - 1.0", priceLabel: "22.000 - 24.000đ/kg", bestFor: "Container, tuyến dài" },
-  { surface: "ma-kem", surfaceLabel: "Dây đai thép mạ kẽm", widthMm: 32, thicknessMm: "0.8 - 1.2", priceLabel: "22.000 - 24.000đ/kg", bestFor: "Hàng siêu nặng ngoài trời" },
-  { surface: "son", surfaceLabel: "Dây đai thép sơn tĩnh điện", widthMm: 16, thicknessMm: "0.5 - 0.8", priceLabel: "23.500 - 25.500đ/kg", bestFor: "Ngoại quan đẹp, chống ăn mòn" },
-  { surface: "son", surfaceLabel: "Dây đai thép sơn tĩnh điện", widthMm: 19, thicknessMm: "0.6 - 0.9", priceLabel: "23.500 - 25.500đ/kg", bestFor: "Xuất khẩu yêu cầu thẩm mỹ" },
-  { surface: "son", surfaceLabel: "Dây đai thép sơn tĩnh điện", widthMm: 25, thicknessMm: "0.7 - 1.0", priceLabel: "23.000 - 25.000đ/kg", bestFor: "Lưu kho dài ngày ngoài trời" },
-  { surface: "son", surfaceLabel: "Dây đai thép sơn tĩnh điện", widthMm: 32, thicknessMm: "0.8 - 1.2", priceLabel: "23.000 - 25.000đ/kg", bestFor: "Kiện nặng + chống ăn mòn cao" },
+  { surface: "dau", surfaceLabel: "Dây đai thép dầu", widthMm: 16, thicknessMm: "0.5 - 0.8", priceLabel: STRAP_TIER_PRICE_LABEL, bestFor: "Kho nội địa khô, tối ưu chi phí" },
+  { surface: "dau", surfaceLabel: "Dây đai thép dầu", widthMm: 19, thicknessMm: "0.6 - 0.9", priceLabel: STRAP_TIER_PRICE_LABEL, bestFor: "VLXD, pallet nặng trong nhà" },
+  { surface: "dau", surfaceLabel: "Dây đai thép dầu", widthMm: 25, thicknessMm: "0.7 - 1.0", priceLabel: STRAP_TIER_PRICE_LABEL, bestFor: "Kiện nặng tuyến nội địa" },
+  { surface: "dau", surfaceLabel: "Dây đai thép dầu", widthMm: 32, thicknessMm: "0.8 - 1.2", priceLabel: STRAP_TIER_PRICE_LABEL, bestFor: "Cuộn thép, cấu kiện siêu nặng" },
+  { surface: "ma-kem", surfaceLabel: "Dây đai thép mạ kẽm", widthMm: 16, thicknessMm: "0.5 - 0.8", priceLabel: STRAP_TIER_PRICE_LABEL, bestFor: "Pallet vừa, chống ẩm tốt hơn dầu" },
+  { surface: "ma-kem", surfaceLabel: "Dây đai thép mạ kẽm", widthMm: 19, thicknessMm: "0.6 - 0.9", priceLabel: STRAP_TIER_PRICE_LABEL, bestFor: "Xuất khẩu / kho ẩm phổ biến nhất" },
+  { surface: "ma-kem", surfaceLabel: "Dây đai thép mạ kẽm", widthMm: 25, thicknessMm: "0.7 - 1.0", priceLabel: STRAP_TIER_PRICE_LABEL, bestFor: "Container, tuyến dài" },
+  { surface: "ma-kem", surfaceLabel: "Dây đai thép mạ kẽm", widthMm: 32, thicknessMm: "0.8 - 1.2", priceLabel: STRAP_TIER_PRICE_LABEL, bestFor: "Hàng siêu nặng ngoài trời" },
+  { surface: "son", surfaceLabel: "Dây đai thép sơn tĩnh điện", widthMm: 16, thicknessMm: "0.5 - 0.8", priceLabel: STRAP_TIER_PRICE_LABEL, bestFor: "Ngoại quan đẹp, chống ăn mòn" },
+  { surface: "son", surfaceLabel: "Dây đai thép sơn tĩnh điện", widthMm: 19, thicknessMm: "0.6 - 0.9", priceLabel: STRAP_TIER_PRICE_LABEL, bestFor: "Xuất khẩu yêu cầu thẩm mỹ" },
+  { surface: "son", surfaceLabel: "Dây đai thép sơn tĩnh điện", widthMm: 25, thicknessMm: "0.7 - 1.0", priceLabel: STRAP_TIER_PRICE_LABEL, bestFor: "Lưu kho dài ngày ngoài trời" },
+  { surface: "son", surfaceLabel: "Dây đai thép sơn tĩnh điện", widthMm: 32, thicknessMm: "0.8 - 1.2", priceLabel: STRAP_TIER_PRICE_LABEL, bestFor: "Kiện nặng + chống ăn mòn cao" },
 ];
 
 /** Market range used in intro copy for “giá dây đai thép bao nhiêu”. */
-export const STRAP_PRICE_RANGE_LABEL = "19.000 - 25.500đ/kg";
-/** Mức giá thấp nhất trong STRAP_PRICE_ROWS (dây dầu) — dùng cho trang “giá rẻ”. */
-export const STRAP_PRICE_FROM_LABEL = "19.000đ/kg";
+export const STRAP_PRICE_RANGE_LABEL = STEEL_STRAPPING_PRICE_RANGE_LABEL;
+/** Mức giá thấp nhất (đơn dự án / số lượng rất lớn) — dùng cho trang “giá rẻ”. */
+export const STRAP_PRICE_FROM_LABEL = `${STEEL_STRAPPING_PROJECT_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg`;
 export const SEAL_PRICE_RANGE_LABEL = "1.800 - 4.100đ/cái";
 
 export const PRICE_FACTORS = [
   {
+    title: "Khối lượng đặt hàng",
+    detail: `Yếu tố quyết định đơn giá: ${STEEL_STRAPPING_TIER_SUMMARY}; đơn dự án số lượng rất lớn báo giá riêng từ ${STEEL_STRAPPING_PROJECT_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg.`,
+  },
+  {
     title: "Loại bề mặt",
     detail:
-      "Đai dầu thường rẻ nhất; mạ kẽm cao hơn vì chống gỉ; sơn tĩnh điện cao nhất trong 3 dòng phổ biến.",
+      "Dây dầu, mạ kẽm và sơn tĩnh điện cùng bảng giá theo số lượng — chọn bề mặt theo môi trường kho và tuyến vận chuyển, không phải theo giá.",
   },
   {
     title: "Khổ rộng & độ dày",
     detail:
-      "Bản 19–32mm và độ dày lớn hơn tiêu hao thép nhiều hơn, đơn giá/kg có thể gần nhau nhưng chi phí/kiện tăng vì dùng nhiều kg hơn.",
-  },
-  {
-    title: "Khối lượng đặt hàng",
-    detail:
-      "Lô theo pallet/tháng được chiết khấu rõ hơn mua lẻ vài cuộn. Đơn ổn định theo tháng giúp giữ giá tốt khi thép đầu vào biến động.",
+      "Đơn giá/kg như nhau giữa các bản, nhưng bản 19–32mm và độ dày lớn hơn dùng nhiều kg hơn cho mỗi kiện nên chi phí/kiện tăng.",
   },
   {
     title: "Địa điểm giao",
@@ -150,7 +158,7 @@ export const BUYING_CHECKLIST = [
   "Xác định loại bề mặt theo môi trường (khô / ẩm / xuất khẩu).",
   "Chọn bản rộng + độ dày theo tải kiện và số điểm đai.",
   "Khớp khóa đai (bọ) và dụng cụ siết/bấm đúng khổ.",
-  "Gửi số lượng theo tháng + địa điểm giao để nhận đơn giá lô.",
+  "Gửi tổng số kg / tấn theo tháng + địa điểm giao để áp đúng mốc giá theo số lượng.",
   "Test 1–2 cuộn mẫu trước khi nhập số lượng lớn.",
 ] as const;
 
@@ -323,7 +331,7 @@ export const SURFACE_GUIDES: SurfaceGuide[] = [
       "Dây đai thép dầu (thường gọi đai thép đen) được phủ lớp dầu chống gỉ tạm thời. Loại này thường cứng và chịu lực kéo tốt, phù hợp kho nội địa khô ráo và các kiện cần biên an toàn cao với chi phí tối ưu.",
     pros: [
       "Chịu lực kéo tốt, ít co giãn sau khi siết",
-      "Đơn giá thường thấp hơn mạ kẽm và sơn tĩnh điện",
+      "Cùng bảng giá theo số lượng với mạ kẽm và sơn tĩnh điện",
       "Phù hợp máy đóng đai và dụng cụ tay phổ biến",
     ],
     cons: [
@@ -341,7 +349,7 @@ export const SURFACE_GUIDES: SurfaceGuide[] = [
     heroImage: {
       src: "/images/day-dai-thep-dau.jpg",
       alt: "Cuộn dây đai thép dầu (đai thép đen) tại kho",
-      caption: "Dây đai thép dầu — tối ưu chi phí cho kho nội địa khô ráo",
+      caption: "Dây đai thép dầu — phù hợp kho nội địa khô ráo",
     },
     gallery: [
       {
@@ -383,7 +391,7 @@ export const SURFACE_GUIDES: SurfaceGuide[] = [
       "Phù hợp xuất khẩu và lưu kho dài ngày",
     ],
     cons: [
-      "Đơn giá thường cao hơn đai dầu cùng quy cách",
+      "Cần bảo quản tránh trầy lớp mạ khi bốc xếp",
       "Vẫn nên tránh để ngâm nước mặn / hóa chất mạnh",
     ],
     bestFor: [
@@ -439,7 +447,7 @@ export const SURFACE_GUIDES: SurfaceGuide[] = [
       "Ổn định khi lưu kho và vận chuyển ngoài trời",
     ],
     cons: [
-      "Đơn giá thường cao nhất trong 3 dòng phổ biến",
+      "Lớp sơn có thể trầy nếu kéo dây qua cạnh sắc",
       "Cần chọn đúng độ dày để không đánh đổi chịu lực",
     ],
     bestFor: [

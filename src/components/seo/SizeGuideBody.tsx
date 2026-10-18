@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
 import { siteConfig } from "@/config/site";
+import { SteelStrappingPriceTiers } from "@/components/seo/SteelStrappingPriceTiers";
 import {
   PAIRING_ROWS,
   SIZE_GUIDES,
@@ -100,23 +101,26 @@ export function SizeGuideBody({ guide }: { guide: SizeGuide }) {
       <section className="border-t border-border/60 bg-background py-12 md:py-16">
         <div className="site-container">
           <h2 className="font-display text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            Giá dây đai thép {guide.widthMm}mm theo loại bề mặt
+            Giá dây đai thép {guide.widthMm}mm theo số lượng
           </h2>
           <p className="mt-2 max-w-[65ch] text-sm leading-7 text-muted-foreground">
-            Website niêm yết từ{" "}
+            Dưới 1 tấn{" "}
             <strong className="font-semibold text-foreground">
               {STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg
             </strong>
-            . Bảng dưới là khoảng tham khảo theo dầu / mạ kẽm / sơn — chốt giá
-            lô theo số kg và điểm giao.
+            , giảm dần theo tổng số kg mỗi đơn. Cùng giá cho mọi bản rộng và bề
+            mặt.
           </p>
+          <SteelStrappingPriceTiers className="responsive-table-wrap mt-6" />
+          <h3 className="mt-8 text-base font-semibold text-foreground">
+            Quy cách tham khảo
+          </h3>
           <div className="responsive-table-wrap mt-6">
             <table className="min-w-full text-left text-sm">
               <thead className="bg-muted/60 text-foreground">
                 <tr>
                   <th className="px-3 py-2">Loại bề mặt</th>
                   <th className="px-3 py-2">Độ dày</th>
-                  <th className="px-3 py-2">Đơn giá tham khảo</th>
                   <th className="px-3 py-2">Phù hợp</th>
                 </tr>
               </thead>
@@ -127,7 +131,6 @@ export function SizeGuideBody({ guide }: { guide: SizeGuide }) {
                       {row.surfaceLabel}
                     </td>
                     <td className="px-3 py-2">{row.thicknessMm}mm</td>
-                    <td className="px-3 py-2">{row.priceLabel}</td>
                     <td className="px-3 py-2">{row.bestFor}</td>
                   </tr>
                 ))}

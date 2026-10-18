@@ -2,6 +2,7 @@
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { getCartItemUnitPrice } from "@/lib/cart-pricing";
 
 export type CartItem = {
   id: string;
@@ -10,6 +11,8 @@ export type CartItem = {
   image: string;
   variant?: string;
   quantity: number;
+  /** Số kg mỗi đơn vị — dây đai thép dùng để áp giá theo số lượng. */
+  weightKg?: number;
 };
 
 type CartState = {
@@ -97,5 +100,8 @@ export const selectCartCount = (state: CartState) =>
   state.items.reduce((sum, item) => sum + item.quantity, 0);
 
 export const selectCartSubtotal = (state: CartState) =>
-  state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  state.items.reduce(
+    (sum, item) => sum + getCartItemUnitPrice(item, state.items) * item.quantity,
+    0,
+  );
 

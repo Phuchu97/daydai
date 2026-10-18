@@ -14,8 +14,9 @@ import { getReviewsForProduct } from "@/data/reviews";
 const widths = ["16mm", "19mm", "25mm", "32mm"];
 const thicknesses = ["0.6mm", "0.8mm", "1.0mm"];
 import {
-  STEEL_STRAPPING_DISCOUNT_PERCENT,
   STEEL_STRAPPING_PRICE_PER_KG,
+  STEEL_STRAPPING_TIER_SUMMARY,
+  getSteelStrappingPricePerKg,
 } from "@/config/pricing";
 import { getProductDiscountPercent } from "@/lib/product-pricing";
 
@@ -51,16 +52,21 @@ export function ProductInfo({ product, heading, lead, cartName }: Props) {
   const discountPercent = getProductDiscountPercent(product);
 
   const showPromotionCountdown =
-    isStrapping || (product.basePrice != null && product.salePrice != null);
+    product.basePrice != null && product.salePrice != null;
 
   const handleQtyChange = (next: number) => {
     setQty(Math.max(1, next));
   };
 
+  const strappingKg = weightKg * qty;
+  const strappingPricePerKg = getSteelStrappingPricePerKg(strappingKg);
+  const strappingUnitTotal = weightKg * strappingPricePerKg;
+
   const handleAddToCart = () => {
     const variant = isStrapping
       ? `Bản ${width} • Dày ${thickness} • ${weightKg}kg`
       : undefined;
+    // Giỏ hàng tự áp mốc giá theo tổng kg (lib/cart-pricing); price là giá lẻ.
     const price = isStrapping
       ? weightKg * STEEL_STRAPPING_PRICE_PER_KG
       : (product.salePrice ?? product.basePrice ?? 0);
@@ -71,6 +77,7 @@ export function ProductInfo({ product, heading, lead, cartName }: Props) {
         price,
         image: product.images[0]?.src ?? "/images/day-dai-2.jpg",
         variant,
+        weightKg: isStrapping ? weightKg : undefined,
       },
       qty,
     );
@@ -111,19 +118,9 @@ export function ProductInfo({ product, heading, lead, cartName }: Props) {
           {isStrapping ? (
             <>
               <p className="text-2xl font-bold text-secondary">
-                {(weightKg * STEEL_STRAPPING_PRICE_PER_KG).toLocaleString("vi-VN")}
+                {strappingUnitTotal.toLocaleString("vi-VN")}
                 đ
               </p>
-              <p className="text-sm text-muted-foreground line-through">
-                {Math.round(
-                  (weightKg * STEEL_STRAPPING_PRICE_PER_KG) /
-                    (1 - STEEL_STRAPPING_DISCOUNT_PERCENT / 100),
-                ).toLocaleString("vi-VN")}
-                đ
-              </p>
-              <span className="rounded-full bg-red-500/10 px-2 py-1 text-xs font-semibold uppercase text-red-500">
-                -{STEEL_STRAPPING_DISCOUNT_PERCENT}%
-              </span>
             </>
           ) : (
             <>
@@ -146,6 +143,15 @@ export function ProductInfo({ product, heading, lead, cartName }: Props) {
             </>
           )}
         </div>
+        {isStrapping ? (
+          <p className="text-xs leading-5 text-muted-foreground">
+            Đơn giá{" "}
+            <strong className="font-semibold text-foreground">
+              {strappingPricePerKg.toLocaleString("vi-VN")}đ/kg
+            </strong>{" "}
+            cho {strappingKg.toLocaleString("vi-VN")}kg · {STEEL_STRAPPING_TIER_SUMMARY}
+          </p>
+        ) : null}
         {showPromotionCountdown ? (
           <PromotionCountdown storageKey={`promo-countdown-${product.id}`} />
         ) : null}

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { HybridProductGuide } from "@/components/seo/HybridProductGuide";
 import { DayDaiSatGuideBody } from "@/components/seo/DayDaiSatGuideBody";
-import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
+import { STEEL_STRAPPING_TIER_SUMMARY } from "@/config/pricing";
 import { siteConfig } from "@/config/site";
 import { catalogProducts } from "@/data/products";
 import { buildProductSchemaOffer } from "@/lib/merchant-offer-schema";
@@ -25,12 +25,12 @@ const faqs = [
   },
   {
     question: "Giá dây đai sắt bao nhiêu một kg?",
-    answer: `Giá website tham khảo ${STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg. Giá lô chốt theo loại dầu / mạ kẽm / sơn, độ dày, số kg và điểm giao. Cuộn phổ biến 30-50kg.`,
+    answer: `Giá theo tổng số kg mỗi đơn, cùng giá cho dầu / mạ kẽm / sơn: ${STEEL_STRAPPING_TIER_SUMMARY}. Đơn dự án số lượng rất lớn báo giá riêng. Cuộn phổ biến 30-50kg.`,
   },
   {
     question: "Dây đai sắt dầu hay mạ kẽm?",
     answer:
-      "Kho khô nội địa lấy dầu để tối ưu chi phí. Kho ẩm, bãi ngoài trời hoặc xuất khẩu ưu tiên mạ kẽm hoặc sơn tĩnh điện để chống gỉ lâu hơn.",
+      "Ba loại cùng bảng giá theo số lượng. Kho khô nội địa dùng dầu; kho ẩm, bãi ngoài trời hoặc xuất khẩu ưu tiên mạ kẽm hoặc sơn tĩnh điện để chống gỉ lâu hơn.",
   },
   {
     question: "Cần bọ sắt và dụng cụ gì đi kèm?",

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { CartItem as CartItemType, useCartStore } from "@/store/cartStore";
+import { getCartItemUnitPrice } from "@/lib/cart-pricing";
 import { QuantitySelector } from "./QuantitySelector";
 
 type Props = {
@@ -9,6 +10,8 @@ type Props = {
 export function CartItem({ item }: Props) {
   const updateQuantity = useCartStore((s) => s.updateQuantity);
   const removeFromCart = useCartStore((s) => s.removeFromCart);
+  const items = useCartStore((s) => s.items);
+  const unitPrice = getCartItemUnitPrice(item, items);
 
   const handleQtyChange = (value: number) => {
     if (value <= 0) {
@@ -52,7 +55,7 @@ export function CartItem({ item }: Props) {
         <div className="mt-3 flex items-center justify-between gap-3">
           <QuantitySelector value={item.quantity} onChange={handleQtyChange} />
           <p className="text-sm font-semibold text-foreground">
-            {(item.price * item.quantity).toLocaleString("vi-VN")}đ
+            {(unitPrice * item.quantity).toLocaleString("vi-VN")}đ
           </p>
         </div>
       </div>

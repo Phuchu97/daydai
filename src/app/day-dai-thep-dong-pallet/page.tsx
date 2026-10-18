@@ -228,7 +228,7 @@ export default function PalletStrappingPage() {
                   <Link href="/day-dai-thep-dau" className="text-primary hover:underline">
                     dây dầu
                   </Link>{" "}
-                  để tối ưu giá
+                  là đủ
                 </li>
                 <li>
                   • Xuất khẩu / ẩm:{" "}

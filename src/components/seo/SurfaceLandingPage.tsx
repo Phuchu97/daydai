@@ -1,13 +1,11 @@
 import { HybridProductGuide } from "@/components/seo/HybridProductGuide";
 import { SurfaceGuideBody } from "@/components/seo/SurfaceGuideBody";
+import { STEEL_STRAPPING_TIER_SUMMARY } from "@/config/pricing";
 import { siteConfig } from "@/config/site";
 import { catalogProducts } from "@/data/products";
 import { buildProductSchemaOffer } from "@/lib/merchant-offer-schema";
 import type { FaqItem } from "@/components/product/FAQSection";
-import {
-  pricesForSurface,
-  type SurfaceGuide,
-} from "@/data/steel-strapping-guide";
+import type { SurfaceGuide } from "@/data/steel-strapping-guide";
 
 const product = catalogProducts.find((item) => item.id === "steel-strapping")!;
 
@@ -23,13 +21,11 @@ function buildFaqs(guide: SurfaceGuide): FaqItem[] {
     },
     {
       question: `Giá ${guide.name.toLowerCase()} tham khảo?`,
-      answer: pricesForSurface(guide.surface)
-        .map((row) => `${row.widthMm}mm: ${row.priceLabel}`)
-        .join("; "),
+      answer: `Giá theo tổng số kg mỗi đơn, áp dụng mọi khổ 16–32mm: ${STEEL_STRAPPING_TIER_SUMMARY}.`,
     },
     {
       question: "Có báo giá theo lô không?",
-      answer: "Có. Gửi quy cách, số lượng và địa điểm giao để nhận báo giá trong ngày làm việc.",
+      answer: "Có. Đơn càng nhiều tấn giá càng tốt; đơn dự án số lượng rất lớn gửi quy cách, số lượng và địa điểm giao để nhận báo giá riêng trong ngày làm việc.",
     },
   ];
 }

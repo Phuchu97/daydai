@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { HybridProductGuide } from "@/components/seo/HybridProductGuide";
 import { DayDaiSatGiaReGuideBody } from "@/components/seo/DayDaiSatGiaReGuideBody";
-import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
+import { STEEL_STRAPPING_TIER_SUMMARY } from "@/config/pricing";
 import { siteConfig } from "@/config/site";
 import { STRAP_PRICE_FROM_LABEL, STRAP_PRICE_RANGE_LABEL } from "@/data/steel-strapping-guide";
 import { catalogProducts } from "@/data/products";
@@ -10,7 +10,7 @@ import { buildProductSchemaOffer } from "@/lib/merchant-offer-schema";
 const PAGE_PATH = "/day-dai-sat-gia-re";
 const PAGE_URL = `${siteConfig.url}${PAGE_PATH}`;
 const HEADING = "Dây đai sắt giá rẻ, dây đai thép giá tốt theo kg";
-const LEAD = `Dây đai sắt (dây đai thép đóng hàng) 16–32mm giá từ ${STRAP_PRICE_FROM_LABEL} (dây dầu), tham khảo ${STRAP_PRICE_RANGE_LABEL} theo bề mặt. Chọn đúng quy cách, đặt lô để giảm chi phí kiện, giao Hà Nội & KCN miền Bắc.`;
+const LEAD = `Dây đai sắt (dây đai thép đóng hàng) 16–32mm giá ${STRAP_PRICE_RANGE_LABEL} tùy số lượng — đơn càng lớn càng rẻ, từ ${STRAP_PRICE_FROM_LABEL} cho đơn dự án. Chọn đúng quy cách, gom đơn để lên mốc giá tốt, giao Hà Nội & KCN miền Bắc.`;
 
 const faqs = [
   {
@@ -20,16 +20,15 @@ const faqs = [
   },
   {
     question: "Giá dây đai sắt bao nhiêu một kg?",
-    answer: `Giá website tham khảo ${STEEL_STRAPPING_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg. Giá lô chốt theo dầu / mạ kẽm / sơn, độ dày, số kg và điểm giao. Cuộn phổ biến 30–50kg.`,
+    answer: `Theo tổng số kg mỗi đơn: ${STEEL_STRAPPING_TIER_SUMMARY}. Đơn dự án số lượng rất lớn từ ${STRAP_PRICE_FROM_LABEL}. Cuộn phổ biến 30–50kg.`,
   },
   {
     question: "Dây đai thép giá rẻ và dây đai sắt giá tốt có phải cùng một loại?",
-    answer: `Đúng. “Dây đai sắt” là cách gọi khác của dây đai thép đóng hàng. Mức giá tốt nhất thường ở dây dầu (từ ${STRAP_PRICE_FROM_LABEL}) cho kho khô; mạ kẽm và sơn tĩnh điện cao hơn nhưng chống ẩm tốt hơn.`,
+    answer: `Đúng. “Dây đai sắt” là cách gọi khác của dây đai thép đóng hàng. Giá như nhau cho dầu, mạ kẽm và sơn tĩnh điện — giá tốt nhất đến từ số lượng: đơn càng nhiều tấn đơn giá càng thấp, đơn dự án từ ${STRAP_PRICE_FROM_LABEL}.`,
   },
   {
     question: "Mua dây đai sắt giá sỉ được không?",
-    answer:
-      "Được. Đơn theo lô hoặc đặt định kỳ hằng tháng được báo giá sỉ riêng theo số kg, quy cách và điểm giao.",
+    answer: `Được. Giá sỉ áp dụng tự động theo mốc số lượng: ${STEEL_STRAPPING_TIER_SUMMARY}.`,
   },
   {
     question: "Làm sao mua dây đai sắt tiết kiệm nhất?",
