@@ -17,7 +17,7 @@ import {
 } from "@/data/steel-strapping-guide";
 
 export const metadata: Metadata = {
-  title: "Tư vấn dây đai thép | cách chọn, quy trình & checklist kho",
+  title: "Tư vấn dây đai thép: cách chọn, quy trình đóng đai",
   description:
     "Hub tư vấn dây đai thép: cách chọn theo tải trọng, dầu/mạ kẽm/sơn, quy trình đóng đai 5 bước, an toàn kho, khóa đai và dụng cụ — checklist cho nhà máy & logistics.",
   keywords: [
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     canonical: `${siteConfig.url}/tu-van`,
   },
   openGraph: {
-    title: "Tư vấn dây đai thép | cách chọn, quy trình & checklist kho",
+    title: "Tư vấn dây đai thép: cách chọn, quy trình đóng đai",
     description:
       "Không chỉ danh sách bài viết: có bảng chọn nhanh theo tải, loại bề mặt, ngành và link tới từng hướng dẫn chi tiết.",
     url: `${siteConfig.url}/tu-van`,

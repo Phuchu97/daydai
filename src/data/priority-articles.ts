@@ -318,7 +318,7 @@ export const priorityArticles: Article[] = [
   },
   {
     slug: "bao-gia-day-dai-thep-yeu-to-anh-huong-don-gia",
-    title: "Báo giá dây đai thép: 5 yếu tố ảnh hưởng trực tiếp đến đơn giá",
+    title: "Báo giá dây đai thép: 5 yếu tố quyết định đơn giá",
     description:
       "Các yếu tố quyết định giá dây đai thép gồm mác thép, lớp phủ, độ dày, khối lượng đặt và vị trí giao hàng.",
     excerpt:

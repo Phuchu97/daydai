@@ -1,4 +1,10 @@
-import { STEEL_STRAPPING_PRICE_PER_KG } from "@/config/pricing";
+import {
+  PLASTIC_STRAPPING_TOOLS_SALE_PRICE,
+  STEEL_STRAPPING_PRICE_PER_KG,
+  STEEL_STRAPPING_TOOLS_SALE_PRICE,
+} from "@/config/pricing";
+
+const vnd = (value: number) => value.toLocaleString("vi-VN");
 
 export type ProductImage = {
   src: string;
@@ -18,6 +24,8 @@ export type CatalogProduct = {
   pricePerKg?: number;
   priceLabel?: string;
   shortDescription: string;
+  /** Meta description (50–160 ký tự); mặc định dùng shortDescription. */
+  seoDescription?: string;
   images: ProductImage[];
   upsellDescription?: string;
   showInUpsell?: boolean;
@@ -63,9 +71,11 @@ export const catalogProducts: CatalogProduct[] = [
     slug: "/san-pham/bo-dung-cu-dong-dai-thep",
     soldCount: 367,
     basePrice: 1900000,
-    salePrice: 1250000,
+    salePrice: STEEL_STRAPPING_TOOLS_SALE_PRICE,
     shortDescription:
       "Bộ kìm siết, bấm khóa nhập khẩu Đài Loan, dùng cho dây đai thép.",
+    seoDescription:
+      `Bộ dụng cụ đóng đai thép cầm tay gồm kìm siết và kìm bấm bọ nhập khẩu Đài Loan, dùng cho dây đai thép 16–32mm. Giá ${vnd(STEEL_STRAPPING_TOOLS_SALE_PRICE)}đ/bộ, giao toàn quốc.`,
     images: [
       {
         src: "/images/dung-cu-dong-dai-3.jpg",
@@ -102,9 +112,11 @@ export const catalogProducts: CatalogProduct[] = [
     slug: "/san-pham/bo-dung-cu-dong-dai-nhua",
     soldCount: 218,
     basePrice: 950000,
-    salePrice: 750000,
+    salePrice: PLASTIC_STRAPPING_TOOLS_SALE_PRICE,
     shortDescription:
       "Bộ kìm siết, bấm khóa nhập khẩu Đài Loan, dùng cho dây đai nhựa.",
+    seoDescription:
+      `Bộ dụng cụ đóng đai nhựa cầm tay gồm tăng đai và kìm bấm bọ nhập khẩu Đài Loan, dùng cho dây đai PP/PET. Giá ${vnd(PLASTIC_STRAPPING_TOOLS_SALE_PRICE)}đ/bộ, giao toàn quốc.`,
     images: [
       {
         src: "/images/dungcu-dainhua-1.jpg",
@@ -139,6 +151,8 @@ export const catalogProducts: CatalogProduct[] = [
     priceLabel: "Liên hệ báo giá",
     shortDescription:
       "Bọ thép / khóa đai dùng kèm dây đai, nhiều kích thước cho bản 16–32mm.",
+    seoDescription:
+      "Bọ sắt (khóa đai thép) bọ kín và chữ U cho dây đai thép 16mm, 19mm, 25mm, 32mm. Bán theo cái hoặc theo kg, báo giá sỉ trong ngày, giao Hà Nội và toàn quốc.",
     images: [
       {
         src: "/images/bo-thep-kin-2.jpg",

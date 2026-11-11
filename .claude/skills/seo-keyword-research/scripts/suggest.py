@@ -33,6 +33,13 @@ EXCLUDE = [
     "lõi thép", "dây đai pu", "dây đai răng", "curoa", "cvt",
     "dây đai an toàn", "bảo hộ", "đai bó gối", "đầu gối", "bó tiền",
     "airblade", "vision", "lead", "xe máy", "ô tô",
+    # Xây dựng / cơ khí khác ngành
+    "đai thép xây dựng", "đai thép phi", "đai thép 6", "đai thép 8", "đai thép 40x4",
+    "đai thép 50x3", "bẻ đai", "uốn đai", "đai ốc", "đai cáp", "mặt bích", "đầu cọc",
+    "kẹp ống", "giữ ống", "băng kép", "băng keo", "băng đô",
+    # Côn trùng / con vật ("bọ sắt" bị nhầm)
+    "bọ sát", "bò sát", "bọ hung", "bọ xít", "bọ ngựa", "bọ cánh cứng", "bọ giáp",
+    "bọ mũ", "bọ cứng", "bọ săn", "con bọ", "bọ xẻng", "bọ sắt giường",
 ]
 
 

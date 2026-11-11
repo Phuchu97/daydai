@@ -68,3 +68,27 @@ giá dây đai sắt,transactional,/bao-gia-day-dai-thep,P2,,,,Biến thể 's�
 giá đai thép,transactional,/bao-gia-day-dai-thep,P2,,,,Autocomplete x2 (2026-10-18),Đã thêm keyword trang báo giá
 dây đai sắt 32mm,transactional,/day-dai-thep-32mm,P3,,,,Autocomplete,Thêm cụm vào nội dung trang 32mm
 dây đai sắt 16mm,transactional,/day-dai-thep-16mm,P3,,,,Autocomplete,Thêm cụm vào nội dung trang 16mm
+dây đai bằng sắt,commercial,/day-dai-sat,P2,,,,Autocomplete 2026-11-10 x10,Thêm biến thể vào nội dung /day-dai-sat
+đai thép là gì,informational,/dai-thep-cong-nghiep,P2,,,,Autocomplete 2026-11-10,Đã thêm FAQ 'Đai thép là gì?' 2026-11-10
+đai thép mạ kẽm,commercial,/day-dai-thep-ma-kem,P2,,,,Autocomplete 2026-11-10 x5,Thêm cụm 'đai thép mạ kẽm' vào trang mạ kẽm
+đai thép đen,commercial,/day-dai-thep-dau,P2,,,,Autocomplete 2026-11-10 x9,Trang dầu đã nhắm; theo dõi
+dây đai thép 20mm,transactional,(chưa có trang),P3,,,,Autocomplete 2026-11-10 x2,Hỏi chủ site có bán bản 20mm không
+bọ đai sắt,commercial,/bo-sat,P2,,,,Autocomplete 2026-11-10 x10,Thêm biến thể vào /bo-sat
+bọ sắt 16mm,transactional,/bo-sat,P2,,,,Autocomplete 2026-11-10 x7 (bọ sắt 16),Đã đổi nhãn bảng 'Bọ sắt 16mm' 2026-11-10
+bọ sắt 19mm,transactional,/bo-sat,P2,,,,Autocomplete 2026-11-10 x4,Đã đổi nhãn bảng 2026-11-10
+bọ sắt có gai,commercial,(chưa có trang),P2,,,,Autocomplete 2026-11-10 x8 + 'bọ sắt gai' x12,Hỏi chủ site có bán bọ có gai/răng không
+bọ thép khóa đai,commercial,/khoa-dai-thep,P2,,,,Autocomplete 2026-11-10 x8,Thêm biến thể vào /khoa-dai-thep
+khóa đai thép không gỉ,commercial,(chưa có trang),P3,,,,Autocomplete 2026-11-10 x18,Gắn với dây đai inox — chờ thông tin inox
+bọ sắt đóng đai hà nội,local-commercial,/bo-sat,P2,,,,Autocomplete 2026-11-10 x4,Thêm địa chỉ kho Hà Nội vào /bo-sat
+bọ sắt tiếng anh là gì,informational,(bài viết mới),P3,,,,Autocomplete 2026-11-10 x4,Gộp bài 'tiếng Anh' (steel seal / strapping seal)
+dụng cụ đóng đai,commercial,/bo-dung-cu-dong-dai-thep,P1,,,,Autocomplete 2026-11-10 x25,Trang hiện nhắm 'đai thép'; cân nhắc trang tổng 'dụng cụ đóng đai' (thép + nhựa)
+dụng cụ đóng đai thùng,commercial,/bo-dung-cu-dong-dai-thep,P2,,,,Autocomplete 2026-11-10 x26,Thêm cụm vào trang dụng cụ
+dụng cụ đóng đai cầm tay,commercial,/bo-dung-cu-dong-dai-thep,P2,,,,Autocomplete 2026-11-10 x13,Đã thêm 'cầm tay' vào meta trang sản phẩm 2026-11-10
+dụng cụ đóng đai nhựa,commercial,/san-pham/bo-dung-cu-dong-dai-nhua,P1,,,,Autocomplete 2026-11-10 x26,Chưa có landing riêng; nâng cấp trang sản phẩm hoặc tạo /dung-cu-dong-dai-nhua
+máy đóng đai thép cầm tay,commercial,(chưa có trang),P2,,,,Autocomplete 2026-11-10 x8; 'máy đóng đai thép 32mm' x13,Chờ model/giá/ảnh máy (người dùng xác nhận có bán)
+dụng cụ đóng đai dùng pin,commercial,(chưa có trang),P3,,,,Autocomplete 2026-11-10 x6,Hỏi có bán máy pin không
+kìm siết dây đai thép,commercial,/bo-dung-cu-dong-dai-thep,P2,,,,Autocomplete 2026-11-10 x5,Thêm cụm vào trang dụng cụ
+dây đai pet,commercial,(chưa có trang),P2,,,,"Autocomplete 2026-11-10: pet tphcm x21, giá bao nhiêu x20, trơn x20",Hỏi chủ site có bán dây PET/PP không
+dây đai inox 304,commercial,(chưa có trang),P2,,,,"Autocomplete 2026-11-10: inox 304 hà nội x4, 20x0.7mm x3",Chờ mác/quy cách/giá inox
+vật tư đóng gói,commercial,/san-pham,P3,,,,Autocomplete 2026-11-10 x9,Thêm cụm vào /san-pham
+đai kiện là gì,informational,(bài viết mới),P3,,,,Autocomplete 2026-11-10 x9,Bài 'đai kiện là gì / cách đai kiện hàng'

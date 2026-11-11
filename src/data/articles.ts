@@ -191,7 +191,7 @@ const rawArticles: Article[] = [
   },
   {
     slug: "bao-gia-day-dai-thep-yeu-to-anh-huong-don-gia",
-    title: "Báo giá dây đai thép: 5 yếu tố ảnh hưởng trực tiếp đến đơn giá",
+    title: "Báo giá dây đai thép: 5 yếu tố quyết định đơn giá",
     description:
       "Các yếu tố quyết định giá dây đai thép gồm mác thép, lớp phủ, độ dày, khối lượng đặt và vị trí giao hàng.",
     excerpt:
@@ -348,7 +348,7 @@ const rawArticles: Article[] = [
   },
   {
     slug: "quy-trinh-kiem-tra-chat-luong-day-dai-thep-truoc-khi-nhap-kho",
-    title: "Quy trình kiểm tra chất lượng dây đai thép trước khi nhập kho",
+    title: "Kiểm tra chất lượng dây đai thép trước khi nhập kho",
     description:
       "Hướng dẫn kiểm tra ngoại quan, quy cách, độ dày và đóng gói dây đai thép trước khi đưa vào vận hành.",
     excerpt:

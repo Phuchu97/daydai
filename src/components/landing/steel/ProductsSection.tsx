@@ -114,7 +114,7 @@ function ProductHighlightCard({
               alt={imgPrimary?.alt ?? product.name}
               fill
               className="object-cover transition duration-300 group-hover:scale-[1.02]"
-              sizes="(min-width: 1280px) 25vw, 50vw"
+              sizes="(min-width: 1280px) 13vw, (min-width: 640px) 25vw, 46vw"
             />
           </div>
           <div className="relative hidden h-full w-full overflow-hidden sm:block sm:aspect-[5/4]">
@@ -123,7 +123,7 @@ function ProductHighlightCard({
               alt={imgSecondary?.alt ?? product.name}
               fill
               className="object-cover transition duration-300 group-hover:scale-[1.02]"
-              sizes="(min-width: 1280px) 25vw, 50vw"
+              sizes="(min-width: 1280px) 13vw, (min-width: 640px) 25vw, 46vw"
             />
           </div>
         </div>

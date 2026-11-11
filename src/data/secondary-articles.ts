@@ -229,7 +229,7 @@ export const secondaryArticles: Article[] = [
   },
   {
     slug: "quy-trinh-kiem-tra-chat-luong-day-dai-thep-truoc-khi-nhap-kho",
-    title: "Quy trình kiểm tra chất lượng dây đai thép trước khi nhập kho",
+    title: "Kiểm tra chất lượng dây đai thép trước khi nhập kho",
     description:
       "Hướng dẫn kiểm tra ngoại quan, quy cách, độ dày và đóng gói dây đai thép trước khi đưa vào vận hành.",
     excerpt:

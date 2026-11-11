@@ -77,13 +77,13 @@ export function BoSatGuideBody() {
       <section className="border-t border-border/60 bg-background py-12 md:py-16">
         <div className="site-container">
           <h2 className="font-display text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            Chọn bọ kẹp đai theo bản dây
+            Chọn bọ sắt {PAIRING_ROWS.map((row) => `${row.strapWidthMm}mm`).join(", ")} theo bản dây
           </h2>
           <ul className="mt-4 space-y-3 text-sm leading-7 text-muted-foreground max-w-[68ch]">
             {PAIRING_ROWS.map((row) => (
               <li key={row.strapWidthMm}>
                 <span className="font-semibold text-foreground">
-                  Dây {row.strapWidthMm}mm
+                  Bọ sắt cho dây {row.strapWidthMm}mm
                 </span>
                 <span>
                   {" "}
@@ -98,7 +98,7 @@ export function BoSatGuideBody() {
       <section className="border-t border-border/60 bg-muted/30 py-12 md:py-16">
         <div className="site-container">
           <h2 className="font-display text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            Giá bọ sắt tham khảo
+            Giá bọ sắt theo kích thước
           </h2>
           <div className="mt-6 overflow-x-auto rounded-[1.35rem] border border-border/80">
             <table className="w-full min-w-[520px] text-left text-sm">
@@ -114,7 +114,7 @@ export function BoSatGuideBody() {
                 {SEAL_PRICE_ROWS.map((row) => (
                   <tr key={row.widthMm} className="border-t border-border/70">
                     <td className="px-4 py-3 font-medium text-foreground">
-                      {row.widthMm}mm
+                      Bọ sắt {row.widthMm}mm
                     </td>
                     <td className="px-4 py-3 text-muted-foreground">{row.typeLabel}</td>
                     <td className="px-4 py-3 text-muted-foreground">{row.pricePerPiece}</td>

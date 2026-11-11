@@ -38,5 +38,8 @@ export const STEEL_SEAL_REFERENCE_PRICE_UNIT = 1_800;
 /** Giá bán bộ dụng cụ đóng đai (VNĐ/bộ) — schema & trang sản phẩm. */
 export const STEEL_STRAPPING_TOOLS_SALE_PRICE = 1_250_000;
 
+/** Giá bán bộ dụng cụ đóng đai nhựa (VNĐ/bộ). */
+export const PLASTIC_STRAPPING_TOOLS_SALE_PRICE = 750_000;
+
 /** Ngày cập nhật bảng giá tham khảo (ISO) — hiển thị trang /bao-gia-day-dai-thep. */
 export const PRICE_PAGE_LAST_UPDATED = "2026-10-18";

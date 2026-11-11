@@ -20,16 +20,21 @@ const facts = [
 
 type TrustFactsProps = {
   className?: string;
+  /** Đặt trong layout đã có site-container (trang Marketing) — bỏ container và nền full-width. */
+  embedded?: boolean;
 };
 
 /** Thông tin năng lực đã xác minh với chủ site — không thêm số liệu chưa có nguồn. */
-export function TrustFacts({ className }: TrustFactsProps) {
+export function TrustFacts({ className, embedded = false }: TrustFactsProps) {
   return (
     <section
       aria-labelledby="trust-facts-heading"
-      className={className ?? "border-t border-border/60 bg-muted/25 py-12 md:py-16"}
+      className={
+        className ??
+        (embedded ? "surface-card p-6" : "border-t border-border/60 bg-muted/25 py-12 md:py-16")
+      }
     >
-      <div className="site-container">
+      <div className={embedded ? undefined : "site-container"}>
         <h2
           id="trust-facts-heading"
           className="font-display text-xl font-semibold tracking-tight text-foreground sm:text-2xl"

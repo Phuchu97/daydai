@@ -26,7 +26,7 @@ const defaultTitle =
 export const metadata: Metadata = {
   title: {
     default: defaultTitle,
-    template: `%s | ${siteConfig.name}`,
+    template: `%s | ${siteConfig.domain}`,
   },
   applicationName: siteConfig.name,
   description: siteConfig.description,

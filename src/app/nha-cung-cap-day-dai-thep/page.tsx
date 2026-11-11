@@ -1,29 +1,41 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PhoneCtaButton } from "@/components/contact/PhoneCtaButton";
+import { TrustFacts } from "@/components/marketing/TrustFacts";
+import { BreadcrumbNav } from "@/components/seo/BreadcrumbNav";
 import { QuickQuoteForm } from "@/components/seo/QuickQuoteForm";
 import { SeoPageGallery } from "@/components/seo/SeoPageGallery";
+import { SeoRelatedLinks } from "@/components/seo/SeoRelatedLinks";
+import { SteelStrappingPriceTiers } from "@/components/seo/SteelStrappingPriceTiers";
 import {
   STEEL_STRAPPING_PRICE_PER_KG,
+  STEEL_STRAPPING_PROJECT_PRICE_PER_KG,
+  STEEL_STRAPPING_TIER_SUMMARY,
   STEEL_STRAPPING_TOOLS_SALE_PRICE,
 } from "@/config/pricing";
 import { siteConfig } from "@/config/site";
+import { aboutProcess } from "@/data/about-content";
+import { postalAddressJsonLd } from "@/lib/local-business-schema";
 import { buildOfferCatalogItem } from "@/lib/merchant-offer-schema";
 import { MarketingPageLayout } from "@/components/layout/MarketingPageLayout";
 
 export const metadata: Metadata = {
-  title: "Nhà cung cấp dây đai thép | hỗ trợ doanh nghiệp B2B",
+  title: "Nhà cung cấp dây đai thép cho doanh nghiệp B2B",
   description:
     "Trang thông tin nhà cung cấp dây đai thép cho nhà máy, xưởng sản xuất, logistics: hỗ trợ chọn quy cách, báo giá nhanh, đồng bộ dây đai - khóa đai - dụng cụ.",
   keywords: [
     "nhà cung cấp dây đai thép",
     "công ty dây đai thép",
     "mua dây đai thép số lượng lớn",
+    "đại lý dây đai thép",
+    "dây đai thép giá sỉ",
+    "nha cung cap day dai thep",
   ],
   alternates: {
     canonical: `${siteConfig.url}/nha-cung-cap-day-dai-thep`,
   },
   openGraph: {
-    title: "Nhà cung cấp dây đai thép | hỗ trợ doanh nghiệp B2B",
+    title: "Nhà cung cấp dây đai thép cho doanh nghiệp B2B",
     description:
       "Trang thông tin nhà cung cấp dây đai thép cho nhà máy, xưởng sản xuất và logistics với tư vấn kỹ thuật và báo giá nhanh.",
     url: `${siteConfig.url}/nha-cung-cap-day-dai-thep`,
@@ -40,7 +52,43 @@ export const metadata: Metadata = {
   },
 };
 
+const PAGE_PATH = "/nha-cung-cap-day-dai-thep";
+const { company } = siteConfig;
+
+const FAQ = [
+  {
+    q: "Dây đai thép của Dây Đai Thép Việt Nam lấy nguyên liệu từ đâu?",
+    a: `${company.materialSource}. Công ty cung ứng dây đai thép từ năm ${company.foundingYear}.`,
+  },
+  {
+    q: "Kho hàng ở đâu, giao những khu vực nào?",
+    a: `Kho tại ${company.address}. ${company.serviceArea}.`,
+  },
+  {
+    q: "Mua số lượng lớn có giá sỉ không?",
+    a: `Có, giá giảm theo tổng số kg mỗi đơn: ${STEEL_STRAPPING_TIER_SUMMARY}. Đơn dự án số lượng rất lớn báo giá riêng từ ${STEEL_STRAPPING_PROJECT_PRICE_PER_KG.toLocaleString("vi-VN")}đ/kg.`,
+  },
+  {
+    q: "Đã cung cấp cho doanh nghiệp nào?",
+    a: `Khách hàng tiêu biểu: ${company.notableClients.join(", ")}.`,
+  },
+  {
+    q: "Bao lâu nhận được báo giá?",
+    a: "Thường trong ngày làm việc sau khi có quy cách (bản rộng, độ dày, bề mặt), số lượng và địa điểm giao.",
+  },
+];
+
 export default function SupplierPage() {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQ.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
+
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -62,9 +110,12 @@ export default function SupplierPage() {
   const supplierJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${siteConfig.url}/#organization`,
     name: siteConfig.company.legalName,
-    url: `${siteConfig.url}/nha-cung-cap-day-dai-thep`,
+    url: siteConfig.url,
     telephone: siteConfig.company.phone,
+    foundingDate: String(company.foundingYear),
+    address: postalAddressJsonLd,
     areaServed: ["VN", "Hà Nội", "Miền Bắc"],
     description:
       "Nhà cung cấp dây đai thép và giải pháp đóng đai công nghiệp cho doanh nghiệp B2B.",
@@ -89,7 +140,7 @@ export default function SupplierPage() {
         "Gói dây đai thép + khóa đai theo quy cách",
         STEEL_STRAPPING_PRICE_PER_KG,
         {
-          url: `${siteConfig.url}/san-pham/day-dai-thep-chiu-luc-cao`,
+          url: `${siteConfig.url}/day-dai-thep`,
           unitText: "kg",
           image: `${siteConfig.url}/images/day-dai-thep-dau.jpg`,
         },
@@ -124,23 +175,30 @@ export default function SupplierPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(offerJsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <MarketingPageLayout>
         <article className="space-y-6 sm:space-y-8">
-          <nav className="text-xs text-muted-foreground">
-            <Link href="/" className="hover:text-foreground">
-              Trang chủ
-            </Link>{" "}
-            / <span className="text-foreground">Nhà cung cấp dây đai thép</span>
-          </nav>
+          <BreadcrumbNav
+            items={[
+              { label: "Trang chủ", href: "/" },
+              { label: "Nhà cung cấp dây đai thép" },
+            ]}
+          />
 
-          <h1 className="mt-4 text-balance font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl md:text-4xl">
-            Nhà cung cấp dây đai thép cho nhà máy, xưởng sản xuất và logistics
-          </h1>
-          <p className="mt-3 max-w-[70ch] text-sm leading-7 text-muted-foreground sm:text-base">
-            Chúng tôi tập trung vào nhu cầu B2B: chọn quy cách đúng tải trọng,
-            đảm bảo tiến độ giao và hỗ trợ đồng bộ vật tư đóng đai để giảm rủi
-            ro vận hành trong kho.
-          </p>
+          <header>
+            <h1 className="text-balance font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl md:text-4xl">
+              Nhà cung cấp dây đai thép cho nhà máy, xưởng sản xuất và logistics
+            </h1>
+            <p className="mt-3 max-w-[70ch] text-sm leading-7 text-muted-foreground sm:text-base">
+              {company.legalName} cung ứng dây đai thép, bọ sắt và dụng cụ đóng
+              đai cho doanh nghiệp từ năm {company.foundingYear}.{" "}
+              {company.materialSource}. Kho tại {company.address}, giao Hà Nội,
+              các KCN miền Bắc và toàn quốc.
+            </p>
+          </header>
 
           <SeoPageGallery
             variant="editorial"
@@ -162,12 +220,12 @@ export default function SupplierPage() {
           />
 
           <QuickQuoteForm
-            sourcePage="/nha-cung-cap-day-dai-thep"
+            sourcePage={PAGE_PATH}
             className="mt-8"
             title="Nhận tư vấn từ nhà cung cấp"
           />
 
-          <section className="mt-6 grid gap-6 md:grid-cols-2">
+          <section className="grid gap-6 md:grid-cols-2">
             <div className="surface-card p-6">
               <h2 className="text-lg font-semibold text-foreground">
                 Doanh nghiệp thường yêu cầu gì?
@@ -208,7 +266,41 @@ export default function SupplierPage() {
             </div>
           </section>
 
-          <section className="surface-card mt-6 p-6">
+          <TrustFacts embedded />
+
+          <section className="surface-card p-6">
+            <h2 className="text-xl font-semibold text-foreground">
+              Bảng giá sỉ dây đai thép cho doanh nghiệp
+            </h2>
+            <SteelStrappingPriceTiers />
+            <p className="mt-3 text-sm text-muted-foreground">
+              Bọ sắt và bộ dụng cụ báo giá riêng, xem{" "}
+              <Link href="/bao-gia-day-dai-thep" className="text-primary hover:underline">
+                bảng giá đầy đủ
+              </Link>
+              .
+            </p>
+          </section>
+
+          <section className="surface-card p-6">
+            <h2 className="text-xl font-semibold text-foreground">
+              Quy trình đặt dây đai thép số lượng lớn
+            </h2>
+            <ol className="mt-4 grid gap-4 sm:grid-cols-2">
+              {aboutProcess.map((item) => (
+                <li key={item.step} className="rounded-xl border border-border/60 p-4">
+                  <p className="text-xs font-semibold text-primary">Bước {item.step}</p>
+                  <h3 className="mt-1 text-sm font-semibold text-foreground">{item.title}</h3>
+                  <p className="mt-1 text-sm leading-6 text-muted-foreground">{item.body}</p>
+                </li>
+              ))}
+            </ol>
+            <PhoneCtaButton className="mt-4 px-4 py-2">
+              Gọi đặt hàng {company.phone}
+            </PhoneCtaButton>
+          </section>
+
+          <section className="surface-card p-6">
             <h2 className="text-lg font-semibold text-foreground">
               So sánh nhu cầu theo quy mô doanh nghiệp
             </h2>
@@ -241,6 +333,21 @@ export default function SupplierPage() {
               </table>
             </div>
           </section>
+        <section className="surface-card p-6">
+            <h2 className="text-lg font-semibold text-foreground">
+              Câu hỏi thường gặp khi chọn nhà cung cấp dây đai thép
+            </h2>
+            <div className="mt-4 space-y-4">
+              {FAQ.map((item) => (
+                <div key={item.q}>
+                  <h3 className="text-sm font-semibold text-foreground">{item.q}</h3>
+                  <p className="mt-1 text-sm leading-7 text-muted-foreground">{item.a}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <SeoRelatedLinks excludeHref={PAGE_PATH} />
         </article>
       </MarketingPageLayout>
     </>

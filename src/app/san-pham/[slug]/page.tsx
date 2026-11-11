@@ -84,7 +84,7 @@ export async function generateMetadata({
     product.id === "steel-strapping"
       ? "Dây đai thép | Bản 16/19/25/32mm, giao toàn quốc"
       : `${product.name}`;
-  const description = product.shortDescription;
+  const description = product.seoDescription ?? product.shortDescription;
 
   const keywords = [
     product.name,
@@ -105,7 +105,7 @@ export async function generateMetadata({
   return {
     title: {
       default: title,
-      template: `%s | ${siteConfig.name}`,
+      template: `%s | ${siteConfig.domain}`,
     },
     description,
     keywords,

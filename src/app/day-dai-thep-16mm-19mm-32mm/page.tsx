@@ -18,7 +18,7 @@ import { buildOfferCatalogItem } from "@/lib/merchant-offer-schema";
 const PAGE_PATH = "/day-dai-thep-16mm-19mm-32mm";
 
 export const metadata: Metadata = {
-  title: "Dây đai thép 16mm 19mm 32mm | bảng so sánh & cách chọn",
+  title: "Dây đai thép 16mm 19mm 32mm: so sánh, cách chọn",
   description:
     "So sánh dây đai thép 16mm, 19mm, 32mm: độ dày, chịu lực (N), m/kg, tải tham khảo và checklist chọn theo tải trọng thực tế tại kho.",
   keywords: [
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     canonical: `${siteConfig.url}${PAGE_PATH}`,
   },
   openGraph: {
-    title: "Dây đai thép 16mm 19mm 32mm | bảng so sánh & cách chọn",
+    title: "Dây đai thép 16mm 19mm 32mm: so sánh, cách chọn",
     description:
       "Bảng spec đầy đủ + hướng dẫn chọn theo tải trọng và điều kiện vận chuyển.",
     url: `${siteConfig.url}${PAGE_PATH}`,
@@ -136,7 +136,7 @@ export default function SteelStrappingSizePage() {
 
           <header>
             <h1 className="text-balance font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl md:text-4xl">
-              Dây đai thép 16mm, 19mm, 32mm: nên chọn loại nào?
+              So sánh dây đai thép 16mm, 19mm, 25mm, 32mm: bảng quy cách và cách chọn
             </h1>
             <p className="mt-3 max-w-[70ch] text-sm leading-7 text-muted-foreground sm:text-base">
               Chọn sai bản dây có thể làm tăng chi phí hoặc giảm an toàn khi vận

@@ -12,9 +12,9 @@ import { SPEC_ROWS } from "@/data/steel-strapping-guide";
 import { buildOfferCatalogItem } from "@/lib/merchant-offer-schema";
 
 const PAGE_PATH = "/day-dai-thep-dong-hang";
-const PAGE_TITLE = "Dây đai thép đóng hàng, buộc hàng & đóng kiện | chọn đúng quy cách";
+const PAGE_TITLE = "Dây đai thép đóng hàng, buộc hàng, đóng kiện";
 const PAGE_DESCRIPTION =
-  "Dây đai thép đóng hàng, buộc hàng, đóng kiện cho pallet, cuộn thép, bó thép hộp, kiện máy móc và hàng xuất container. Bảng chọn bản 16–32mm theo loại hàng, giao toàn quốc.";
+  "Dây đai thép đóng hàng, buộc hàng, đóng kiện cho pallet, cuộn thép, bó thép hộp, kiện máy móc, hàng container. Chọn bản 16–32mm theo loại hàng.";
 
 const CARGO_ROWS = [
   {

@@ -14,7 +14,7 @@ import { buildOfferCatalogItem } from "@/lib/merchant-offer-schema";
 const PAGE_PATH = "/day-dai-thep-dong-pallet";
 
 export const metadata: Metadata = {
-  title: "Dây đai thép đóng pallet | chọn 16mm 19mm 32mm đúng tải",
+  title: "Dây đai thép đóng pallet | chọn 16–32mm đúng tải",
   description:
     "Hướng dẫn dùng dây đai thép đóng pallet: chọn bản dây theo tải, số vòng đai, khóa bọ kín và checklist trước khi xuất kho / lên container.",
   keywords: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     canonical: `${siteConfig.url}${PAGE_PATH}`,
   },
   openGraph: {
-    title: "Dây đai thép đóng pallet | chọn 16mm 19mm 32mm đúng tải",
+    title: "Dây đai thép đóng pallet | chọn 16–32mm đúng tải",
     description:
       "Quy trình chọn quy cách và bố trí vòng đai cho pallet hàng nặng, xuất khẩu.",
     url: `${siteConfig.url}${PAGE_PATH}`,

@@ -9,7 +9,7 @@ const pageDescription =
   "Giới thiệu Dây Đai Thép Việt Nam (daydaivn.com): nhà cung cấp dây đai thép mạ kẽm, khóa đai thép, bộ dụng cụ đóng dây đai thép và nhựa. Tư vấn quy cách, hàng sẵn kho, giao toàn quốc.";
 
 export const metadata: Metadata = {
-  title: "Giới thiệu | nhà cung cấp dây đai thép & dụng cụ đóng đai",
+  title: `Giới thiệu nhà cung cấp dây đai thép từ ${siteConfig.company.foundingYear}`,
   description: pageDescription,
   keywords: [
     "giới thiệu dây đai thép",

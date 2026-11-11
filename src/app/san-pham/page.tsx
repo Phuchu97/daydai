@@ -8,7 +8,7 @@ import { ProductsCatalogBottomCta } from "@/components/product/ProductsCatalogBo
 import { ProductsCatalogHero } from "@/components/product/ProductsCatalogHero";
 
 export const metadata: Metadata = {
-  title: "Sản phẩm đóng đai | dây đai thép, khóa đai, dụng cụ đóng đai",
+  title: "Sản phẩm đóng đai: dây đai thép, bọ sắt, dụng cụ",
   description:
     "Danh mục sản phẩm đóng đai: dây đai thép, khóa đai (bọ sắt), bộ dụng cụ đóng đai thép và đai nhựa cho nhà máy, xưởng sản xuất, logistics.",
   keywords: [
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     canonical: `${siteConfig.url}/san-pham`,
   },
   openGraph: {
-    title: "Sản phẩm đóng đai | dây đai thép, khóa đai, dụng cụ đóng đai",
+    title: "Sản phẩm đóng đai: dây đai thép, bọ sắt, dụng cụ",
     description:
       "Chọn đúng dây đai thép và dụng cụ đóng đai theo tải trọng, quy cách và nhu cầu vận hành thực tế.",
     url: `${siteConfig.url}/san-pham`,

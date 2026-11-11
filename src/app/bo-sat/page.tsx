@@ -53,7 +53,7 @@ const galleryImages = [
 ];
 
 export const metadata: Metadata = {
-  title: "Bọ sắt, bọ kẹp đai 16-19-25-32mm | khớp dây đai thép",
+  title: "Bọ sắt, bọ kẹp đai thép 16-19-25-32mm",
   description:
     "Mua bọ sắt, bọ kẹp đai (khóa đai thép) kín và chữ U. Hướng dẫn chọn khổ theo dây 16/19/25/32mm, giá tham khảo, giao Hà Nội & miền Bắc.",
   keywords: [
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: "Bọ sắt, bọ kẹp đai 16-19-25-32mm | khớp dây đai thép",
+    title: "Bọ sắt, bọ kẹp đai thép 16-19-25-32mm",
     description:
       "Bọ sắt / bọ kẹp đai kín và chữ U — chọn đúng khổ theo bản dây, khớp kìm bấm.",
     url: PAGE_URL,

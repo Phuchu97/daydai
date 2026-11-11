@@ -54,7 +54,7 @@ const galleryImages = [
 ];
 
 export const metadata: Metadata = {
-  title: "Dây đai thép Hà Nội | giao nhanh KCN, báo giá trong ngày",
+  title: "Dây đai thép Hà Nội | giao nhanh, báo giá ngay",
   description:
     "Mua dây đai thép tại Hà Nội: 16mm, 19mm, 32mm, khóa đai và dụng cụ đồng bộ. Giao nhanh KCN miền Bắc, báo giá trong ngày làm việc.",
   keywords: [
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: "Dây đai thép Hà Nội | giao nhanh KCN, báo giá trong ngày",
+    title: "Dây đai thép Hà Nội | giao nhanh, báo giá ngay",
     description:
       "Dây đai thép và khóa đai cho doanh nghiệp Hà Nội, Bắc Ninh, Hưng Yên, Hải Dương.",
     url: PAGE_URL,

@@ -27,13 +27,25 @@ server {
     listen 80;
     listen [::]:80;
     server_name daydaivn.com www.daydaivn.com 160.30.160.31;
-    return 301 https://\$host\$request_uri;
+    return 301 https://daydaivn.com\$request_uri;
+}
+
+# www → bản chính (SEO: một host duy nhất)
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name www.daydaivn.com;
+
+    ssl_certificate ${LIVE}/fullchain.pem;
+    ssl_certificate_key ${LIVE}/privkey.pem;
+${SSL_EXTRA}
+    return 301 https://daydaivn.com\$request_uri;
 }
 
 server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
-    server_name daydaivn.com www.daydaivn.com;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name daydaivn.com;
 
     ssl_certificate ${LIVE}/fullchain.pem;
     ssl_certificate_key ${LIVE}/privkey.pem;

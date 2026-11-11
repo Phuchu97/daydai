@@ -53,6 +53,18 @@ all_routes = static_routes | product_slugs | article_routes
 # ---------------------------------------------------------------- per-page metadata
 titles: dict[str, list[str]] = defaultdict(list)
 primary_kw: dict[str, list[str]] = defaultdict(list)
+
+# Title hiển thị = title trang + đuôi template trong layout.tsx (vd. " | daydaivn.com").
+site_src = read(SRC / "config" / "site.ts")
+tpl = re.search(r"template:\s*`%s([^`]*)`", read(APP / "layout.tsx"))
+title_suffix = ""
+if tpl:
+    title_suffix = re.sub(
+        r"\$\{siteConfig\.(\w+)\}",
+        lambda m: (re.search(rf'{m[1]}:\s*"([^"]+)"', site_src) or [None, ""])[1],
+        tpl[1],
+    )
+TITLE_MAX = 65  # Google cắt khoảng 580px ≈ 60–65 ký tự tiếng Việt
 for route, page in routes.items():
     if "[" in route:
         continue
@@ -67,8 +79,9 @@ for route, page in routes.items():
     if m:
         t = m.group(1)
         titles[t].append(route)
-        if len(t) > 70:
-            add("WARN", "title", f"{route}: title {len(t)} ký tự (>70, dễ bị cắt): {t}")
+        shown = len(t) + len(title_suffix)
+        if shown > TITLE_MAX:
+            add("WARN", "title", f"{route}: title hiển thị {shown} ký tự (>{TITLE_MAX}, dễ bị cắt): {t}{title_suffix}")
     d = re.search(r'description:\s*\n?\s*"([^"]+)"', s)
     if d and not (50 <= len(d.group(1)) <= 170):
         add("WARN", "description", f"{route}: description {len(d.group(1))} ký tự (nên 50–170)")
@@ -142,9 +155,10 @@ for m in re.finditer(
 # ---------------------------------------------------------------- pricing consistency
 pricing = read(SRC / "config" / "pricing.ts")
 tools_cfg = re.search(r"STEEL_STRAPPING_TOOLS_SALE_PRICE\s*=\s*([\d_]+)", pricing)
-tools_prod = re.search(r'id:\s*"steel-strapping-tools"[\s\S]*?salePrice:\s*(\d+)', products_src)
-if tools_cfg and tools_prod:
-    a, b = int(tools_cfg[1].replace("_", "")), int(tools_prod[1])
+tools_prod = re.search(r'id:\s*"steel-strapping-tools"[^}]*?salePrice:\s*([\w_]+)', products_src, re.S)
+if tools_cfg and tools_prod and tools_prod[1] != "STEEL_STRAPPING_TOOLS_SALE_PRICE":
+    a = int(tools_cfg[1].replace("_", ""))
+    b = int(tools_prod[1].replace("_", "")) if tools_prod[1].replace("_", "").isdigit() else -1
     if a != b:
         add("ERROR", "pricing", f"Giá bộ dụng cụ đóng đai thép lệch: pricing.ts={a:,} vs products.ts={b:,} (schema & trang hiển thị 2 giá)")
 upd = re.search(r'PRICE_PAGE_LAST_UPDATED\s*=\s*"(\d{4}-\d{2}-\d{2})"', pricing)

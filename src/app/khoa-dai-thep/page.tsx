@@ -57,7 +57,7 @@ const galleryImages = [
 ];
 
 export const metadata: Metadata = {
-  title: "Khóa đai thép (bọ sắt) 16-19-25-32mm | tư vấn nhanh",
+  title: "Khóa đai thép (bọ sắt) 16-19-25-32mm",
   description:
     "Khóa đai thép, bọ sắt kín/chữ U dùng cho dây đai thép công nghiệp. Hướng dẫn chọn khóa theo bản dây và loại dụng cụ siết bấm.",
   keywords: [
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     canonical: PAGE_URL,
   },
   openGraph: {
-    title: "Khóa đai thép (bọ sắt) 16-19-25-32mm | tư vấn nhanh",
+    title: "Khóa đai thép (bọ sắt) 16-19-25-32mm",
     description:
       "Bảng quy cách khóa đai thép và cách chọn theo tải trọng, dụng cụ đóng đai.",
     url: PAGE_URL,
